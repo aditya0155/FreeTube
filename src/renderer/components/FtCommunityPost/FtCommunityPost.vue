@@ -31,6 +31,7 @@
       </template>
       <p
         class="authorName"
+        dir="auto"
       >
         <router-link
           v-if="authorId"
@@ -52,8 +53,9 @@
       </p>
     </div>
     <p
+      v-safer-html="postText"
       class="postText"
-      v-html="postText"
+      dir="auto"
     />
     <swiper-container
       v-if="postType === 'multiImage' && postContent.content.length > 0"
@@ -156,6 +158,7 @@
           :icon="['fas', 'comment']"
         /> {{ commentCount }}</span>
       <FtShareButton
+        v-if="!hideSharingActions"
         :id="postId"
         share-target-type="Post"
         class="shareButton"
@@ -175,6 +178,7 @@ import FtListVideo from '../ft-list-video/ft-list-video.vue'
 import FtListPlaylist from '../FtListPlaylist/FtListPlaylist.vue'
 import FtCommunityPoll from '../FtCommunityPoll/FtCommunityPoll.vue'
 import FtShareButton from '../FtShareButton/FtShareButton.vue'
+import { vSaferHtml } from '../../directives/vSaferHtml.js'
 
 import store from '../../store/index'
 
@@ -219,6 +223,9 @@ const forbiddenTitles = computed(() => {
 const hideVideo = computed(() => {
   return forbiddenTitles.value.some((text) => props.data.postContent.content.title?.toLowerCase().includes(text.toLowerCase()))
 })
+
+/** @type {import('vue').ComputedRef<boolean>} */
+const hideSharingActions = computed(() => store.getters.getHideSharingActions)
 
 /** @type {import('vue').ComputedRef<'local' | 'invidious'>} */
 const backendPreference = computed(() => {
