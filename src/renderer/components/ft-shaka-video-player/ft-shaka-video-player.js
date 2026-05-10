@@ -33,6 +33,7 @@ import { setupSabrScheme } from '../../helpers/player/SabrSchemePlugin'
 
 /** @typedef {import('../../helpers/sponsorblock').SponsorBlockCategory} SponsorBlockCategory */
 /** @typedef {{ fontScaleFactor: number, positionArea: shaka.config.PositionArea }} CaptionStyleConfig */
+/** @typedef {{ fontScaleFactor?: number, positionArea?: shaka.config.PositionArea }} PartialCaptionStyleConfig */
 
 // The UTF-8 characters "h", "t", "t", and "p".
 const HTTP_IN_HEX = 0x68747470
@@ -43,6 +44,11 @@ const RequestType = shaka.net.NetworkingEngine.RequestType
 const AdvancedRequestType = shaka.net.NetworkingEngine.AdvancedRequestType
 const TrackLabelFormat = shaka.ui.Overlay.TrackLabelFormat
 const { Severity: ErrorSeverity, Category: ErrorCategory, Code: ErrorCode } = shaka.util.Error
+
+const CAPTION_FONT_SCALE_FACTORS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]
+
+/** @type {Set<shaka.config.PositionArea>} */
+const CAPTION_POSITION_AREAS = new Set(Object.values(shaka.config.PositionArea))
 
 /*
   Mapping of Shaka localization keys for control labels to FreeTube shortcuts.
@@ -647,7 +653,7 @@ export default defineComponent({
     }
 
     /**
-     * @returns {{ fontScaleFactor?: number, positionArea?: shaka.config.PositionArea }}
+     * @returns {PartialCaptionStyleConfig}
      */
     function getSavedCaptionStyleConfig() {
       let captionSettings
@@ -662,15 +668,15 @@ export default defineComponent({
         return {}
       }
 
-      /** @type {{ fontScaleFactor?: number, positionArea?: shaka.config.PositionArea }} */
+      /** @type {PartialCaptionStyleConfig} */
       const captionStyleConfig = {}
       const { fontScaleFactor, positionArea } = captionSettings
 
-      if (typeof fontScaleFactor === 'number' && Number.isFinite(fontScaleFactor) && fontScaleFactor > 0) {
+      if (isValidCaptionFontScaleFactor(fontScaleFactor)) {
         captionStyleConfig.fontScaleFactor = fontScaleFactor
       }
 
-      if (Object.values(shaka.config.PositionArea).includes(positionArea)) {
+      if (isValidCaptionPositionArea(positionArea)) {
         captionStyleConfig.positionArea = positionArea
       }
 
@@ -692,8 +698,7 @@ export default defineComponent({
 
       const { fontScaleFactor, positionArea } = textDisplayerConfig
 
-      if (typeof fontScaleFactor !== 'number' || !Number.isFinite(fontScaleFactor) || fontScaleFactor <= 0 ||
-        !Object.values(shaka.config.PositionArea).includes(positionArea)) {
+      if (!isValidCaptionFontScaleFactor(fontScaleFactor) || !isValidCaptionPositionArea(positionArea)) {
         return null
       }
 
@@ -701,6 +706,23 @@ export default defineComponent({
         fontScaleFactor,
         positionArea
       }
+    }
+
+    /**
+     * @param {unknown} fontScaleFactor
+     * @returns {boolean}
+     */
+    function isValidCaptionFontScaleFactor(fontScaleFactor) {
+      return typeof fontScaleFactor === 'number' &&
+        CAPTION_FONT_SCALE_FACTORS.includes(fontScaleFactor)
+    }
+
+    /**
+     * @param {unknown} positionArea
+     * @returns {boolean}
+     */
+    function isValidCaptionPositionArea(positionArea) {
+      return CAPTION_POSITION_AREAS.has(positionArea)
     }
 
     function saveCaptionStyleSettings() {
@@ -1048,6 +1070,11 @@ export default defineComponent({
 
           // we have our own ones (shaka-player's ones are quite limited)
           enableKeyboardPlaybackControls: false,
+
+          // Keep FreeTube aligned with Shaka's native subtitle style menus.
+          // Once Shaka's live style preview is available, these menus provide the preview without FreeTube DOM hooks.
+          captionsStyles: true,
+          captionsFontScaleFactors: [...CAPTION_FONT_SCALE_FACTORS],
 
           // TODO: enable this when electron gets document PiP support
           // https://github.com/electron/electron/issues/39633
