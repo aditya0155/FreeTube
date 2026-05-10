@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
-import FtIconButton from '../ft-icon-button/ft-icon-button.vue'
+import FtIconButton from '../FtIconButton/FtIconButton.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapActions } from 'vuex'
 import {
   copyToClipboard,
@@ -14,11 +15,16 @@ import {
 } from '../../helpers/utils'
 import { deArrowData, deArrowThumbnail } from '../../helpers/sponsorblock'
 import thumbnailPlaceholder from '../../assets/img/thumbnail_placeholder.svg'
+import { vSaferHtml } from '../../directives/vSaferHtml.js'
 
 export default defineComponent({
   name: 'FtListVideo',
   components: {
-    'ft-icon-button': FtIconButton
+    'ft-icon-button': FtIconButton,
+    'ft-awesome-icon': FontAwesomeIcon,
+  },
+  directives: {
+    'safer-html': vSaferHtml
   },
   props: {
     data: {
@@ -82,6 +88,14 @@ export default defineComponent({
       default: false,
     },
     canRemoveFromPlaylist: {
+      type: Boolean,
+      default: false,
+    },
+    layout: {
+      type: String,
+      default: 'list',
+    },
+    showGrabBar: {
       type: Boolean,
       default: false,
     },
@@ -636,11 +650,10 @@ export default defineComponent({
       this.$emit('pause-player')
 
       const payload = {
-        watchProgress: this.watchProgress,
-        playbackRate: this.defaultPlayback,
         videoId: this.id,
-        videoLength: this.data.lengthSeconds,
         playlistId: this.playlistIdFinal,
+        startTime: this.watchProgress,
+        playbackRate: this.defaultPlayback,
         playlistIndex: this.playlistIndex,
         playlistReverse: this.playlistReverse,
         playlistShuffle: this.playlistShuffle,
@@ -656,7 +669,9 @@ export default defineComponent({
           playlistLoop: null,
         })
       }
-      this.openInExternalPlayer(payload)
+      if (process.env.IS_ELECTRON) {
+        window.ftElectron.openInExternalPlayer(payload)
+      }
 
       if (this.rememberHistory) {
         this.markAsWatched()
@@ -894,8 +909,15 @@ export default defineComponent({
       this.$emit('remove-from-playlist', this.id, this.playlistItemId)
     },
 
+    onDragStart(event) {
+      // Prevent drag event except links
+      if (event.target.nodeName === 'A') { return }
+
+      event.preventDefault()
+      event.stopPropagation()
+    },
+
     ...mapActions([
-      'openInExternalPlayer',
       'updateHistory',
       'removeFromHistory',
       'updateChannelsHidden',

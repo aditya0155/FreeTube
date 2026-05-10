@@ -30,7 +30,6 @@ Close Banner: 'Sluit baniere'
 
 Version {versionNumber} is now available!  Click for more details: 'Weergawe {versionNumber} is nou beskikbaar! Klik vir meer besonderhede'
 Download From Site: 'Laai af van die webwerf'
-A new blog is now available, {blogTitle}. Click to view more: '''n Nuwe blog is nou beskikbaar, {blogTitle}. Klik om meer te sien'
 Are you sure you want to open this link?: 'Is jy seker jy wil hierdie skakel oopmaak?'
 
 # Global
@@ -70,15 +69,11 @@ Search Listing:
     8K: 8K
 Search Filters:
   Search Filters: 'Soekfilters'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Mees relevant'
-    Rating: 'Gradering'
-    Upload Date: 'Oplaaddatum'
-    View Count: 'Beskouingsaantal'
   Time:
     Time: 'Tyd'
     Any Time: 'Enige tyd'
-    Last Hour: 'Laaste uur'
     Today: 'Vandag'
     This Week: 'Hierdie week'
     This Month: 'Hierdie maand'
@@ -88,20 +83,20 @@ Search Filters:
     All Types: 'Alle tipes'
     Videos: 'Video''s'
     Channels: 'Kanale'
-    Movies: ''
+    Movies: 'Rolprente'
     #& Playlists
   Duration:
-    Duration: ''
-    All Durations: ''
-    Short (< 4 minutes): ''
-    Medium (4 - 20 minutes): ''
-    Long (> 20 minutes): ''
+    Duration: 'Duur'
+    All Durations: 'Alle durasies'
+    '< 3 minutes': '<3 minute'
+    '3 - 20 minutes': '3 - 20 minute'
+    '> 20 minutes': '> 20 minute'
   Features:
-    Features: ''
-    HD: ''
-    Subtitles: ''
-    Creative Commons: ''
-    3D: ''
+    Features: 'Funksies'
+    HD: 'HD'
+    Subtitles: 'Onderskrifte'
+    Creative Commons: 'Creative-Commons'
+    3D: '3D'
     Live: ''
     4K: ''
     360 Video: ''
@@ -128,7 +123,7 @@ Subscriptions:
   Load More Posts: ''
   Subscriptions Tabs: ''
   All Subscription Tabs Hidden: ''
-More: ''
+More: 'Meer'
 Channels:
   Channels: ''
   Title: ''
@@ -140,7 +135,8 @@ Trending:
   Trending: ''
   Gaming: ''
   Trending Tabs: ''
-Most Popular: ''
+  Sports: Sport
+Most Popular: 'Mees Populêr'
 Feed:
   Feed Last Updated: ''
   Refresh Feed: ''
@@ -230,8 +226,7 @@ User Playlists:
 
     Toast:
       You haven't selected any playlist yet.: ''
-      "{videoCount} video(s) added to 1 playlist": ""
-      "{videoCount} video(s) added to {playlistCount} playlists": ""
+      "Video(s) added to {playlistCount} playlists": ""
   CreatePlaylistPrompt:
     New Playlist Name: ''
     Create: ''
@@ -256,7 +251,6 @@ Settings:
   General Settings:
     General Settings: ''
     Check for Updates: ''
-    Check for Latest Blog Posts: ''
     Fallback to Non-Preferred Backend on Failure: 'Val terug op nie-voorkeur agterent by faling'
     Enable Search Suggestions: 'Aktiveer soekvoorstelle'
     Auto Load Next Page:
@@ -626,13 +620,6 @@ Settings:
     Hide Unsubscribe Button: 'Versteek uittekenknop'
     Show Family Friendly Only: 'Toon slegs gesinsvriendelike inhoud'
     Hide Search Bar: 'Versteek soekbalk'
-  Download Settings:
-    Download Settings: 'Laai af'
-    Ask Download Path: 'Vra vir aflaaipad'
-    Choose Path: 'Kies pad'
-    Download Behavior: 'Aflaaigedrag'
-    Download in app: 'Laai in toep af'
-    Open in web browser: 'Open in webblaaier'
   Experimental Settings:
     Experimental Settings: 'Eksperimenteel'
     Warning: 'Dit is eksperimentele instellings wat die toep kan laat uitbom indien geaktiveer. Dit word aanbeveel om rugsteune te maak. Gebruik op eie risiko!'
@@ -650,7 +637,6 @@ About:
   About: 'Oor'
   Beta: 'Beta'
   Source code: 'Bronkode'
-  Licensed under the: 'Gelisensieer onder die'
   AGPLv3: 'AGPLv3'
   Downloads / Changelog: 'Aflaaie / Veranderingslogboek'
   GitHub releases: 'GitHub-vrystellings'
@@ -662,15 +648,12 @@ About:
   GitHub issues: 'GitHub-probleme'
   Please check for duplicates before posting: 'Gaan na vir duplikate voor u dit plaas'
   Website: 'Webwerf'
-  Blog: 'Woernaal'
   Email: 'E-pos'
   Mastodon: 'Mastodon'
   Chat on Matrix: 'Klets op Matrix'
-  Please read the: 'Lees asb. die'
   room rules: 'kamerreëls'
   Translate: 'Vertaal'
   Credits: 'Danksegging'
-  FreeTube is made possible by: 'FreeTube is moontlik gemaak deur'
   these people and projects: 'hierdie mense en projekte'
   Donate: 'Skenk'
 
@@ -799,8 +782,8 @@ Video:
   Loop Playlist: 'Herhaal afspeellys'
   Shuffle Playlist: 'Skommel afspeellys'
   Reverse Playlist: 'Keer afspeellys om'
-  Play Next Video: 'Speel volgende video af'
-  Play Previous Video: 'Speel vorige video af'
+  Previous: 'Vorige'
+  Next: 'Volgende'
   Watched: 'Gekyk'
   Autoplay: 'Outo-afspeel'
   Starting soon, please refresh the page to check again: 'Begin binnekort, verfris asb. die blad om weer na te gaan'
@@ -817,9 +800,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': 'Regstreekse klets is nie vir hierdie stroom beskikbaar nie. Die oplaaier het dit gedeaktiveer.'
   Show Super Chat Comment: 'Toon superkletskommentaar'
   Scroll to Bottom: 'Rol na onderent'
-  Download Video: 'Laai video af'
-  video only: 'slegs video'
-  audio only: 'slegs oudio'
   Published:
     In less than a minute: 'Oor minder as een minuut'
   Published on: 'Gepubliseer op'
@@ -887,14 +867,15 @@ Video:
     Show Modified Details: Toon gewysigde details
 #& Playlists
   DRMProtected: DRM-beskermde video’s kan nie in FreeTube afgespeel word nie omdat dit eiendoms geslotebronkomponente vereis. Indien u die video wil kyk, doen dit asb. op die amptelike YouTube-webwerf in ’n webblaaier met DRM geaktiveer.
+  Watched Progress Saved: Kykvordering is bewaar
 Playlist:
   #& About
   Playlist: 'Afspeellys'
   View Full Playlist: 'Bekyk volledige afspeellys'
   Last Updated On: 'Laas bygewerk op'
   Sort By:
-    DateAddedNewest: 'Laaste toegevoeg boaan'
-    DateAddedOldest: 'Eerste toegevoeg boaan'
+    DateAddedNewest: 'Datum toegevoeg (nuutste)'
+    DateAddedOldest: 'Datum toegevoeg (oudste)'
     AuthorAscending: 'Outeur (A-Z)'
     AuthorDescending: 'Outeur (Z-A)'
     VideoTitleAscending: 'Titel (A-Z)'
@@ -904,10 +885,10 @@ Playlist:
 # On Video Watch Page
 #* Published
 #& Views
-    VideoDurationAscending: Duur (korste eerste)
-    VideoDurationDescending: Duur (langste eerste)
-    PublishedOldest: Vroegste gepubliseer eerste
-    PublishedNewest: Laaste gepubliseer eerste
+    VideoDurationAscending: Duur (korste)
+    VideoDurationDescending: Duur (langste)
+    PublishedOldest: Datum gepubliseer (oudste)
+    PublishedNewest: Datum gepubliseer (nuutste)
 Change Format:
   Change Media Formats: 'Verander mediaformate'
   Use Dash Formats: 'Gebruik DASH-formate'
@@ -932,6 +913,7 @@ Share:
   YouTube URL copied to clipboard: 'YouTube-skakel is na knipbord gekopieer'
   YouTube Embed URL copied to clipboard: 'YouTube-inbedskakel is na knipbord gekopieer'
   YouTube Channel URL copied to clipboard: 'YouTube-kanaalskakel is na knipbord gekopieer'
+  Share Post: Deel plasing
 Clipboard:
   Copy failed: 'Kopiëring na knipbord het misluk'
   Cannot access clipboard without a secure connection: 'Geen toegang tot knipbord sonder ’n beveiligde verbinding'
@@ -948,7 +930,7 @@ Comments:
   Hide Comments: 'Versteek kommentare'
   Top comments: 'Topkommentare'
   Newest first: 'Nuutste eerste'
-  View {replyCount} replies: 'Sien {replyCount} antwoorde'
+  View {replyCount} replies: 'Sien 1 antwoord | Sien {replyCount} antwoorde'
   # Context: View 10 Replies, View 1 Reply, View 1 Reply from Owner, View 2 Replies from Owner and others
   Show More Replies: 'Toon nog antwoorde'
   There are no comments available for this video: 'Daar is geen reaksies beskikbaar vir hierdie video nie'
@@ -958,6 +940,9 @@ Comments:
   Subscribed: 'Ingeteken'
   Hearted: 'Met hart'
   There are no comments available for this post: Daar is geen kommentare beskikbaar vir hierdie plasing nie
+  Hide {replyCount} replies: Versteek 1 antwoord | Versteek {replyCount} antwoorde
+  View 1 reply from {channelName}: Sien 1 antwoord van {channelName}
+  View {replyCount} replies from {channelName} and others: Sien {replyCount} antwoorde van {channelName} en ander
 Up Next: 'Volgende'
 
 #Tooltips
@@ -988,6 +973,7 @@ Tooltips:
     Hide Channels: 'Voer ’n kanaal-ID in om alle video’s, afspeellyste en die kanaal self te versteek sodat dit nie in soek, stygend, gewildste, en aanbeveel weergegee word nie. Die ingevoerde kanaal-ID moet volledig ooreenstem en is hooflettergevoelig.'
     Hide Subscriptions Live: 'Hierdie instelling woord oorheers deur die toepwye “{appWideSetting}”-instelling in die “{subsection}” gedeelte van “{settingsSection}”'
     Hide Videos, Playlists and Channels Containing Text: 'Voer ’n woord, woordfragment of woordgroep in (nie hooflettergevoelig) om alle video’s en afspeellyste waarvan die oorspronklike titel dit bevat, regoor FreeTube te versteek, met uitsondering van net geskiedenis, u afspeellyste en video’s in afspeellyste.'
+    Hide Videos on Watch: Versteek bekykte video’s op die Video’s-, Shorts- en Live-oortjies op die blaaie Intekeninge en Kanale. Dit beïnvloed nie die Tuis-oortjie op kanaalblaaie nie
   Subscription Settings:
     Fetch Feeds from RSS: 'Wanneer geaktiveer, sal FreeTube RSS i.p.v. sy verstek metode gebruik om u intekenvoer op te haal. RSS is vinniger en voorkom IP-versperring, maar bied nie sekere inligting soos videoduur, status of plasings nie'
     Fetch Automatically: 'Wanneer geaktiveer, sal FreeTube u intekenvoer outomaties ophaal wanneer ’n nuwe venster geopen word.'
@@ -1003,7 +989,7 @@ Invidious API Error (Click to copy): 'Invidious API-fout (Klik om te kopieer)'
 Falling back to Invidious API: 'Val terug op Invidious API'
 Falling back to Local API: 'Val terug op lokale API'
 This video is unavailable because of missing formats. This can happen due to country unavailability.: 'Hierdie video is onbeskikbaar vanweë ontbrekende formate. Dit kan gebeur weens video-onbeskikbaarheid in u land.'
-Unknown YouTube url type, cannot be opened in app: 'Onbekende YouTube-URL; die URL kan nie in die toep geopen word nie'
+Unknown YouTube url type, cannot be opened in app: 'Onbekende YouTube-bronadres, die URL kan nie in die toep geopen word nie'
 Loop is now disabled: 'Herhaling is nou gedeaktiveer'
 Loop is now enabled: 'Herhaling is nou geaktiveer'
 Shuffle is now disabled: 'Skommel is nou gedeaktiveer'
@@ -1021,9 +1007,6 @@ Age Restricted:
   This channel is age restricted: 'Hierdie kanaal het ’n ouderdomsperk'
   This video is age restricted: 'Hierdie video het ’n ouderdomsperk'
 External link opening has been disabled in the general settings: 'Die open van eksterne skakels is gedeaktiveer in die algemene instellings'
-Downloading has completed: '“{videoTitle}” is afgelaai'
-Starting download: 'Begin aflaai van “{videoTitle}”'
-Downloading failed: 'Daar was ’n probleem by die aflaai van “{videoTitle}”'
 Screenshot Success: 'Bewaarde skermkiekie'
 Screenshot Error: 'Skermkiekie het misluk. {error}'
 Channel Hidden: '{channel} tot kanaalfilter toegevoeg'
@@ -1109,5 +1092,9 @@ KeyboardShortcutPrompt:
       Situational: 'Toep: Omstandigheid'
       General: 'Toep: Algemeen'
   Keyboard Shortcuts: Sneltoetse
+  Home: Speol terug na die begin van die video
+  End: Spoel vorentoe na die einde van die video
+  Skip to Next Video: Gaan na die volgende video in ’n afspeellys of die volgende aanbevole video
+  Skip to Previous Video: Gaan na die volgende video in ’n afspeellys
 shortcutLabelSeparator: ｜
 Right-click or hold to see history: Regskliek of hou in om die geskiedenis te sien

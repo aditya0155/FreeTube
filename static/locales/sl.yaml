@@ -32,22 +32,17 @@ Global:
   Live: V živo
 Version {versionNumber} is now available!  Click for more details: 'Na voljo je različica {versionNumber}!·  Za več podrobnosti kliknite tukaj'
 Download From Site: 'Prenesi iz spletne strani'
-A new blog is now available, {blogTitle}. Click to view more: 'Na voljo je nov članek, {blogTitle}. Kliknite tukaj, če ga želite prebrati'
 
 # Search Bar
 Search / Go to URL: 'Išči/pojdi na URL naslov'
   # In Filter Button
 Search Filters:
   Search Filters: 'Iskalni filtri'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Ustreznost'
-    Rating: 'Ocena'
-    Upload Date: 'Datum nastanka'
-    View Count: 'Število ogledov'
   Time:
     Time: 'Čas'
     Any Time: 'Vsak čas'
-    Last Hour: 'Zadnja ura'
     Today: 'Danes'
     This Week: 'Ta teden'
     This Month: 'Ta mesec'
@@ -62,10 +57,9 @@ Search Filters:
   Duration:
     Duration: 'Trajanje'
     All Durations: 'Vsa trajanja'
-    Short (< 4 minutes): 'Kratko (<4 minute)'
-    Long (> 20 minutes): 'Dolgo (>20 minut)'
-  # On Search Page
-    Medium (4 - 20 minutes): Srednje (4–20 minut)
+    '< 3 minutes': '<3 minute'
+    '> 20 minutes': '>20 minut'
+    '3 - 20 minutes': 3–20 minut
   Search Results: 'Rezultati'
   Fetching results. Please wait: 'Pridobivamo rezultate. Prosimo, počakajte'
   Fetch more results: 'Pridobi več rezultatov'
@@ -83,6 +77,7 @@ Subscriptions:
 Trending:
   Trending: 'Priljubljeno'
   Gaming: Igričarstvo
+  Sports: Šport
 Most Popular: 'Najbolj popularno'
 Playlists: 'Seznami predvajanja'
 User Playlists:
@@ -102,7 +97,6 @@ Settings:
   General Settings:
     General Settings: 'Splošne nastavitve'
     Check for Updates: 'Preveri posodobitve'
-    Check for Latest Blog Posts: 'Preveri najnovejše članke na blogu'
     Fallback to Non-Preferred Backend on Failure: 'Ob napaki začasno uporabi sekundarni zaledni sistem'
     Enable Search Suggestions: 'Vklopi iskalne predloge'
     Default Landing Page: 'Prevzeta vstopna stran'
@@ -266,7 +260,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Vse naročnine in profili so bili uspešno uvoženi'
     All subscriptions have been successfully imported: 'Vse naročnine so bile uspešno uvožene'
     Invalid subscriptions file: 'Neveljavna datoteka z naročninami'
-    This might take a while, please wait: 'To bo lahko trajalo nekaj časa. Prosimo, počakajte'
     Invalid history file: 'Neveljavna datoteka z zgodovino'
     Subscriptions have been successfully exported: 'Naročnine so bile uspešno izvožene'
     History object has insufficient data, skipping item: 'Zgodovinski objekt ima pomankljive podatke in je bil preskočen'
@@ -326,15 +319,12 @@ About:
   #& About
   Donate: Doniraj
   these people and projects: teh ljudi in projektov
-  FreeTube is made possible by: FreeTube obstaja zaradi
   Credits: Zahvale
   Translate: Prevedi
   room rules: sobna pravila
-  Please read the: Prosimo, preberite
   Chat on Matrix: Klepetajte na Matrixu
   Mastodon: Mastodon
   Email: E-pošta
-  Blog: Blog
   Website: Spletna stran
   Please check for duplicates before posting: Prosimo, da pred pošiljanjem preverite, da ni dvojnikov
   GitHub issues: GitHub težave
@@ -423,8 +413,8 @@ Video:
   Loop Playlist: 'Ponovno predvajaj seznam predvajanja'
   Shuffle Playlist: 'Mešaj seznam predvajanja'
   Reverse Playlist: 'Obrni seznam predvajanja'
-  Play Next Video: 'Predvajaj naslednji videoposnetek'
-  Play Previous Video: 'Predvajaj prejšnji videoposnetek'
+  Previous: 'Nazaj'
+  Next: 'Naprej'
   Watched: 'Ogledano'
   Autoplay: 'Samodejno predvajanje'
   Starting soon, please refresh the page to check again: 'Predvajanje se začenja. Prosimo, osvežite stran, če želite poskusiti znova'
@@ -440,9 +430,6 @@ Video:
     In less than a minute: Manj kot minuti
   Published on: 'Objavljeno dne'
 #& Videos
-  audio only: Samo avdio
-  video only: Samo video
-  Download Video: Prenesi videoposnetek
   Started streaming on: Pretok začet dne
   Streamed on: Pretočeno dne
   Copy Invidious Channel Link: Kopiraj povezavo Invidious kanala

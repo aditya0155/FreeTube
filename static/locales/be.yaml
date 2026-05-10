@@ -28,7 +28,6 @@ Open New Window: 'Адкрыць новае акно'
 
 Version {versionNumber} is now available!  Click for more details: 'Даступна версія {versionNumber}!  Націсніце, каб даведацца больш'
 Download From Site: 'Спампаваць з сайта'
-A new blog is now available, {blogTitle}. Click to view more: 'Даступны новы блог, {blogTitle}. Націсніце, каб паглядзець больш'
 Are you sure you want to open this link?: 'Сапраўды хочаце адкрыць гэтую спасылку?'
 
 # Global
@@ -56,15 +55,11 @@ Search Bar:
   Remove: Выдаліць
 Search Filters:
   Search Filters: 'Фільтры пошуку'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Найбольш рэлевантныя'
-    Rating: 'Рэйтынг'
-    Upload Date: 'Дата запампоўвання'
-    View Count: 'Колькасць праглядаў'
   Time:
     Time: 'Час'
     Any Time: 'За ўвесь час'
-    Last Hour: 'За апошнюю гадзіну'
     Today: 'Сёння'
     This Week: 'За гэты тыдзень'
     This Month: 'За гэты месяц'
@@ -79,9 +74,9 @@ Search Filters:
   Duration:
     Duration: 'Працягласць'
     All Durations: 'Любая працягласць'
-    Short (< 4 minutes): 'Кароткія (< 4 хвілін)'
-    Medium (4 - 20 minutes): 'Сярэднія (4-20 хвілін)'
-    Long (> 20 minutes): 'Доўгія (> 20 хвілін)'
+    '< 3 minutes': '< 3 хвілін'
+    '3 - 20 minutes': '3-20 хвілін'
+    '> 20 minutes': '> 20 хвілін'
   # On Search Page
   Search Results: 'Вынікі пошуку'
   Fetching results. Please wait: 'Атрыманне вынікаў. Калі ласка, пачакайце'
@@ -127,6 +122,7 @@ Trending:
   Trending: 'У трэндзе'
   Gaming: 'Гульні'
   Trending Tabs: 'Укладкі Трэндаў'
+  Sports: Спорт
 Most Popular: 'Папулярныя'
 Playlists: 'Плэй-лісты'
 User Playlists:
@@ -144,8 +140,7 @@ User Playlists:
     "{videoCount}/{totalVideoCount} Videos Already Added": '{videoCount}/{totalVideoCount} відэа ўжо дададзена'
     Toast:
       You haven't selected any playlist yet.: Вы яшчэ не выбралі плэй-ліст.
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 відэа дададзена ў {playlistCount} плэй-лістоў | {videoCount} відэа дададзены ў {playlistCount} плэй-лістоў
-      "{videoCount} video(s) added to 1 playlist": 1 відэа дададзена ў 1 плэй-ліст | {videoCount} відэа дададзены ў 1 плэй-ліст
+      "Video(s) added to {playlistCount} playlists": ""
     Select a playlist to add your N videos to: Выберыце плэй-ліст, каб дадаць сваё відэа | Выберыце плэй-ліст, каб дадаць у яго {videoCount} відэа
     Search in Playlists: Пошук у плэй-лістах
     Added {count} Times: Ужо дададзена | Дададзена {count} разоў
@@ -227,7 +222,6 @@ Settings:
   General Settings:
     General Settings: 'Агульныя'
     Check for Updates: 'Правяраць наяўнасць абнаўленняў'
-    Check for Latest Blog Posts: 'Правяраць апошнія паведамленні ў блогу'
     Fallback to Non-Preferred Backend on Failure: 'Вяртанне да непераважнага бэкэнда ў выпадку няўдачы'
     Enable Search Suggestions: 'Уключыць прапановы пошуку'
     Default Landing Page: 'Хатняя старонка'
@@ -549,7 +543,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Усе падпіскі і профілі былі паспяхова імпартаваны'
     All subscriptions have been successfully imported: 'Усе падпіскі былі паспяхова імпартаваны'
     Invalid subscriptions file: 'Няправільны файл падпісак'
-    This might take a while, please wait: ''
     Invalid history file: 'Няправільны файл гісторыі'
     Subscriptions have been successfully exported: 'Падпіскі былі паспяхова экспартаваныя'
     History object has insufficient data, skipping item: 'Аб''ект гісторыі мае недастаткова даных, пропуск элемента'
@@ -601,13 +594,6 @@ Settings:
     Hide Unsubscribe Button: 'Хаваць кнопку адпіскі'
     Show Family Friendly Only: 'Паказаць толькі для сямейнага прагляду'
     Hide Search Bar: 'Хаваць панэль пошуку'
-  Download Settings:
-    Download Settings: 'Спампоўванне'
-    Ask Download Path: 'Пытаць шлях спампоўвання'
-    Choose Path: 'Выберыце шлях'
-    Download Behavior: 'Паводзіны для спампоўвання'
-    Download in app: 'Спампоўваць у праграме'
-    Open in web browser: 'Адкрываць у вэб-браўзеры'
   Experimental Settings:
     Experimental Settings: 'Эксперыменты'
     Warning: 'Гэтыя налады эксперыментальныя і могуць выклікаць збоі праграмы. Вы выкарыстоўвайце іх на свой страх і рызыку. Настойліва рэкамендуем рабіць рэзервовыя копіі!'
@@ -637,20 +623,16 @@ About:
   GitHub issues: 'Праблемы на GitHub'
   Please check for duplicates before posting: 'Перад публікацыяй праверце наяўнасць дублікатаў'
   Website: 'Вэб-сайт'
-  Blog: 'Блог'
   Email: 'Электронная пошта'
   Mastodon: 'Mastodon'
   Chat on Matrix: 'Чат у Matrix'
-  Please read the: 'Прачытайце'
   room rules: 'правілы пакоя'
   Translate: 'Пераклад'
   Credits: 'Удзельнікі'
-  FreeTube is made possible by: 'FreeTube стаў магчымым дзякуючы'
   these people and projects: 'гэтым людзям і праектам'
   Donate: 'Ахвяраваць'
 
   AGPLv3: AGPLv3
-  Licensed under the: Пад ліцэнзіяй
 Profile:
   Profile Settings: 'Профіль'
   Toggle Profile List: 'Пераключыць спіс профіляў'
@@ -776,8 +758,8 @@ Video:
   Loop Playlist: 'Зацыкліць плэй-ліст'
   Shuffle Playlist: 'Перамяшаць плэй-ліст'
   Reverse Playlist: 'Перавернуць плэй-ліст'
-  Play Next Video: 'Прайграць наступнае відэа'
-  Play Previous Video: 'Прайграць папярэдняе відэа'
+  Previous: 'Назад'
+  Next: 'Наступнае'
   Watched: 'Прагледжанае'
   Autoplay: 'Аўтапрайграванне'
   Starting soon, please refresh the page to check again: 'Хутка пачнецца, абнавіце старонку, каб праверыць яшчэ раз'
@@ -794,9 +776,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': 'Жывы чат недаступны для гэтай трансляцыі. Магчыма, ён быў адключаны запампавальнікам.'
   Show Super Chat Comment: 'Паказаць каментарый Суперчата'
   Scroll to Bottom: 'Пракруціць уніз'
-  Download Video: 'Спампаваць відэа'
-  video only: 'толькі відэа'
-  audio only: 'толькі аўдыя'
   Published:
     In less than a minute: 'Менш чым праз хвіліну'
   Published on: 'Апублікавана'
@@ -1000,9 +979,6 @@ Default Invidious instance has been set to {instance}: 'Экзэмпляр Invid
 Default Invidious instance has been cleared: 'Экзэмпляр Invidious па змаўчанні быў выдалены'
 'The playlist has ended. Enable loop to continue playing': 'Плэй-ліст скончыўся.  Каб працягнуць прайграванне, уключыце цыкл'
 External link opening has been disabled in the general settings: 'Адкрыццё знешніх спасылак было адключана ў агульных наладах'
-Downloading has completed: 'Спампоўванне «{videoTitle}» завершана'
-Starting download: 'Пачалося спампоўванне «{videoTitle}»'
-Downloading failed: 'Узнікла праблема са спампоўваннем «{videoTitle}»'
 Screenshot Success: 'Здымак захаваны'
 Screenshot Error: 'Здымак не ўдаўся. {error}'
 

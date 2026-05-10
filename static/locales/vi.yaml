@@ -44,15 +44,13 @@ Search / Go to URL: 'Tìm kiếm / Đi đến URL'
   # In Filter Button
 Search Filters:
   Search Filters: 'Lọc tìm kiếm'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Liên quan nhất'
-    Rating: 'Đánh giá'
-    Upload Date: 'Ngày tải lên'
-    View Count: 'Lượt xem'
+    Prioritize: Ưu tiên
+    Popularity: Mức độ phổ biến
   Time:
     Time: 'Thời gian'
     Any Time: 'Mọi lúc'
-    Last Hour: 'Giờ vừa qua'
     Today: 'Hôm nay'
     This Week: 'Tuần này'
     This Month: 'Tháng này'
@@ -67,10 +65,9 @@ Search Filters:
   Duration:
     Duration: 'Thời lượng'
     All Durations: 'Tất cả thời lượng'
-    Short (< 4 minutes): 'Ngắn (<4 phút)'
-    Long (> 20 minutes): 'Dài (> 20 phút)'
-  # On Search Page
-    Medium (4 - 20 minutes): Vừa (4 - 20 phút)
+    '< 3 minutes': '<3 phút'
+    '> 20 minutes': '> 20 phút'
+    '3 - 20 minutes': 3 - 20 phút
   Search Results: 'Kết quả tìm kiếm'
   Fetching results. Please wait: 'Đang lấy kết quả. Xin hãy chờ'
   Fetch more results: 'Lấy thêm kết quả'
@@ -106,6 +103,7 @@ Trending:
   Trending: 'Xu hướng'
   Gaming: Trò chơi
   Trending Tabs: Trang Xu hướng
+  Sports: Thể thao
 Most Popular: 'Phổ biến nhất'
 Playlists: 'Danh sách phát'
 User Playlists:
@@ -163,9 +161,8 @@ User Playlists:
     N playlists selected: Đã chọn {playlistCount}
     Search in Playlists: Tìm trong danh sách phát
     Toast:
-      "{videoCount} video(s) added to {playlistCount} playlists": Đã thêm 1 video vào {playlistCount} danh sách phát | Đã thêm {videoCount} video vào {playlistCount} danh sách phát
+      "Video(s) added to {playlistCount} playlists": "(Các) Video đã được thêm vào 1 danh sách phát | (Các) Video đã được thêm vào danh sách phát {playlistCount}"
       You haven't selected any playlist yet.: Bạn đang chưa chọn danh sách phát nào.
-      "{videoCount} video(s) added to 1 playlist": Đã thêm 1 video vào 1 danh sách phát | Đã thêm {videoCount} vào 1 danh sách phát
     Save: Lưu
     "{videoCount}/{totalVideoCount} Videos Already Added": '{videoCount}/{totalVideoCount} đã có trong danh sách phát'
     Added {count} Times: Đã được thêm | Đã được thêm {count} lần
@@ -229,7 +226,6 @@ Settings:
       Hidden: Ẩn
     Region for Trending: 'Phổ biến theo quốc gia'
         #! List countries
-    Check for Latest Blog Posts: Kiểm tra bài đăng mới nhất
     Check for Updates: Kiểm tra cập nhật
     Current Invidious Instance: Phiên bản Invidious hiện tại
     The currently set default instance is {instance}: Phiên bản Invidious mặc định hiện được đặt thành {instance}
@@ -441,7 +437,6 @@ Settings:
     History object has insufficient data, skipping item: Lịch sử không đủ dữ liệu, đang bỏ qua mục này
     Subscriptions have been successfully exported: Đăng ký đã được xuất thành công
     Invalid history file: Tệp lịch sử không hợp lệ
-    This might take a while, please wait: Điều này có thể tốn thời gian, xin hãy chờ
     Invalid subscriptions file: Tệp đăng ký không hợp lệ
     All subscriptions have been successfully imported: Tất cả đăng ký đã được nhập vào thành công
     All subscriptions and profiles have been successfully imported: Tất cả các đăng ký và hồ sơ đã được nhập thành công
@@ -474,7 +469,7 @@ Settings:
     All search history has been successfully exported: Toàn bộ lịch sử tìm kiếm đã được xuất thành công
     Search history file: Tập tin lịch sử tìm kiếm
   Distraction Free Settings:
-    Hide Live Chat: Ẩn live chat
+    Hide Live Chat: Ẩn chat trực tiếp
     Hide Popular Videos: Ẩn video phổ biến
     Hide Trending Videos: Ẩn video xu hướng
     Hide Recommended Videos: Ẩn video tiếp theo
@@ -487,7 +482,7 @@ Settings:
     Hide Playlists: Ẩn danh sách phát
     Hide Comments: Ẩn bình luận
     Hide Live Streams: Ẩn phát trực tiếp
-    Hide Video Description: Ẩn mổ tả video
+    Hide Video Description: Ẩn mô tả video
     Hide Sharing Actions: Ẩn nút chia sẻ
     Hide Videos on Watch: 'Ẩn video khi đã xem'
     Sections:
@@ -544,7 +539,7 @@ Settings:
     Watched Progress Saving Mode:
       Modes:
         Auto: Tự động
-        Semi-auto: Bán-tự động
+        Semi-auto: Bán tự động
         Never: Không
       Tooltip: 'Tự động = Lưu mỗi khi thoát khỏi trang video, khi video kết thúc và gặp lỗi (ví dụ: giới hạn tốc độ và phiên xem đã hết hạn). Bán tự động = Như tự động, trừ lúc thoát khỏi trang video và có thể lưu tiến trình theo cách thủ công thông qua nút Lưu tiến trình đã xem, nằm bên dưới trình phát video.'
   The app needs to restart for changes to take effect. Restart and apply change?: Ứng dụng cần được khởi động lại để chỉnh sửa có hiệu nghiệm. Khởi động lại và áp dụng cài đặt?
@@ -596,13 +591,6 @@ Settings:
     Show Family Friendly Only: Chỉ hiển thị nội dung thân thiện với gia đình
     Hide Search Bar: Ẩn thanh tìm kiếm
     Hide Uploader on Watch page: Ẩn Người tải lên trên trang Xem
-  Download Settings:
-    Download Behavior: Hành vi tải xuống
-    Download in app: Tải xuống trong ứng dụng
-    Open in web browser: Mở trên trình duyệt
-    Ask Download Path: Yêu cầu đường dẫn tải xuống
-    Choose Path: Chọn đường dẫn
-    Download Settings: Tải xuống
   Password Dialog:
     Password: Mật khẩu
     Enter Password To Unlock: Nhập mật khẩu để mở cài đặt
@@ -630,7 +618,6 @@ About:
   Help: Trợ giúp
   Translate: Phiên dịch
   Website: Trang web
-  Blog: Blog
   Credits: Ghi công
   Donate: Quyên tặng
   GitHub issues: Sự cố GitHub
@@ -641,12 +628,12 @@ About:
   Please check for duplicates before posting: Vui lòng kiểm tra trùng lặp trước khi đăng
   Chat on Matrix: Trò chuyện trên Matrix
   room rules: quy định phòng chat
-  FreeTube is made possible by: FreeTube được tạo ra bởi
   these people and projects: những người và dự án này
-  Please read the: Hãy đọc
   Discussions: Thảo luận
-  Licensed under the: Được cấp phép theo
   AGPLv3: giấy phép AGPLv3
+  Licensed under the {licenseLink}: Được cấp phép theo {licenseLink}
+  Please read the {roomRulesLink}: Vui lòng đọc {roomRulesLink}
+  FreeTube is made possible by {creditsPageLink}: FreeTube được tạo ra bởi {creditsPageLink}
 Channel:
   Subscribe: 'Đăng ký'
   Unsubscribe: 'Hủy đăng ký'
@@ -734,16 +721,13 @@ Video:
   Video has been marked as watched: Video đánh dấu đã xem
   Remove From History: Xóa khỏi lịch sử
   Mark As Watched: Đánh dấu đã xem
-  audio only: Chỉ âm thanh
-  video only: Chỉ video
-  Download Video: Tải video
   Starting soon, please refresh the page to check again: Sắp bắt đầu, vui lòng refresh trang để kiểm tra
   Autoplay: Tự động phát
-  Play Previous Video: Phát video trước
-  Play Next Video: Phát video tiếp theo
-  Reverse Playlist: Đảo ngược Playlist
-  Shuffle Playlist: Trộn Playlist
-  Loop Playlist: Lặp lại Playlist
+  Previous: Trước
+  Next: Tiếp theo
+  Reverse Playlist: Đảo ngược danh sách phát
+  Shuffle Playlist: Trộn danh sách phát
+  Loop Playlist: Lặp lại danh sách phát
   Open Channel in YouTube: Mở kênh này trên YouTube
   Copy YouTube Channel Link: Sao chép liên kết của kênh
   Sponsor Block category:
@@ -756,7 +740,7 @@ Video:
     recap: Tóm tắt
     filler: Bộ lọc
   Streamed on: Phát trực tiếp vào lúc
-  Started streaming on: Bắt đầu.phát trực tiếp vào lúc
+  Started streaming on: Bắt đầu phát trực tiếp vào lúc
   External Player:
     playlist: danh sách phát
     Unsupported Actions:
@@ -791,7 +775,7 @@ Video:
       CodecsVideoAudio: 'Codec: {videoCodec} ({videoItag}) / {audioCodec} ({audioItag})'
       CodecsVideoAudioNoItags: 'Codec: {videoCodec} / {audioCodec}'
       Bandwidth: 'Băng thông: {bandwidth} kbps'
-      Resolution: 'Độ phân ảnh: {width}x{height}{''@''}{frameRate}'
+      Resolution: 'Độ phân giải: {width}x{height}{''@''}{frameRate}'
       Player Dimensions: 'Kích thước trình xem: {width}x{height}'
       CodecAudio: 'Codec: {audioCodec} ({audioItag})'
       Bitrate: 'Tốc độ bit: {bitrate} kbps'
@@ -824,6 +808,10 @@ Video:
   DRMProtected: Không thể phát video được bảo vệ DRM trong FreeTube vì chúng yêu cầu các thành phần nguồn đóng độc quyền. Nếu bạn muốn xem video này, vui lòng xem trên trang web chính thức của YouTube trong trình duyệt web hỗ trợ DRM.
   Save Watched Progress: Lưu tiến trình đã xem
   Watched Progress Saved: Xem tiến trình đã lưu
+  Popout Live Chat: Trò chuyện bật lên
+  Watch:
+    'Remaining preroll-ad time: {remindingTimeSeconds}s': 'Thời gian quảng cáo đầu video còn lại: {remindingTimeSeconds}s'
+    'Remaining SABR backoff time: {remindingTimeSeconds}s': 'Thời gian chờ SABR còn lại: {remindingTimeSeconds}s'
 Playlist:
   #& About
   View Full Playlist: 'Xem danh sách phát hoàn chỉnh'
@@ -858,17 +846,18 @@ Share:
   Share Playlist: 'Chia sẻ danh sách phát'
   Copy Link: 'Sao chép liên kết'
   Open Link: 'Mở liên kết'
-  Copy Embed: 'Sao chép Embed'
-  Open Embed: 'Mở Embed'
+  Copy Embed: 'Sao chép đã nhúng'
+  Open Embed: 'Mở đã nhúng'
   # On Click
-  Invidious URL copied to clipboard: 'Invidious URL sao chép đến clipboard'
-  Invidious Embed URL copied to clipboard: 'Invidious Embed URL sao chép đến clipboard'
+  Invidious URL copied to clipboard: 'Invidious URL sao chép đến bộ nhớ tạm'
+  Invidious Embed URL copied to clipboard: 'Invidious Embed URL sao chép đến bộ nhớ tạm'
   YouTube URL copied to clipboard: 'Youtube URL sao chép đến clipboard'
   YouTube Embed URL copied to clipboard: 'Youtube Embed URL sao chép đến clipboard'
   Include Timestamp: Có kèm dấu thời gian
   YouTube Channel URL copied to clipboard: Đã sao chép liên kết kênh Youtube
   Invidious Channel URL copied to clipboard: URL của kênh ưu tiên đã được sao chép
   Share Channel: Chia sẻ kênh
+  Share Post: Chia sẻ bài viết
 Mini Player: 'Trình phát Mini'
 Comments:
   Comments: 'Bình luận'
@@ -952,7 +941,6 @@ Profile:
   Open Profile Dropdown: Mở danh sách hồ sơ
   Create Profile Name: Tạo tên hồ sơ
   Close Profile Dropdown: Đóng danh sách hồ sơ
-A new blog is now available, {blogTitle}. Click to view more: Một blog mới đã có, {blogTitle}. Nhấn để xem chi tiết
 Download From Site: Tải từ website
 Version {versionNumber} is now available!  Click for more details: Phiên bản {versionNumber} đã có! Click để xem chi tiết
 Open New Window: Mở cửa sổ mới
@@ -991,7 +979,7 @@ Tooltips:
     External Player: Chọn một trình phát bên ngoài sẽ hiển thị một biểu tượng để mở video (danh sách phát nếu được hỗ trợ) trong trình phát bên ngoài, trên hình thu nhỏ của video. Cảnh báo, cài đặt Invidious không ảnh hưởng đến trình phát bên ngoài.
     Ignore Default Arguments: Không gửi các tham số mặc định đến trình phát bên ngoài ngoài URL của video (như tốc độ phát, URL danh sách phát, v.v.). Các tham số tùy chỉnh vẫn sẽ được gửi.
   Subscription Settings:
-    Fetch Feeds from RSS: Khi được bật lên, FreeTube sẽ sử dụng RSS thay vì phương thức mặc định để lấy nguồn cấp dữ liệu đăng ký của bạn. RSS nhanh hơn và tránh việc bị chặn IP, nhưng không cung cấp thông tin nhất định như thời lượng video, trạng thái phát trực tiếp hoặc các bài đăng.
+    Fetch Feeds from RSS: Khi được bật lên, FreeTube sẽ sử dụng RSS thay vì phương thức mặc định để lấy nguồn cấp dữ liệu đăng ký của bạn. RSS nhanh hơn và tránh việc bị chặn IP, nhưng không cung cấp thông tin nhất định như thời lượng video, trạng thái phát trực tiếp hoặc các bài đăng
     Fetch Automatically: Khi được bật, FreeTube sẽ tự động lấy nguồn cấp dữ liệu đăng ký của bạn khi khởi động, khi mở cửa sổ mới.
   Distraction Free Settings:
     Hide Channels: Nhập tên kênh hoặc ID kênh để ẩn tất cả video, danh sách phát và chính kênh đó khỏi xuất hiện trong tìm kiếm, xu hướng, phổ biến nhất và được đề xuất. Tên kênh đã nhập phải khớp hoàn toàn và có phân biệt chữ hoa chữ thường.
@@ -1004,15 +992,12 @@ Tooltips:
   Experimental Settings:
     Replace HTTP Cache: Tắt bộ nhớ đệm HTTP dựa trên đĩa của Electron và bật bộ nhớ đệm hình ảnh trong bộ nhớ tùy chỉnh. Sẽ dẫn đến việc sử dụng RAM tăng lên.
 Playing Next Video Interval: Phát video tiếp theo ngay lập tức. Nhấn vào để hủy. | Phát video tiếp theo sau {nextVideoInterval} giây nữa. Nhấn vào để hủy. | Phát video tiếp theo sau {nextVideoInterval} giây. Nhấn vào để hủy.
-Downloading has completed: '"{videoTitle}" đã hoàn tất quá trình tải xuống'
 External link opening has been disabled in the general settings: Tính năng mở liên kết bên ngoài đã bị tắt trong cài đặt chung
-Downloading failed: Đã xảy ra sự cố trong quá trình tải xuống "{videoTitle}"
 Default Invidious instance has been cleared: Phiên bản Invidious mặc định đã bị xóa
 Screenshot Success: Ảnh chụp màn hình đã lưu
 Screenshot Error: Chụp màn hình không thành công. {error}
 Default Invidious instance has been set to {instance}: Phiên bản Invidious mặc định đã được đặt thành {instance}
 Unknown YouTube url type, cannot be opened in app: Dạng YouTube URL không xác định, không thể mở trong ứng dụng này
-Starting download: Bắt đầu tải xuống "{videoTitle}"
 Ok: Ok
 Clipboard:
   Copy failed: Sao chép vào bộ nhớ tạm thất bại
@@ -1123,3 +1108,5 @@ KeyboardShortcutPrompt:
   Skip to Next Video: Chuyển sang video tiếp theo trong danh sách phát hoặc video được đề xuất tiếp theo
   Skip to Previous Video: Chuyển về video trước trong danh sách phát
 shortcutLabelSeparator: ｜
+Compact side navigation: Điều hướng bên nhỏ gọn
+Expand side navigation: Mở rộng điều hướng bên

@@ -10,7 +10,6 @@
         <FontAwesomeIcon
           :icon="['fas', 'circle-exclamation']"
           class="warning-icon"
-          fixed-width
         />
         {{ $t('Settings.Proxy Settings.Proxy Warning') }}
       </p>
@@ -53,7 +52,9 @@
           @keydown.enter="testProxy"
         />
       </FtFlexBox>
-      <FtFlexBox>
+      <FtFlexBox
+        v-if="areCredentialsSupported"
+      >
         <FtInput
           :placeholder="$t('Settings.Proxy Settings.Proxy Username')"
           :show-action-button="false"
@@ -201,6 +202,11 @@ const proxyTestUrl = computed(() => {
   }
 
   return proxyTestUrl
+})
+
+/** @type {import('vue').ComputedRef<boolean>} */
+const areCredentialsSupported = computed(() => {
+  return proxyProtocol.value === 'http' || proxyProtocol.value === 'https'
 })
 
 /**

@@ -21,6 +21,7 @@
           ref="player"
           :manifest-src="manifestSrc"
           :manifest-mime-type="manifestMimeType"
+          :sabr-data="sabrData"
           :legacy-formats="legacyFormats"
           :start-time="startTimeSeconds"
           :captions="captions"
@@ -35,11 +36,13 @@
           :use-theatre-mode="useTheatreMode"
           :autoplay-possible="autoplayPossible"
           :autoplay-enabled="autoplayEnabled"
+          :watching-playlist="watchingPlaylist"
           :vr-projection="vrProjection"
           :start-in-fullscreen="startNextVideoInFullscreen"
           :start-in-fullwindow="startNextVideoInFullwindow"
           :start-in-pip="startNextVideoInPip"
           :current-playback-rate="currentPlaybackRate"
+          :delay-load-until-unix="adEndTimeUnixMs"
           class="videoPlayer"
           @error="handlePlayerError"
           @loaded="handleVideoLoaded"
@@ -50,6 +53,7 @@
           @playback-rate-updated="updatePlaybackRate"
           @skip-to-next="handleSkipToNext"
           @skip-to-prev="handleSkipToPrev"
+          @player-reload-requested="onPlayerReloadRequested"
         />
         <div
           v-if="!isLoading && (isUpcoming || errorMessage)"
@@ -121,9 +125,7 @@
     />
     <div
       v-if="(isFamilyFriendly || !showFamilyFriendlyOnly)"
-      ref="infoArea"
       class="infoArea"
-      :class="{ infoAreaSticky }"
     >
       <watch-video-info
         v-if="!isLoading"
@@ -142,12 +144,8 @@
         :is-live-content="isLiveContent"
         :is-live="isLive"
         :is-upcoming="isUpcoming"
-        :download-links="downloadLinks"
         :playlist-id="playlistId"
-        :get-playlist-index="getPlaylistIndex"
-        :get-playlist-reverse="getPlaylistReverse"
-        :get-playlist-shuffle="getPlaylistShuffle"
-        :get-playlist-loop="getPlaylistLoop"
+        :get-playlist-state="getPlaylistState"
         :length-seconds="videoLengthSeconds"
         :video-thumbnail="thumbnail"
         :in-user-playlist="!!selectedUserPlaylist"
@@ -157,8 +155,6 @@
         :class="{ theatreWatchVideo: useTheatreMode }"
         @change-format="handleFormatChange"
         @pause-player="pausePlayer"
-        @set-info-area-sticky="infoAreaSticky = $event"
-        @scroll-to-info-area="$refs.infoArea.scrollIntoView()"
         @save-watched-progress="handleWatchProgressManualSave"
       />
       <watch-video-chapters

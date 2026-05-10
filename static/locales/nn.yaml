@@ -40,22 +40,17 @@ Global:
   Sort By: 'Sorter etter'
 Version {versionNumber} is now available!  Click for more details: 'Versjon {versionNumber} er no tilgjengeleg! Klikk for meir informasjon'
 Download From Site: 'Last ned frå nettstaden'
-A new blog is now available, {blogTitle}. Click to view more: 'Eit nytt blogginnlegg er tilgjengeleg, {blogTitle}. Klikk her for å sjå meir'
 
 # Search Bar
 Search / Go to URL: 'Søk/gå til nettadresse'
   # In Filter Button
 Search Filters:
   Search Filters: 'Søkefilter'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Mest relevant'
-    Rating: 'Vurdering'
-    Upload Date: 'Opplastingsdato'
-    View Count: 'Sjåartal'
   Time:
     Time: 'Tid'
     Any Time: 'Når som helst'
-    Last Hour: 'Den siste timen'
     Today: 'I dag'
     This Week: 'Denne veka'
     This Month: 'Denne månaden'
@@ -69,8 +64,8 @@ Search Filters:
   Duration:
     Duration: 'Varigheit'
     All Durations: 'Alle varigheitene'
-    Short (< 4 minutes): 'Kort (< 4 minutt)'
-    Long (> 20 minutes): 'Lang (> 20 minutt)'
+    '< 3 minutes': '< 3 minutt'
+    '> 20 minutes': '> 20 minutt'
   # On Search Page
   Search Results: 'Søkeresultat'
   Fetching results. Please wait: 'Henter resultat. Ver venleg og vent'
@@ -90,6 +85,7 @@ Trending:
   Trending: 'På veg opp'
   Trending Tabs: På veg opp
   Gaming: Dataspel
+  Sports: Sport
 Most Popular: 'Mest populært'
 Playlists: 'Spelelister'
 User Playlists:
@@ -110,7 +106,6 @@ Settings:
   General Settings:
     General Settings: 'Generelle innstillingar'
     Check for Updates: 'Sjå etter oppdateringar'
-    Check for Latest Blog Posts: 'Sjå etter nye blogginnlegg'
     Fallback to Non-Preferred Backend on Failure: 'Tilbakefall til ikkje-føretrekte backend ved feil'
     Enable Search Suggestions: 'Slå på søkeforslag'
     Default Landing Page: 'Standardlandingside'
@@ -301,7 +296,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Alle abonnement og profila har blitt importert'
     All subscriptions have been successfully imported: 'Alle abonnement har blitt importert'
     Invalid subscriptions file: 'Ugyldig abonnementfil'
-    This might take a while, please wait: 'Dette kan ta ei stund. Ver venleg og vent'
     Invalid history file: 'Ugyldig historikkfil'
     Subscriptions have been successfully exported: 'Abonnement har blitt importert'
     History object has insufficient data, skipping item: 'Eit historikkobjekt manglar data, hoppar over objektet'
@@ -359,13 +353,6 @@ Settings:
     Replace HTTP Cache: Erstatt HTTP-hurtiglager
     Experimental Settings: Eksperimentelle innstillingar
     Warning: Desse innstillingane er eksperimentelle, og dei kan forårsake krasjar mens dei er aktivert. Det anbefalast å ta tryggleikskopiar. Bruk på eiget ansvar.
-  Download Settings:
-    Download Settings: Nedlastinginnstillingar
-    Choose Path: Vel bane
-    Download Behavior: Nedlastingåtferd
-    Ask Download Path: Spør om nedlastingbane
-    Open in web browser: Opne i nettlesar
-    Download in app: Last ned i program
   Parental Control Settings:
     Hide Search Bar: Skjul søkefelt
     Hide Unsubscribe Button: Skjul knapp for oppheving av abonnement
@@ -393,15 +380,12 @@ About:
   GitHub issues: 'GitHub-problemsporar'
   Please check for duplicates before posting: 'Ver venleg og sjå etter duplikat før du poster noko'
   Website: 'Nettstad'
-  Blog: 'Blogg'
   Email: 'E-post'
   Mastodon: 'Mastodon'
   Chat on Matrix: 'Snakk med oss på Matrix'
-  Please read the: 'Ver venleg og les'
   room rules: 'Romreglar'
   Translate: 'Omsetje'
   Credits: 'Bidrag'
-  FreeTube is made possible by: 'FreeTube er mogleggjort av'
   these people and projects: 'desse folka og prosjekta'
   Donate: 'Doner'
 
@@ -489,8 +473,8 @@ Video:
   Loop Playlist: 'Gjenta speleliste'
   Shuffle Playlist: 'Spel av tilfeldig frå spelelista'
   Reverse Playlist: 'Snu spelelista'
-  Play Next Video: 'Spel av neste video'
-  Play Previous Video: 'Spel av førre video'
+  Previous: 'Forrige'
+  Next: 'Neste'
   Watched: 'Sett'
   Autoplay: 'Automatisk avspeling'
   Starting soon, please refresh the page to check again: 'Starter snart. Ver venleg og oppdater sida for å sjekke igjen'
@@ -502,9 +486,6 @@ Video:
   Live Chat is currently not supported in this build.: 'Direktechat er ikkje støtta i den noverande versjonen.'
   Live chat is enabled. Chat messages will appear here once sent.: 'Direktechat er slått på. Chatmeldingar vil bli vist her når dei er sendt.'
   'Live Chat is currently not supported with the Invidious API. A direct connection to YouTube is required.': 'Direktechat er førebels ikkje støtta av Invidious-API-et. Ei direkte tilkopling til YouTube er krevja.'
-  Download Video: 'Last ned video'
-  video only: 'berre video'
-  audio only: 'berre lyd'
   Published:
     In less than a minute: Om mindre enn eit minutt
   Published on: 'Publisert på'
@@ -655,15 +636,12 @@ Channels:
   Unsubscribe Prompt: Er du sikker på at du vil avslutte abonnementet på "{channelName}"?
 Screenshot Success: Lagra skjermbilete som "{filePath}"
 Screenshot Error: Skjermbilete feila. {error}
-Downloading has completed: Nedlastinga av "{videoTitle}" er fullført
 Ok: OK
 Clipboard:
   Cannot access clipboard without a secure connection: Får ikkje tilgang til utklipptavla utan ei sikker forbinding
   Copy failed: Kopiering til utklipptavle feila
 Chapters:
   Chapters: Kapittel
-Starting download: Starter nedlastinga av "{videoTitle}"
-Downloading failed: Det oppstod eit problem under nedlastinga av "{videoTitle}"
 Default Invidious instance has been cleared: Standard-Invidious-førekomst har blitt tilbakestilt
 Default Invidious instance has been set to {instance}: Standard-Invidious-førekomst har blitt satt til {instance}
 External link opening has been disabled in the general settings: Opening av eksterne lenker har blitt deaktivert i innstillingane

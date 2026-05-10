@@ -13,10 +13,10 @@ Paste: 'הדבקה'
 Delete: 'מחיקה'
 Select all: 'בחירה בהכול'
 Toggle Developer Tools: 'הפעלת / השבתת כלים למפתחים'
-Actual size: 'גודל מקורי'
-Zoom in: 'הגדלה'
-Zoom out: 'הקטנה'
-Toggle fullscreen: 'כניסה / יציאה ממסך מלא'
+Actual size: 'גודל בפועל'
+Zoom in: 'התקרבות'
+Zoom out: 'התרחקות'
+Toggle fullscreen: 'מיתוג ממסך מלא'
 Window: 'חלון'
 Minimize: 'מזעור'
 Close: 'סגירה'
@@ -41,23 +41,20 @@ Global:
     Like Count: לייק | {count} לייקים
     Comment Count: תגובה | {count} תגובות
 Version {versionNumber} is now available!  Click for more details: 'גרסה {versionNumber} זמינה מעתה!  לחיצה תציג פרטים נוספים'
-Download From Site: 'הורדה מהאתר'
-A new blog is now available, {blogTitle}. Click to view more: 'בלוג חדש זמין, {blogTitle}. לחיצה תציג פרטים נוספים'
+Download From Site: 'הורדה מאתר. לחיצה תציג עוד'
 
 # Search Bar
 Search / Go to URL: 'חיפוש / מעבר לכתובת'
   # In Filter Button
 Search Filters:
   Search Filters: 'מסנני חיפוש'
-  Sort By:
+  Prioritize:
     Most Relevant: 'הכי רלוונטי'
-    Rating: 'דירוג'
-    Upload Date: 'תאריך העלאה'
-    View Count: 'מס׳ צפיות'
+    Prioritize: תיעדוף
+    Popularity: פופולריות
   Time:
     Time: 'זמן'
     Any Time: 'כל זמן'
-    Last Hour: 'מהשעה האחרונה'
     Today: 'היום'
     This Week: 'השבוע'
     This Month: 'החודש'
@@ -72,10 +69,9 @@ Search Filters:
   Duration:
     Duration: 'משך זמן'
     All Durations: 'הכול'
-    Short (< 4 minutes): 'קצר (מתחת ל־4 דקות)'
-    Long (> 20 minutes): 'ארוך (מעל 20 דקות)'
-  # On Search Page
-    Medium (4 - 20 minutes): בינוני (4 - 20‏ דקות)
+    '< 3 minutes': < 3 דקות
+    '3 - 20 minutes': 3 - 20 דקות
+    '> 20 minutes': '> 20 דקות'
   Search Results: 'תוצאות חיפוש'
   Fetching results. Please wait: 'נאספות תוצאות. נא להמתין'
   Fetch more results: 'חיפוש תוצאות נוספות'
@@ -111,6 +107,7 @@ Trending:
   Trending: 'הסרטונים החמים'
   Trending Tabs: לשוניות מובילים
   Gaming: משחקים
+  Sports: ספורט
 Most Popular: 'הכי פופולרי'
 Playlists: 'רשימות נגינה'
 User Playlists:
@@ -172,8 +169,7 @@ User Playlists:
     Select a playlist to add your N videos to: בחר רשימת שידורים להוספת הסרטון שלך | בחר רשימת שידורים להוספת {videoCount} הסרטונים שלך
     Toast:
       You haven't selected any playlist yet.: עדיין לא נבחרה רשימת שידורים.
-      "{videoCount} video(s) added to 1 playlist": סרטון נוסף לרשימת השמעה | {videoCount} סרטונים נוספו לרשימת השמעה
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 סרטון הוסף ל{playlistCount} רשימות שידורים | {videoCount} סרטונים הוספו ל{playlistCount} רשימות שידורים
+      "Video(s) added to {playlistCount} playlists": "סרטונים נוספו לרשימת נגינה|סרטונים נוספו ל־{playlistCount} רשימות נגינה"
   CreatePlaylistPrompt:
     Create: יצירה
     New Playlist Name: שם חדש לרשימת נגינה
@@ -213,7 +209,6 @@ Settings:
   General Settings:
     General Settings: 'כללי'
     Check for Updates: 'לבדוק אם קיימים עדכונים'
-    Check for Latest Blog Posts: 'לבדוק אם קיימים פוסטים חדשים בבלוג'
     Fallback to Non-Preferred Backend on Failure: 'נסיגה למנגנון שאינו מועדף בעת כשל'
     Enable Search Suggestions: 'לאפשר הצעות לחיפוש'
     Default Landing Page: 'דף נחיתה כברירת מחדל'
@@ -279,6 +274,7 @@ Settings:
       Everforest Light Medium: אברפורסט לייט מידיום
       Everforest Dark Low: אברפורסט דארק לואו
       Everforest Light Low: אברפורסט לייט לואו
+      Catppuccin Latte: קטפוצ׳ין לאטה
     Main Color Theme:
       Main Color Theme: 'צבע ראשי'
       Red: 'אדום'
@@ -364,6 +360,8 @@ Settings:
       Everforest Light Aqua: אברפול לייט אקווה
       Everforest Light Blue: אברפורסט כחול בהיר
       Everforest Light Purple: אברפורסט סגול בהיר
+      Catppuccin Latte Mauve: קטפוצ׳ין לאטה סגלגל
+      Catppuccin Latte Red: קטפוצ׳ין לאטה אדום
     Secondary Color Theme: 'ערכת צבע משנית'
         #* Main Color Theme
     UI Scale: יחס גודל הממשק
@@ -473,7 +471,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'כל המינויים והפרופילים יובאו בהצלחה'
     All subscriptions have been successfully imported: 'כל המינויים יובאו בהצלחה'
     Invalid subscriptions file: 'קובץ מינויים בלתי קריא'
-    This might take a while, please wait: 'זה עלול לקחת זמן מה, נא להמתין'
     Invalid history file: 'קובץ היסטוריה בלתי קריא'
     Subscriptions have been successfully exported: 'המינויים יוצאו בהצלחה'
     History object has insufficient data, skipping item: 'לאובייקט ההיסטוריה אין מספיק מידע, נדלג על פריט זה'
@@ -496,6 +493,12 @@ Settings:
       Tooltip: "אפשרות זו מייצאת סרטונים מכל הרשימות לרשימת שידורים אחת בשם 'מועדפים'.\n איך לייצא ולייבא סרטונים ברשימות לגרסה ישנה של FreeTube:\n1. יצא את הרשימות שלך עם אפשרות זו מופעלת.\n2. מחק את כל הרשימות הקיימות שלך באמצעות אפשרות הסרת כל הרשימות בהגדרות הפרטיות.\n3. הפעל את הגרסה הישנה של FreeTube וייבא את הרשימות שיוצאו."
       Label: ייצוא רשימות לגרסאות ישנות של FreeTube
 
+    Search history file: קובץ היסטוריית חיפוש
+    Search history: היסטוריית חיפוש
+    Import search history: ייבוא היסטוריית חיפוש
+    Export search history: ייצוא היסטוריית חיפוש
+    All search history has been successfully imported: כל היסטוריית החיפוש ייובאה בהצלחה
+    All search history has been successfully exported: כל היסטוריית החיפוש ייוצאה בהצלחה
   Distraction Free Settings:
     Hide Live Chat: הסתרת צ׳אט חי
     Hide Popular Videos: הסתרת סרטונים נפוצים
@@ -587,13 +590,6 @@ Settings:
     UseDeArrowTitles: להשתמש בכותרות סרטונים דרך DeArrow
     UseDeArrowThumbnails: השתמש ב-DeArrow לתמונות מיניאטורה
     'DeArrow Thumbnail Generator API Url (Default is https://dearrow-thumb.ajay.app)': כתובת API של DeArrow Thumbnail Generator (ברירת מחדל היא https://dearrow-thumb.ajay.app)
-  Download Settings:
-    Download Settings: הורדה
-    Ask Download Path: לשאול מה נתיב ההורדות
-    Choose Path: בחירת נתיב
-    Download Behavior: התנהגות הורדה
-    Download in app: הורדה ביישומון
-    Open in web browser: פתיחה בדפדפן
   Parental Control Settings:
     Parental Control Settings: בקרת הורים
     Hide Search Bar: הסתרת סרגל החיפוש
@@ -619,7 +615,6 @@ About:
   About: 'על אודות'
   #& About
   Website: אתר
-  Blog: בלוג
   Credits: תודות
   FAQ: שו״ת
   Email: דוא״ל
@@ -627,10 +622,8 @@ About:
   Donate: תרומה
   Help: עזרה
   these people and projects: האנשים והמיזמים האלו
-  FreeTube is made possible by: FreeTube קיים בזכות
   Translate: תרגום
   room rules: כללי החדר
-  Please read the: נא לקרוא את
   Chat on Matrix: צ׳אט ב־Matrix
   Mastodon: ‎Mastodon
   Please check for duplicates before posting: נא לבדוק כפילויות בטרם פרסום תקלה
@@ -642,7 +635,9 @@ About:
   Source code: קוד מקור
   Discussions: דיונים
   AGPLv3: AGPLv3
-  Licensed under the: מורשה תחת
+  Licensed under the {licenseLink}: כפוף לרישיון {licenseLink}
+  Please read the {roomRulesLink}: נא לקרוא את {roomRulesLink}
+  FreeTube is made possible by {creditsPageLink}: FreeTube קיים בזכות {creditsPageLink}
 Profile:
   Profile Select: 'בחירת פרופיל'
   All Channels: 'כל הערוצים'
@@ -761,8 +756,8 @@ Video:
   Loop Playlist: 'ניגון רשימת נגינה במחזוריות'
   Shuffle Playlist: 'ערבוב רשימת הנגינה'
   Reverse Playlist: 'נגינת רשימת הנגינה בסדר הפוך'
-  Play Next Video: 'נגינת הסרטון הבא'
-  Play Previous Video: 'נגינת הסרטון הקודם'
+  Previous: 'הקודם'
+  Next: 'הבא'
   # Context is "X People Watching"
   Watched: 'נצפה'
   Autoplay: 'ניגון אוטומטי'
@@ -779,9 +774,6 @@ Video:
     In less than a minute: עוד פחות מדקה
   Published on: 'פורסם'
 #& Videos
-  audio only: שמע בלבד
-  video only: סרטון בלבד
-  Download Video: להוריד סרטון
   Copy Invidious Channel Link: העתקת קישור ערוץ ה־Invidious
   Open Channel in Invidious: פתיחת הערוץ ב־Invidious
   Copy YouTube Channel Link: העתקת קישור ערוץ ה־YouTube
@@ -862,6 +854,10 @@ Video:
   Save Watched Progress: שמור התקדמות נצפית
   DRMProtected: סרטונים המוגנים ב-DRM אינם יכולים להתנגן ב-FreeTube, מכיוון שהם דורשים רכיבים סגורים ובעלים. אם אתה רוצה לצפות בסרטון הזה, אנא צפה בו באתר הרשמי של YouTube בדפדפן אינטרנט עם תמיכה ב-DRM.
   Watched Progress Saved: התקדמות שנשמרה נצפתה
+  Popout Live Chat: צ׳אט קופץ
+  Watch:
+    'Remaining preroll-ad time: {remindingTimeSeconds}s': 'זמן שנותר לפרסומת מקדימה: {remindingTimeSeconds} שנ׳'
+    'Remaining SABR backoff time: {remindingTimeSeconds}s': 'זמן שנותר לטיפול בתשדיר (SABR): {remindingTimeSeconds} שנ׳'
 Playlist:
   #& About
   View Full Playlist: 'צפייה ברשימת הנגינה המלאה'
@@ -907,6 +903,7 @@ Share:
   YouTube Channel URL copied to clipboard: כתובת ערוץ ה־YouTube הועתקה ללוח הגזירים
   Invidious Channel URL copied to clipboard: כתובת ערוץ ה־Invidious הועתק ללוח הגזירים
   Share Channel: שיתוף ערוץ
+  Share Post: שיתוף רשומה
 Mini Player: 'נגן מזערי'
 Comments:
   Comments: 'תגובות'
@@ -922,10 +919,13 @@ Comments:
   Show More Replies: הצגת תגובות נוספות
   Pinned by: ננעץ על ידי
   Member: חבר
-  View {replyCount} replies: הצגת {replyCount} תגובות
+  View {replyCount} replies: הצגת תגובה|הצגת {replyCount} תגובות
   Hearted: סומן בלב
   Subscribed: נרשמת
   There are no comments available for this post: אין תגובות זמינות לפוסט זה
+  Hide {replyCount} replies: הסתרת תגובה|הסתרת {replyCount} תגובות
+  View 1 reply from {channelName}: הצגת תגובה מאת {channelName}
+  View {replyCount} replies from {channelName} and others: הצגת {replyCount} תגובות מאת {channelName} ואחרים
 Up Next: 'הסרטון הבא'
 
 # Toast Messages
@@ -990,9 +990,6 @@ Unknown YouTube url type, cannot be opened in app: סוג כתובת לא ידו
 Default Invidious instance has been set to {instance}: עותק Invidious שהוגדר כברירת מחדל הוא {instance}
 Default Invidious instance has been cleared: נוקתה העדפת עותק ברירת המחדל של Invidious
 External link opening has been disabled in the general settings: פתיחת הקישורים החיצוניים מושבתת בהגדרות הכלליות
-Downloading failed: אירעה שגיאה בהורדת "{videoTitle}"
-Starting download: 'ההורדה של „{videoTitle}” החלה'
-Downloading has completed: 'ההורדה של „{videoTitle}” הסתיימה'
 Playing Next Video Interval: הסרטון הבא יתחיל מייד. לחיצה לביטול. | הסרטון הבא יתנגן בעוד שנייה. לחיצה לביטול. | הסרטון הבא יתנגן בעוד {nextVideoInterval} שניות. לחיצה לביטול.
 Screenshot Success: צילום המסך נשמר
 Screenshot Error: צילום המסך נכשל. {error}
@@ -1114,3 +1111,5 @@ KeyboardShortcutPrompt:
   Skip to Next Video: דילוג לסרטון הבא ברשימת הנגינה או הסרטון המומלץ הבא
   Skip to Previous Video: דילוג לסרטון הקודם ברשימת הנגינה
 shortcutLabelSeparator: ｜
+Compact side navigation: ניווט צד מצומצם
+Expand side navigation: הרחבת ניווט צד

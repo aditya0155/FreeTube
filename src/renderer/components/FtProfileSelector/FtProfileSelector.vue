@@ -16,6 +16,7 @@
     >
       <div
         class="initial"
+        dir="auto"
       >
         {{ activeProfileInitial }}
       </div>
@@ -63,6 +64,7 @@
           >
             <div
               class="initial"
+              dir="auto"
             >
               {{ profileInitials[profile._id] }}
             </div>
@@ -70,6 +72,7 @@
           <p
             :id="id + profile._id"
             class="profileName"
+            dir="auto"
           >
             {{ translateProfileName(profile) }}
           </p>
@@ -85,7 +88,7 @@ import { useI18n } from '../../composables/use-i18n-polyfill'
 import { useRouter } from 'vue-router'
 
 import FtCard from '../ft-card/ft-card.vue'
-import FtIconButton from '../ft-icon-button/ft-icon-button.vue'
+import FtIconButton from '../FtIconButton/FtIconButton.vue'
 
 import store from '../../store/index'
 

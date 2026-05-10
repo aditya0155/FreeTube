@@ -12,7 +12,6 @@
         <FontAwesomeIcon
           :icon="['fas', 'search']"
           class="headingIcon"
-          fixed-width
         />
         {{ t("Search Filters.Search Results") }}
       </h2>
@@ -50,7 +49,6 @@ import FtAutoLoadNextPageWrapper from '../../components/FtAutoLoadNextPageWrappe
 
 import store from '../../store'
 
-import packageDetails from '../../../../package.json'
 import {
   copyToClipboard,
   searchFiltersMatch,
@@ -101,7 +99,7 @@ watch(route, () => {
     features = [features]
   }
   const searchSettings = {
-    sortBy: route.query.sortBy,
+    prioritize: route.query.prioritize,
     time: route.query.time,
     type: route.query.type,
     duration: route.query.duration,
@@ -116,13 +114,13 @@ watch(route, () => {
 
   query.value = query_
 
-  store.commit('setAppTitle', `${processedQuery.value} - ${packageDetails.productName}`)
+  store.commit('setAppTitle', processedQuery.value)
   checkSearchCache(payload)
 }, { deep: true })
 
 onMounted(() => {
   query.value = route.params.query
-  store.commit('setAppTitle', `${processedQuery.value} - ${packageDetails.productName}`)
+  store.commit('setAppTitle', processedQuery.value)
 
   let features = route.query.features
   // if page gets refreshed and there's only one feature then it will be a string
@@ -131,7 +129,7 @@ onMounted(() => {
   }
 
   searchSettings.value = {
-    sortBy: route.query.sortBy,
+    prioritize: route.query.prioritize,
     time: route.query.time,
     type: route.query.type,
     duration: route.query.duration,

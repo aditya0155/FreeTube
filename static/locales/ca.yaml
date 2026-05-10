@@ -1,5 +1,5 @@
 # Put the name of your locale in the same language
-Locale Name: 'català'
+Locale Name: 'Català'
 
 # Webkit Menu Bar
 File: 'Fitxer'
@@ -32,24 +32,24 @@ Global:
   Posts: Publicacions
   Sort By: 'Ordena Per'
   Shorts: Curts
+  Counts:
+    Video Count: 1 vídeo | {count} vídeos
+    Channel Count: 1 canal | {count} canals
+    Subscriber Count: 1 subscriptor | {count} subscriptors
+    View Count: 1 visualització | {count} visualitzacions
 Version {versionNumber} is now available!  Click for more details: 'La versió {versionNumber} està disponible! Fes clic per a més detalls'
 Download From Site: 'Descarrega des del web'
-A new blog is now available, {blogTitle}. Click to view more: 'Nova publicació al blog disponible, {blogTitle}. Fes clic per saber-ne més'
 
 # Search Bar
 Search / Go to URL: 'Cerca / Ves a l''URL'
   # In Filter Button
 Search Filters:
   Search Filters: 'Filtres de cerca'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Més rellevant'
-    Rating: 'Valoració'
-    Upload Date: 'Data de pujada'
-    View Count: 'Visualitza el comptador'
   Time:
     Time: 'Data'
     Any Time: 'Qualsevol moment'
-    Last Hour: 'Última hora'
     Today: 'Avui'
     This Week: 'Aquesta setmana'
     This Month: 'Aquest mes'
@@ -64,10 +64,9 @@ Search Filters:
   Duration:
     Duration: 'Duració'
     All Durations: 'Qualsevol duració'
-    Short (< 4 minutes): 'Curts (< 4 minuts)'
-    Long (> 20 minutes): 'Llargs (> 20 minuts)'
-  # On Search Page
-    Medium (4 - 20 minutes): Mitjans (4 - 20 minuts)
+    '< 3 minutes': '< 3 minuts'
+    '> 20 minutes': '> 20 minuts'
+    '3 - 20 minutes': 3 - 20 minuts
   Search Results: 'Resultats de la cerca'
   Fetching results. Please wait: 'Obtenint resultats. Espera si us plau'
   Fetch more results: 'Obtenir més resultats'
@@ -105,7 +104,6 @@ Settings:
   General Settings:
     General Settings: 'Paràmetres generals'
     Check for Updates: 'Comprovar si hi ha actualitzacions'
-    Check for Latest Blog Posts: 'Consultar les darreres entrades al blog'
     Fallback to Non-Preferred Backend on Failure: 'Torna al motor per defecte en cas d''error'
     Enable Search Suggestions: 'Habilitar els suggeriments de cerca'
     Default Landing Page: 'Pàgina d''aterratge per defecte'
@@ -243,7 +241,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Totes les subscripcions i perfils s''han importat amb èxit'
     All subscriptions have been successfully imported: 'Totes les subscripcions s''han importat amb èxit'
     Invalid subscriptions file: 'Fitxer de subscripcions invàlid'
-    This might take a while, please wait: 'Això pot trigar una estona, si us plau, esperi'
     Invalid history file: 'Fitxer d''historial invàlid'
     Subscriptions have been successfully exported: 'Les subscripcions s''han exportat amb èxit'
     History object has insufficient data, skipping item: 'L''objecte de l''historial no té suficient informació, saltant l''objecte'
@@ -298,23 +295,17 @@ Settings:
     Distraction Free Settings: Configuració del mode sense distraccions
     Hide Popular Videos: Amaga els vídeos populars
     Hide Videos on Watch: 'Oculta els vídeos visualitzats'
-  Download Settings:
-    Choose Path: Escull el camí
-    Download Settings: Configuració de les descàrregues
-    Ask Download Path: Demaneu la ruta de descàrrega
+
 About:
   #On About page
   About: 'Quant a'
   #& About
-  Blog: Blog
   Website: Lloc web
   Email: Correu-e
   Help: Ajuda
   Downloads / Changelog: Descàrregues / Registre de canvis
   Chat on Matrix: Xat a Matrix
-  Please read the: Si us plau, llegeix les
   room rules: normes de la sala
-  FreeTube is made possible by: FreeTube és possible gràcies a
   these people and projects: aquesta gent i projectes
   Source code: Codi font
   GitHub issues: Incidències del GitHub
@@ -405,8 +396,8 @@ Video:
   Loop Playlist: 'Llista de reproducció en bucle'
   Shuffle Playlist: 'Llista de reproducció en aleatori'
   Reverse Playlist: 'Llista de reproducció invertida'
-  Play Next Video: 'Reprodueix el vídeo següent'
-  Play Previous Video: 'Reprodueix el vídeo anterior'
+  Previous: Anterior
+  Next: Següent
   Watched: 'Visualitzat'
   Autoplay: 'Reproducció Automàtica'
   # As in a Live Video
@@ -437,7 +428,6 @@ Video:
     playlist: llista de reproducció
     UnsupportedActionTemplate: '{externalPlayer} no suporta: {action}'
   Save Video: Desa el Vídeo
-  audio only: només àudio
   Video has been saved: El vídeo s'ha desat
   Video has been removed from your saved list: S'ha suprimit el vídeo de la llista desada
   Open Channel in YouTube: Obri Canal a YouTube
@@ -445,8 +435,6 @@ Video:
   Open Channel in Invidious: Obra el canal a Invidious
   Copy Invidious Channel Link: Copia l'enllaç del canal d'Invidious
   Starting soon, please refresh the page to check again: Començant prompte, si us plau recàrrega la pàgina per comprovar-ho de nou
-  Download Video: Descàrrega El Vídeo
-  video only: només vídeo
   Streamed on: Retransmès en directe el
 #& Playlists
 Playlist:
@@ -504,3 +492,8 @@ KeyboardShortcutPrompt:
   Zoom In: Amplia
   Zoom Out: Allunya
   Fullscreen: Commuta la pantalla completa
+Compact side navigation: Navegació lateral compacta
+Expand side navigation: Expandir navegació lateral
+Right-click or hold to see history: Clic dret o manté pressionat per veure l'historial
+Go to page: Ves a {page}
+Close Banner: Tanca el bàner

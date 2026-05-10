@@ -1,12 +1,12 @@
 # Put the name of your locale in the same language
-Locale Name: ''
+Locale Name: 'Bahasa Melayu'
 
 # Webkit Menu Bar
-File: ''
-New Window: ''
-Preferences: ''
-Quit: ''
-Edit: ''
+File: 'Fail'
+New Window: 'Tetingkap baru'
+Preferences: 'Pilihan'
+Quit: 'Keluar'
+Edit: 'Edit'
 Undo: ''
 Redo: ''
 Cut: ''
@@ -22,6 +22,8 @@ Toggle fullscreen: ''
 Window: ''
 Minimize: ''
 Close: ''
+Compact side navigation: ''
+Expand side navigation: ''
 Back: ''
 Forward: ''
 Right-click or hold to see history: ''
@@ -31,7 +33,6 @@ Close Banner: ''
 
 Version {versionNumber} is now available!  Click for more details: ''
 Download From Site: ''
-A new blog is now available, {blogTitle}. Click to view more: ''
 Are you sure you want to open this link?: ''
 
 # Global
@@ -71,15 +72,11 @@ Search Listing:
   # In Filter Button
 Search Filters:
   Search Filters: ''
-  Sort By:
+  Prioritize:
     Most Relevant: ''
-    Rating: ''
-    Upload Date: ''
-    View Count: ''
   Time:
     Time: ''
     Any Time: ''
-    Last Hour: ''
     Today: ''
     This Week: ''
     This Month: ''
@@ -94,9 +91,6 @@ Search Filters:
   Duration:
     Duration: ''
     All Durations: ''
-    Short (< 4 minutes): ''
-    Medium (4 - 20 minutes): ''
-    Long (> 20 minutes): ''
   Features:
     Features: ''
     HD: ''
@@ -141,6 +135,7 @@ Channels:
 Trending:
   Trending: ''
   Gaming: ''
+  Sports: ''
   Trending Tabs: ''
 Most Popular: ''
 Feed:
@@ -240,8 +235,7 @@ User Playlists:
 
     Toast:
       You haven't selected any playlist yet.: ''
-      "{videoCount} video(s) added to 1 playlist": ""
-      "{videoCount} video(s) added to {playlistCount} playlists": ""
+      "Video(s) added to {playlistCount} playlists": ""
   CreatePlaylistPrompt:
     New Playlist Name: ''
     Create: ''
@@ -269,7 +263,6 @@ Settings:
   General Settings:
     General Settings: ''
     Check for Updates: ''
-    Check for Latest Blog Posts: ''
     Fallback to Non-Preferred Backend on Failure: ''
     Enable Search Suggestions: ''
     Open Deep Links In New Window: ''
@@ -326,6 +319,7 @@ Settings:
       Light: ''
       Dracula: ''
       Catppuccin Frappe: ''
+      Catppuccin Latte: ''
       Catppuccin Mocha: ''
       Pastel Pink: ''
       Hot Pink: ''
@@ -379,6 +373,8 @@ Settings:
       Catppuccin Frappe Sapphire: ''
       Catppuccin Frappe Blue: ''
       Catppuccin Frappe Lavender: ''
+      Catppuccin Latte Mauve: ''
+      Catppuccin Latte Red: ''
       Catppuccin Mocha Rosewater: ''
       Catppuccin Mocha Flamingo: ''
       Catppuccin Mocha Pink: ''
@@ -576,6 +572,7 @@ Settings:
     Subscription File: ''
     History File: ''
     Playlist File: ''
+    Search history file: ''
     Export Subscriptions: ''
     Export FreeTube: ''
     Export YouTube: ''
@@ -584,6 +581,9 @@ Settings:
     Export History: ''
     Import Playlists: ''
     Export Playlists: ''
+    Search history: ''
+    Import search history: ''
+    Export search history: ''
     Profile object has insufficient data, skipping item: ''
     All subscriptions and profiles have been successfully imported: ''
     All subscriptions have been successfully imported: ''
@@ -596,6 +596,8 @@ Settings:
     Playlist insufficient data: ''
     All playlists has been successfully imported: ''
     All playlists has been successfully exported: ''
+    All search history has been successfully imported: ''
+    All search history has been successfully exported: ''
     Unable to read file: ''
     Unable to write file: ''
     Unknown data key: ''
@@ -639,13 +641,6 @@ Settings:
     Hide Uploader on Watch page: ''
     Show Family Friendly Only: ''
     Hide Search Bar: ''
-  Download Settings:
-    Download Settings: ''
-    Ask Download Path: ''
-    Choose Path: ''
-    Download Behavior: ''
-    Download in app: ''
-    Open in web browser: ''
   Experimental Settings:
     Experimental Settings: ''
     Warning: ''
@@ -663,7 +658,6 @@ About:
   About: ''
   Beta: ''
   Source code: ''
-  Licensed under the: ''
   AGPLv3: ''
   Downloads / Changelog: ''
   GitHub releases: ''
@@ -675,15 +669,12 @@ About:
   GitHub issues: ''
   Please check for duplicates before posting: ''
   Website: ''
-  Blog: ''
   Email: ''
   Mastodon: ''
   Chat on Matrix: ''
-  Please read the: ''
   room rules: ''
   Translate: ''
   Credits: ''
-  FreeTube is made possible by: ''
   these people and projects: ''
   Donate: ''
 
@@ -820,8 +811,8 @@ Video:
   Loop Playlist: ''
   Shuffle Playlist: ''
   Reverse Playlist: ''
-  Play Next Video: ''
-  Play Previous Video: ''
+  Previous: ''
+  Next: ''
   Watched: ''
   Autoplay: ''
   Starting soon, please refresh the page to check again: ''
@@ -839,9 +830,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': ''
   Show Super Chat Comment: ''
   Scroll to Bottom: ''
-  Download Video: ''
-  video only: ''
-  audio only: ''
   Published:
     In less than a minute: ''
   Published on: ''
@@ -934,6 +922,7 @@ Change Format:
   Legacy formats are not available for this video: ''
 Share:
   Share Video: ''
+  Share Post: ''
   Share Channel: ''
   Share Playlist: ''
   Include Timestamp: ''
@@ -966,7 +955,9 @@ Comments:
   Top comments: ''
   Newest first: ''
   View {replyCount} replies: ''
-  # Context: View 10 Replies, View 1 Reply, View 1 Reply from Owner, View 2 Replies from Owner and others
+  Hide {replyCount} replies: ''
+  View 1 reply from {channelName}: ''
+  View {replyCount} replies from {channelName} and others: ''
   Show More Replies: ''
   There are no comments available for this video: ''
   There are no comments available for this post: ''
@@ -1042,9 +1033,6 @@ Age Restricted:
   This channel is age restricted: ''
   This video is age restricted: ''
 External link opening has been disabled in the general settings: ''
-Downloading has completed: ''
-Starting download: ''
-Downloading failed: ''
 Screenshot Success: ''
 Screenshot Error: ''
 Channel Hidden: ''

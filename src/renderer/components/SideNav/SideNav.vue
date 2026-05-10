@@ -1,7 +1,7 @@
 <template>
   <FtFlexBox
     class="sideNav"
-    :class="[{closed: !isOpen}, applyHiddenLabels]"
+    :class="[{opened: isOpen}, applyHiddenLabels]"
     role="navigation"
   >
     <div
@@ -21,11 +21,9 @@
             :icon="['fas', 'rss']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("Subscriptions.Subscriptions") }}
@@ -44,11 +42,9 @@
             :icon="['fas', 'user-check']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("Channels.Channels") }}
@@ -68,11 +64,9 @@
             :icon="['fas', 'fire']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("Trending.Trending") }}
@@ -92,11 +86,9 @@
             :icon="['fas', 'users']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("Most Popular") }}
@@ -116,11 +108,9 @@
             :icon="['fas', 'bookmark']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("Playlists") }}
@@ -140,11 +130,9 @@
             :icon="['fas', 'history']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("History.History") }}
@@ -164,11 +152,9 @@
             :icon="['fas', 'sliders-h']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t('Settings.Settings') }}
@@ -187,11 +173,9 @@
             :icon="['fas', 'info-circle']"
             class="navIcon"
             :class="applyNavIconExpand"
-            fixed-width
           />
         </div>
         <p
-          v-if="!hideText"
           class="navLabel"
         >
           {{ $t("About.About") }}
@@ -231,6 +215,7 @@
           <p
             v-if="isOpen"
             class="navLabel"
+            dir="auto"
           >
             {{ channel.name }}
           </p>

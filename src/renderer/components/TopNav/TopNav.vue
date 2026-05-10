@@ -1,12 +1,13 @@
 <template>
-  <div
+  <nav
     class="topNav"
     :class="{ topNavBarColor: barColor }"
-    role="navigation"
   >
     <div class="side">
       <button
         class="menuButton navButton"
+        :aria-label="expandCollapseSideBarLabel"
+        :title="expandCollapseSideBarLabel"
         @click="toggleSideNav"
       >
         <FontAwesomeIcon
@@ -63,16 +64,12 @@
           :icon="['fas', 'clone']"
         />
       </button>
-      <div
+      <RouterLink
         v-if="!hideHeaderLogo"
         class="logo"
         dir="ltr"
-        role="link"
-        tabindex="0"
         :title="headerLogoTitle"
-        @click="goToLandingPage"
-        @keydown.space.prevent="goToLandingPage"
-        @keydown.enter.prevent="goToLandingPage"
+        :to="landingPage"
       >
         <div
           class="logoIcon"
@@ -80,7 +77,7 @@
         <div
           class="logoText"
         />
-      </div>
+      </RouterLink>
     </div>
     <div class="middle">
       <div
@@ -118,7 +115,7 @@
       </div>
     </div>
     <FtProfileSelector class="side profiles" />
-  </div>
+  </nav>
 </template>
 
 <script setup>
@@ -129,7 +126,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import FtInput from '../FtInput/FtInput.vue'
 import FtProfileSelector from '../FtProfileSelector/FtProfileSelector.vue'
-import FtIconButton from '../ft-icon-button/ft-icon-button.vue'
+import FtIconButton from '../FtIconButton/FtIconButton.vue'
 
 import store from '../../store/index'
 
@@ -159,6 +156,10 @@ const enableSearchSuggestions = computed(() => store.getters.getEnableSearchSugg
 /** @type {import('vue').ComputedRef<string>} */
 const barColor = computed(() => store.getters.getBarColor)
 
+const expandCollapseSideBarLabel = computed(() => {
+  return store.getters.getIsSideNavOpen ? t('Compact side navigation') : t('Expand side navigation')
+})
+
 const landingPage = computed(() => '/' + store.getters.getLandingPage)
 
 const headerLogoTitle = computed(() => {
@@ -169,10 +170,6 @@ const headerLogoTitle = computed(() => {
         .meta.title)
   })
 })
-
-function goToLandingPage() {
-  router.push(landingPage.value)
-}
 
 const navigationHistoryAddendum = computed(() => {
   return navigationHistoryDropdownOptions.value.length === 0
@@ -491,7 +488,7 @@ function goToSearch(queryText, { event }) {
         openInternalPath({
           path: `/search/${encodeURIComponent(queryText)}`,
           query: {
-            sortBy: searchSettings.value.sortBy,
+            prioritize: searchSettings.value.prioritize,
             time: searchSettings.value.time,
             type: searchSettings.value.type,
             duration: searchSettings.value.duration,

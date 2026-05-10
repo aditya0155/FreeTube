@@ -9,7 +9,17 @@
     }"
   >
     <div
+      v-if="showGrabBar"
+      class="grabBar"
+    >
+      <font-awesome-icon
+        :icon="['fas', 'fa-bars']"
+      />
+    </div>
+    <div
       class="videoThumbnail"
+      draggable="true"
+      @dragstart="onDragStart"
     >
       <router-link
         class="thumbnailLink"
@@ -42,9 +52,15 @@
         theme="base"
         :padding="appearance === `watchPlaylistItem` ? 6 : 7"
         :size="appearance === `watchPlaylistItem` ? 12 : 16"
+        draggable="true"
         @click="handleExternalPlayer"
+        @dragstart="onDragStart"
       />
-      <span class="playlistIcons">
+      <span
+        class="playlistIcons"
+        draggable="true"
+        @dragstart="onDragStart"
+      >
         <ft-icon-button
           v-if="showPlaylists"
           :title="$t('User Playlists.Add to Playlist')"
@@ -109,13 +125,20 @@
         :style="{inlineSize: progressPercentage + '%'}"
       />
     </div>
-    <div class="info">
+    <div
+      class="info"
+      draggable="true"
+      @dragstart="onDragStart"
+    >
       <router-link
         class="title"
         :to="watchVideoRouterLink"
         @click="handleWatchPageLinkClick"
       >
-        <h3 class="h3Title">
+        <h3
+          class="h3Title"
+          dir="auto"
+        >
           {{ displayTitle }}
         </h3>
       </router-link>
@@ -123,13 +146,14 @@
         <router-link
           v-if="channelId !== null"
           class="channelName"
+          dir="auto"
           :to="`/channel/${channelId}`"
         >
-          <span>{{ channelName }}</span>
-        </router-link>
-        <span v-else-if="channelName !== null">
           {{ channelName }}
-        </span>
+        </router-link>
+        <bdi v-else-if="channelName !== null">
+          {{ channelName }}
+        </bdi>
         <span
           v-if="!isLive && !isUpcoming && !isPremium && !hideViews && viewCount != null"
           class="viewCount"
@@ -234,9 +258,16 @@
       </div>
       <p
         v-if="description && effectiveListTypeIsList && appearance === 'result'"
+        v-safer-html="description"
         class="description"
-        v-html="description"
+        dir="auto"
       />
+      <div
+        v-if="effectiveListTypeIsList"
+        class="restArea"
+      >
+        &nbsp;
+      </div>
     </div>
   </div>
 </template>

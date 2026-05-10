@@ -45,15 +45,13 @@ Search / Go to URL: 'Zoeken / Ga naar URL'
   # In Filter Button
 Search Filters:
   Search Filters: 'Zoekfilters'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Relevantie'
-    Rating: 'Beoordeling'
-    Upload Date: 'Uploaddatum'
-    View Count: 'Aantal weergaven'
+    Prioritize: Prioriteer
+    Popularity: Populariteit
   Time:
     Time: 'Lengte'
     Any Time: 'Altĳd'
-    Last Hour: 'Afgelopen uur'
     Today: 'Vandaag'
     This Week: 'Deze week'
     This Month: 'Deze maand'
@@ -68,10 +66,9 @@ Search Filters:
   Duration:
     Duration: 'Lengte'
     All Durations: 'Alle lengtes'
-    Short (< 4 minutes): 'Kort (< 4 minuten)'
-    Long (> 20 minutes): 'Lang (> 20 minuten)'
-  # On Search Page
-    Medium (4 - 20 minutes): Gemiddeld (4 - 20 minuten)
+    '< 3 minutes': '< 3 minuten'
+    '> 20 minutes': '> 20 minuten'
+    '3 - 20 minutes': 3 - 20 minuten
   Search Results: 'Zoekresultaten'
   Fetching results. Please wait: 'Resultaten ophalen, even geduld...'
   Fetch more results: 'Meer resultaten ophalen'
@@ -107,6 +104,7 @@ Trending:
   Trending: 'Trending'
   Trending Tabs: Trending
   Gaming: Gaming
+  Sports: Sport
 Most Popular: 'Populairste'
 Playlists: 'Afspeellĳsten'
 User Playlists:
@@ -139,8 +137,7 @@ User Playlists:
     Search in Playlists: Zoeken in afspeellijsten
     Toast:
       You haven't selected any playlist yet.: U heeft nog geen afspeellijst geselecteerd.
-      "{videoCount} video(s) added to 1 playlist": 1 video toegevoegd aan 1 afspeellijst | {videoCount} video's toegevoegd aan 1 afspeellijst
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 video toegevoegd aan {playlistCount} afspeellijsten | {videoCount} video's toegevoegd aan {playlistCount} afspeellijsten
+      "Video(s) added to {playlistCount} playlists": "Video(s) toegevoegd aan 1 afspeellijst | Video(s) toegevoegd aan {playlistCount} afspeellijsten"
     Select a playlist to add your N videos to: Selecteer een afspeellijst om je video aan toe te voegen | Selecteer een afspeellijst om je {videoCount} video's aan toe te voegen
     Added {count} Times: 'Video is al toegevoegd | {count} keer toegevoegd'
     Allow Adding Duplicate Video(s): Toevoegen van dubbele video's toestaan
@@ -230,7 +227,6 @@ Settings:
       Blur: Vervagen
     Region for Trending: 'Regio voor trending'
         #! List countries
-    Check for Latest Blog Posts: Op nieuwe blogpost controleren
     Check for Updates: Controleer op updates
     View all Invidious instance information: Bekijk alle Invidious-instantiegegevens
     System Default: Systeemstandaard
@@ -275,6 +271,7 @@ Settings:
       Everforest Light Hard: Everforest Licht Hoog
       Everforest Light Medium: Everforest Licht Middel
       Everforest Light Low: Everforest Licht Laag
+      Catppuccin Latte: Catppuccin Latte
     Main Color Theme:
       Main Color Theme: 'Primaire themakleur'
       Red: 'Rood'
@@ -360,6 +357,8 @@ Settings:
       Everforest Light Orange: Everforest Licht Oranje
       Everforest Light Blue: Everforest Licht Blauw
       Everforest Light Purple: Everforest Licht Paars
+      Catppuccin Latte Red: Catppuccin Latte Rood
+      Catppuccin Latte Mauve: Catppuccin Latte Mauve
     Secondary Color Theme: 'Secundaire themakleur'
         #* Main Color Theme
     UI Scale: Interface schaal
@@ -460,7 +459,6 @@ Settings:
     History object has insufficient data, skipping item: Geschiedenis object heeft niet genoeg data, item wordt overgeslagen
     Subscriptions have been successfully exported: Abonnementen zijn met succes geïmporteerd
     Invalid history file: Ongeldig geschiedenisbestand
-    This might take a while, please wait: Dit kan eventjes duren, even geduld aub
     Invalid subscriptions file: Ongeldig abonnementenbestand
     All subscriptions have been successfully imported: Alle abonnementen zijn met succes geïmporteerd
     All subscriptions and profiles have been successfully imported: Alle abonnementen en profielen zijn succesvol geïmporteerd
@@ -492,6 +490,12 @@ Settings:
     Export Playlists For Older FreeTube Versions:
       Label: Afspeel­lijsten exporteren voor oudere FreeTube-versies
       Tooltip: "Deze optie exporteert video's van alle afspeel­lijsten naar één afspeel­lijst met de naam ‘Favorieten’.\nVideo's exporteren en importeren in afspeel­lijsten voor een oudere versie van FreeTube:\n1. Exporteer uw afspeel­lijsten met deze optie ingeschakeld.\n2. Verwijder al uw bestaande afspeel­lijsten met de optie ‘Alle afspeel­lijsten verwijderen’ onder ‘Privacy­instellingen’.\n 3. Start de oudere versie van FreeTube en importeer de geëxporteerde afspeel­lijsten."
+    Search history file: Zoekgeschiedenisbestand
+    Search history: Zoekgeschiedenis
+    Import search history: Zoekgeschiedenis importeren
+    Export search history: Zoekgeschiedenis exporteren
+    All search history has been successfully imported: De gehele zoekgeschiedenis is succesvol geïmporteerd
+    All search history has been successfully exported: De gehele zoekgeschiedenis is succesvol geëxporteerd
   Distraction Free Settings:
     Hide Live Chat: Live­chat verbergen
     Hide Popular Videos: Populaire video's verbergen
@@ -583,13 +587,6 @@ Settings:
       None:
         Name: Geen
     Ignore Default Arguments: Standaard­argumenten negeren
-  Download Settings:
-    Choose Path: Pad kiezen
-    Download Settings: Download
-    Ask Download Path: Om downloadpad vragen
-    Download in app: Downloaden in app
-    Open in web browser: Openen in web­browser
-    Download Behavior: Gedrag downloaden
   Parental Control Settings:
     Hide Unsubscribe Button: Deabonneer­knop verbergen
     Parental Control Settings: Ouderlijk toezicht
@@ -617,15 +614,12 @@ About:
 #On Channel Page
   Donate: Doneren
   these people and projects: deze mensen en projecten
-  FreeTube is made possible by: FreeTube is mogelijk gemaakt door
   Credits: Met dank aan
   Translate: Vertalen
   room rules: kamerregels
-  Please read the: Lees alstublieft de
   Chat on Matrix: Chat op Matrix
   Mastodon: Mastodon
   Email: E-mail
-  Blog: Blog
   Website: Website
   Please check for duplicates before posting: Controleer eerst of een probleem al gerapporteerd is
   GitHub issues: GitHub-issues
@@ -639,7 +633,6 @@ About:
   Beta: Bèta
   Discussions: Discussies
   AGPLv3: AGPLv3
-  Licensed under the: Gelicentieerd onder de
 Channel:
   Subscribe: 'Abonneren'
   Unsubscribe: 'Deabonneren'
@@ -728,15 +721,12 @@ Video:
   Published on: 'Gepubliceerd op'
 #& Videos
   Autoplay: Automatisch afspelen
-  Play Previous Video: Vorige video afspelen
-  Play Next Video: Volgende video afspelen
+  Previous: Vorige
+  Next: Volgende
   Reverse Playlist: Afspeellijst omkeren
   Shuffle Playlist: Afspeellijst in willekeurige volgorde afspelen
   Loop Playlist: Playlist herhalen
   Starting soon, please refresh the page to check again: Start binnenkort, vernieuw de pagina om opnieuw te controleren
-  audio only: alleen audio
-  video only: alleen video
-  Download Video: Video downloaden
   Copy Invidious Channel Link: Kopieer Invidious-kanaallink
   Open Channel in Invidious: Open Kanaal op Invidious
   Copy YouTube Channel Link: Link naar YouTubekanaal kopiëren
@@ -827,17 +817,17 @@ Playlist:
 #& Views
   Playlist: Afspeellijst
   Sort By:
-    DateAddedNewest: Laatst toegevoegd bovenaan
+    DateAddedNewest: Datum toegevoegd (Nieuwste)
     AuthorAscending: Auteur (A-Z)
     AuthorDescending: Auteur (Z-A)
     VideoTitleAscending: Titel (A-Z)
     VideoTitleDescending: Titel (Z-A)
-    DateAddedOldest: Eerst toegevoegd bovenaan
+    DateAddedOldest: Datum toegevoegd (Oudste)
     Custom: Aangepast
-    PublishedOldest: Vroegst gepubliceerde videos eerst
-    PublishedNewest: Recenst gepubliceerde videos eerst
-    VideoDurationDescending: Lengte (Langste eerst)
-    VideoDurationAscending: Lengte (Kortste eerst)
+    PublishedOldest: Publiceringsdatum (Oudste)
+    PublishedNewest: Publiceringsdatum (Nieuwste)
+    VideoDurationDescending: Lengte (Langste)
+    VideoDurationAscending: Lengte (Kortste)
 Change Format:
   Change Media Formats: 'Videoformaten veranderen'
   Use Dash Formats: 'DASH-formaten gebruiken'
@@ -862,6 +852,7 @@ Share:
   YouTube Channel URL copied to clipboard: YouTube URL is gekopieerd naar het klembord
   Invidious Channel URL copied to clipboard: Invidiouskanaal-URL is naar het klembord gekopieerd
   Share Channel: Kanaal delen
+  Share Post: Post delen
 Mini Player: 'Mini­speler'
 Comments:
   Comments: 'Opmerkingen'
@@ -878,9 +869,12 @@ Comments:
   Pinned by: Vastgemaakt door
   Member: Lid
   Hearted: Met hartje
-  View {replyCount} replies: '{replyCount} reacties bekijken'
+  View {replyCount} replies: '1 reactie bekijken | {replyCount} reacties bekijken'
   Subscribed: Geabonneerd
   There are no comments available for this post: Er zijn geen reacties beschikbaar voor deze post
+  Hide {replyCount} replies: 1 reactie verbergen | Verberg {replyCount} reacties
+  View 1 reply from {channelName}: Bekijk 1 reactie van {channelName}
+  View {replyCount} replies from {channelName} and others: '{replyCount} reacties van {channelName} en anderen bekijken'
 Up Next: 'Volgende'
 
 # Toast Messages
@@ -941,7 +935,6 @@ Profile:
   Create Profile Name: Profiel­naam aanmaken
   Close Profile Dropdown: Profiel­menu sluiten
   Open Profile Dropdown: Profiel­menu openen
-A new blog is now available, {blogTitle}. Click to view more: 'Een nieuwe blogpost is beschikbaar: {blogTitle}. Klik voor meer informatie'
 Download From Site: Van website downloaden
 Version {versionNumber} is now available!  Click for more details: Versie {versionNumber} is nu beschikbaar! Klik voor meer informatie
 This video is unavailable because of missing formats. This can happen due to country unavailability.: Deze video is niet beschikbaar vanwege ontbrekende videoformaten. Dit kan gebeuren als de video niet in uw land beschikbaar is.
@@ -990,11 +983,6 @@ Search Bar:
   Clear Input: Invoer wissen
   Remove: Verwĳderen
 External link opening has been disabled in the general settings: Het openen van externe links is uitgeschakeld in de algemene instellingen
-Downloading canceled: De gebruiker heeft de download geannuleerd
-Downloading has completed: '"{videoTitle}" is gedownload'
-Starting download: Begin download van "{videoTitle}"
-Downloading failed: Probleem bij download van "{videoTitle}"
-Download folder does not exist: De download map "$" bestaat niet. Valt terug op "vraag map" modus.
 New Window: Nieuw Venster
 Screenshot Success: Schermafbeelding opgeslagen
 Channels:
@@ -1115,3 +1103,5 @@ Keys:
 Autoplay Interruption Timer: Automatisch afspelen geannuleerd door {autoplayInterruptionIntervalHours} uur aan inactiviteit
 KeyboardShortcutTemplate: '{label} ({shortcut})'
 shortcutJoinOperator: +
+Compact side navigation: Minimaliseer Zijbar
+Expand side navigation: Maximaliseer zijbar

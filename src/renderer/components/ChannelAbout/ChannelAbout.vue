@@ -7,8 +7,9 @@
     >
       <h2>{{ $t("Channel.About.Channel Description") }}</h2>
       <div
+        v-safer-html="description"
         class="aboutInfo"
-        v-html="description"
+        dir="auto"
       />
     </template>
     <template
@@ -56,7 +57,11 @@
           >
             {{ $t('Channel.About.Location') }}
           </th>
-          <td>{{ location }}</td>
+          <td
+            dir="auto"
+          >
+            {{ location }}
+          </td>
         </tr>
       </table>
     </template>
@@ -71,6 +76,7 @@
           v-for="tag in tags"
           :key="tag"
           class="aboutTag"
+          dir="auto"
         >
           <router-link
             v-if="!hideSearchBar"
@@ -115,6 +121,7 @@ import { useI18n } from '../../composables/use-i18n-polyfill'
 
 import FtChannelBubble from '../../components/FtChannelBubble/FtChannelBubble.vue'
 import FtFlexBox from '../../components/ft-flex-box/ft-flex-box.vue'
+import { vSaferHtml } from '../../directives/vSaferHtml.js'
 
 import store from '../../store/index'
 

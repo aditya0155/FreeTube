@@ -41,15 +41,33 @@
       v-else
       class="relative"
     >
-      <h4>
-        {{ t("Video.Live Chat") }}
-        <span
-          v-if="!hideVideoViews && watchingCount !== null"
-          class="watchingCount"
+      <div
+        class="titleContainer"
+      >
+        <h4
+          class="title"
         >
-          {{ t('Global.Counts.Watching Count', { count: formattedWatchingCount }, watchingCount) }}
-        </span>
-      </h4>
+          {{ t("Video.Live Chat") }}
+          <span
+            v-if="!hideVideoViews && watchingCount !== null"
+            class="watchingCount"
+          >
+            {{ t('Global.Counts.Watching Count', { count: formattedWatchingCount }, watchingCount) }}
+          </span>
+        </h4>
+        <a
+          :href="`https://www.youtube.com/live_chat?is_popout=1&v=${props.videoId}`"
+          :aria-label="t('Video.Popout Live Chat')"
+          :title="t('Video.Popout Live Chat')"
+          target="_blank"
+          class="popoutChatButton"
+        >
+          <FontAwesomeIcon
+            class="popoutChatIcon"
+            :icon="['fas', 'fa-arrow-up-right-from-square']"
+          />
+        </a>
+      </div>
       <div
         v-if="superChatComments.length > 0"
         class="superChatComments"
@@ -74,11 +92,11 @@
           <p
             class="superChatContent"
           >
-            <span
+            <bdi
               class="donationAmount"
             >
               {{ comment.superChat.amount }}
-            </span>
+            </bdi>
           </p>
         </div>
       </div>
@@ -106,18 +124,21 @@
             >
             <p
               class="channelName"
+              dir="auto"
             >
               {{ superChat.author.name }}
             </p>
             <p
               class="donationAmount"
+              dir="auto"
             >
               {{ superChat.superChat.amount }}
             </p>
           </div>
           <p
+            v-safer-html="superChat.message"
             class="chatMessage"
-            v-html="superChat.message"
+            dir="auto"
           />
         </div>
       </div>
@@ -147,19 +168,22 @@
               >
               <p
                 class="channelName"
+                dir="auto"
               >
                 {{ comment.author.name }}
               </p>
               <p
                 class="donationAmount"
+                dir="auto"
               >
                 {{ comment.superChat.amount }}
               </p>
             </div>
             <p
               v-if="comment.message"
+              v-safer-html="comment.message"
               class="chatMessage"
-              v-html="comment.message"
+              dir="auto"
             />
           </template>
           <template
@@ -173,7 +197,7 @@
             <p
               class="chatContent"
             >
-              <span
+              <bdi
                 class="channelName"
                 :class="{
                   member: comment.author.isMember,
@@ -182,7 +206,7 @@
                 }"
               >
                 {{ comment.author.name }}
-              </span>
+              </bdi>
               <span
                 v-if="comment.author.badge"
                 class="badge"
@@ -194,9 +218,9 @@
                   class="badgeImage"
                 >
               </span>
-              <span
+              <bdi
+                v-safer-html="comment.message"
                 class="chatMessage"
-                v-html="comment.message"
               />
             </p>
           </template>
@@ -231,6 +255,7 @@ import { YTNodes } from 'youtubei.js'
 import FtLoader from '../FtLoader/FtLoader.vue'
 import FtCard from '../ft-card/ft-card.vue'
 import FtButton from '../FtButton/FtButton.vue'
+import { vSaferHtml } from '../../directives/vSaferHtml.js'
 
 import store from '../../store/index'
 
@@ -569,6 +594,7 @@ function scrollToBottom() {
   stayAtBottom = true
   showScrollToBottom.value = false
 }
+
 </script>
 
 <style scoped src="./WatchVideoLiveChat.css" />

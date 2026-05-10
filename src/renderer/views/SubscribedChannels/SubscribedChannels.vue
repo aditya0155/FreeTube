@@ -5,7 +5,6 @@
         <FontAwesomeIcon
           :icon="['fas', 'user-check']"
           class="headingIcon"
-          fixed-width
         />
         {{ $t('Channels.Title') }}
       </h2>
@@ -57,6 +56,7 @@
             </router-link>
             <router-link
               class="channelName"
+              dir="auto"
               :title="channel.name"
               :to="`/channel/${channel.id}`"
             >

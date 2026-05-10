@@ -1,10 +1,12 @@
-// import the styles
 import { createApp } from 'vue'
 import i18n from './i18n/index'
 import router from './router/index'
 import store from './store/index'
 import App from './App.vue'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { showExternalPlayerUnsupportedActionToast, showToast } from './helpers/utils'
+import { library } from './fontawesome-minimal'
+// import the styles
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { register as registerSwiper } from 'swiper/element'
 
@@ -22,6 +24,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faArrowUp,
+  faArrowUpRightFromSquare,
   faBars,
   faBarsProgress,
   faBorderAll,
@@ -80,7 +83,6 @@ import {
   faMessage,
   faMoneyCheckDollar,
   faNetworkWired,
-  faNewspaper,
   faPalette,
   faPhotoFilm,
   faPlay,
@@ -147,6 +149,7 @@ library.add(
   faArrowLeft,
   faArrowRight,
   faArrowUp,
+  faArrowUpRightFromSquare,
   faBars,
   faBarsProgress,
   faBorderAll,
@@ -205,7 +208,6 @@ library.add(
   faMessage,
   faMoneyCheckDollar,
   faNetworkWired,
-  faNewspaper,
   faPalette,
   faPhotoFilm,
   faPlay,
@@ -282,4 +284,18 @@ if (process.env.IS_ELECTRON) {
   window.ftElectron.handleChangeView((route) => {
     router.push(route)
   })
+
+  window.ftElectron.handleOpenInExternalPlayerResult(
+    (externalPlayer, unsupportedActions, isPlaylist) => {
+      for (const action of unsupportedActions) {
+        showExternalPlayerUnsupportedActionToast(externalPlayer, action)
+      }
+
+      const videoOrPlaylist = isPlaylist
+        ? i18n.global.t('Video.External Player.playlist')
+        : i18n.global.t('Video.External Player.video')
+
+      showToast(i18n.global.t('Video.External Player.OpeningTemplate', { videoOrPlaylist, externalPlayer }))
+    }
+  )
 }

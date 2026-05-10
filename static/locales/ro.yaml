@@ -41,22 +41,17 @@ Global:
     Like Count: 1 apreciere | {count} aprecieri
 Version {versionNumber} is now available!  Click for more details: 'Versiunea {versionNumber} este acum disponibilă!  Click pentru mai multe detalii'
 Download From Site: 'Descărcați de pe site'
-A new blog is now available, {blogTitle}. Click to view more: 'Un nou blog este acum disponibil, {blogTitle}. Faceți clic pentru a vedea mai multe'
 
 # Search Bar
 Search / Go to URL: 'Căutare / Accesați URL-ul'
   # In Filter Button
 Search Filters:
   Search Filters: 'Filtre de căutare'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Cele mai relevante'
-    Rating: 'Evaluare'
-    Upload Date: 'Data încărcării'
-    View Count: 'Numărul de vizualizări'
   Time:
     Time: 'Timp'
     Any Time: 'Oricând'
-    Last Hour: 'Ultima oră'
     Today: 'Astăzi'
     This Week: 'Săptămâna aceasta'
     This Month: 'Luna aceasta'
@@ -71,10 +66,9 @@ Search Filters:
   Duration:
     Duration: 'Durată'
     All Durations: 'Toate duratele'
-    Short (< 4 minutes): 'Scurt (< 4 minute)'
-    Long (> 20 minutes): 'Lung (> 20 minute)'
-  # On Search Page
-    Medium (4 - 20 minutes): Mediu (4 - 20 minute)
+    '< 3 minutes': '< 3 minute'
+    '> 20 minutes': '> 20 minute'
+    '3 - 20 minutes': 3 - 20 minute
   Search Results: 'Rezultatele căutării'
   Fetching results. Please wait: 'Se obțin rezultatele. Vă rugăm să așteptați'
   Fetch more results: 'Obțineți mai multe rezultate'
@@ -110,6 +104,7 @@ Trending:
   Trending: 'Tendințe'
   Trending Tabs: File în tendințe
   Gaming: Gaming
+  Sports: Sport
 Most Popular: 'Cele mai populare'
 Playlists: 'Liste de redare'
 User Playlists:
@@ -138,8 +133,7 @@ User Playlists:
     "{videoCount}/{totalVideoCount} Videos Will Be Added": '{videoCount}/{totalVideoCount} Videoclipuri vor fi adăugate'
     Toast:
       You haven't selected any playlist yet.: Nu ați selectat încă nicio listă de redare.
-      "{videoCount} video(s) added to 1 playlist": 1 videoclip adăugat la 1 listă de redare | {videoCount} videoclipuri adăugate la 1 listă de redare
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 videoclip adăugat la {playlistCount} liste de redare | {videoCount} videoclipuri adăugate la {playlistCount} liste de redare
+      "Video(s) added to {playlistCount} playlists": ""
     N playlists selected: '{playlistCount} Selectat'
     "{videoCount}/{totalVideoCount} Videos Already Added": '{videoCount}/{totalVideoCount} Videoclipuri deja adăugate'
     Search in Playlists: Caută in listele de redare
@@ -211,7 +205,6 @@ Settings:
   General Settings:
     General Settings: 'Setări generale'
     Check for Updates: 'Căutați actualizări'
-    Check for Latest Blog Posts: 'Verificați pentru cele mai recente postări pe blog'
     Fallback to Non-Preferred Backend on Failure: 'Revenire la backend-ul nepreferat în caz de eroare'
     Enable Search Suggestions: 'Activați sugestiile de căutare'
     Default Landing Page: 'Pagina de pornire implicită'
@@ -471,7 +464,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Toate abonamentele și profilurile au fost importate cu succes'
     All subscriptions have been successfully imported: 'Toate abonamentele au fost importate cu succes'
     Invalid subscriptions file: 'Fișier de abonamente invalid'
-    This might take a while, please wait: 'Acest lucru ar putea dura ceva timp, vă rugăm să așteptați'
     Invalid history file: 'Fișier istoric invalid'
     Subscriptions have been successfully exported: 'Abonamentele au fost exportate cu succes'
     History object has insufficient data, skipping item: 'Obiectul de istoric are date insuficiente, se omite elementul'
@@ -582,13 +574,6 @@ Settings:
     Enable Tor / Proxy: Activați Tor / Proxy
     Proxy Settings: Proxy
     Proxy Warning: FreeTube nu are un proxy încorporat, dar se poate conecta la un proxy extern, cum ar fi unul care rulează pe computer, cum ar fi Tor, sau un proxy extern, cum ar fi un proxy SOCKS5 furnizat de unele VPN-uri. Dacă este activat, asigurați-vă că proxy/Tor este configurat corect, altfel FreeTube nu va putea prelua date.
-  Download Settings:
-    Ask Download Path: Solicită calea de descărcare
-    Choose Path: Alege calea
-    Download Settings: descărcare
-    Download Behavior: Comportamentul descărcărilor
-    Download in app: Descarcă în aplicație
-    Open in web browser: Deschide în browser-ul web
   Parental Control Settings:
     Hide Unsubscribe Button: Ascunde butonul de dezabonare
     Parental Control Settings: Control parental
@@ -617,13 +602,10 @@ About:
   Email: E-mail
   Donate: Donează
   these people and projects: aceste persoane și proiecte
-  FreeTube is made possible by: FreeTube este posibil datorită
   Credits: Credite
   Translate: Traduceți
   room rules: regulile camerei
-  Please read the: Vă rugăm să citiți
   Chat on Matrix: Chat pe Matrix
-  Blog: Blog
   Website: Site web
   Please check for duplicates before posting: Vă rugăm să verificați dacă există dubluri înainte de a posta
   GitHub issues: Issues pe GitHub
@@ -636,7 +618,6 @@ About:
   Source code: Codul sursă
   Beta: Beta
   Discussions: Discuții
-  Licensed under the: Licențiat în conformitate cu
   AGPLv3: AGPLv3
 Profile:
   Profile Select: 'Selectare profil'
@@ -757,8 +738,8 @@ Video:
   Loop Playlist: 'Lista de redare în buclă'
   Shuffle Playlist: 'Lista de redare aleatorie'
   Reverse Playlist: 'Lista de redare inversă'
-  Play Next Video: 'Redă videoclipul următor'
-  Play Previous Video: 'Redă videoclipul anterior'
+  Previous: 'Înapoi'
+  Next: 'Înainte'
   Watched: 'Vizionat'
   Autoplay: 'Redare automată'
   Starting soon, please refresh the page to check again: 'Începe în curând, vă rugăm să reîmprospătați pagina pentru a verifica din nou'
@@ -799,9 +780,6 @@ Video:
     filler: Filler
   Started streaming on: A început să transmită pe
   Streamed on: Difuzat pe
-  audio only: numai audio
-  video only: numai video
-  Download Video: Descărcare videoclipuri
   Copy Invidious Channel Link: Copiați linkul canalului Invidious
   Open Channel in Invidious: Canal deschis în Invidious
   Copy YouTube Channel Link: Copiați linkul canalului YouTube
@@ -986,9 +964,6 @@ Tooltips:
     UseDeArrowTitles: Înlocuiți titlurile video cu titluri trimise de utilizator de la DeArrow.
     UseDeArrowThumbnails: Înlocuiți miniaturile video cu miniaturi de la DeArrow.
 External link opening has been disabled in the general settings: Deschiderea linkurilor externe a fost dezactivată în setările generale
-Starting download: Se începe descărcarea a "{videoTitle}"
-Downloading failed: A existat o problemă la descărcarea "{videoTitle}"
-Downloading has completed: '"{videoTitle}" s-a terminat de descărcat'
 New Window: Fereastră nouă
 Channels:
   Channels: Canale

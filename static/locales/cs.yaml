@@ -42,22 +42,19 @@ Global:
     Comment Count: 1 komentář | {count} komentářů
 Version {versionNumber} is now available!  Click for more details: 'Je k dispozici verze {versionNumber}! Klikněte pro více informací'
 Download From Site: 'Stáhnout ze stránky'
-A new blog is now available, {blogTitle}. Click to view more: 'Je dostupný nový článek na blogu: {blogTitle}. Kliknutím zobrazíte více'
 
 # Search Bar
 Search / Go to URL: 'Hledat / Přejít na URL'
   # In Filter Button
 Search Filters:
   Search Filters: 'Vyhledávací filtry'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Nejrelevantnější'
-    Rating: 'Hodnocení'
-    Upload Date: 'Datum nahrání'
-    View Count: 'Počet zhlédnutí'
+    Prioritize: Prioritizace
+    Popularity: Popularita
   Time:
     Time: 'Čas'
     Any Time: 'Kdykoliv'
-    Last Hour: 'Poslední hodina'
     Today: 'Dnes'
     This Week: 'Tento týden'
     This Month: 'Tento měsíc'
@@ -72,10 +69,9 @@ Search Filters:
   Duration:
     Duration: 'Trvání'
     All Durations: 'Všechny trvání'
-    Short (< 4 minutes): 'Krátké (< 4 minuty)'
-    Long (> 20 minutes): 'Dlouhé (> 20 minut)'
-  # On Search Page
-    Medium (4 - 20 minutes): Střední (4 - 20 minut)
+    '< 3 minutes': '< 3 minuty'
+    '> 20 minutes': '> 20 minut'
+    '3 - 20 minutes': 3 - 20 minut
   Search Results: 'Výsledky hledání'
   Fetching results. Please wait: 'Načítání výsledků. Prosím, čekejte'
   Fetch more results: 'Načíst více výsledků'
@@ -122,8 +118,7 @@ User Playlists:
     Search in Playlists: Hledat v playlistech
     Save: Uložit
     Toast:
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 video přidáno do {playlistCount} playlistů| {videoCount} videí přidáno do  {playlistCount} playlistů
-      "{videoCount} video(s) added to 1 playlist": 1 video přidáno do playlistu | {videoCount} videí přidáno do playlistu
+      "Video(s) added to {playlistCount} playlists": "Videa přidána do 1 playlistu | Videa přidána do {playlistCount} playlistů"
       You haven't selected any playlist yet.: Zatím jste nevybrali žádný playlist.
     Select a playlist to add your N videos to: Vyberte playlist, do kterého přidat vaše video | Vyberte playlist, do kterého přidat vašich {videoCount} videí
     N playlists selected: Vybráno {playlistCount}
@@ -215,7 +210,6 @@ Settings:
   General Settings:
     General Settings: 'Obecné'
     Check for Updates: 'Kontrolovat aktualizace'
-    Check for Latest Blog Posts: 'Kontrolovat nejnovější příspěvky na blogu'
     Fallback to Non-Preferred Backend on Failure: 'Při chybě přepnout na nepreferovaný backend'
     Enable Search Suggestions: 'Zapnout návrhy vyhledávání'
     Default Landing Page: 'Výchozí vstupní stránka'
@@ -526,7 +520,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Všechny odebírané kanály a profily byly úspěšně importovány'
     All subscriptions have been successfully imported: 'Všechny odebírané kanály byly úspěšně importovány'
     Invalid subscriptions file: 'Vadný soubor odebíraných kanálů'
-    This might take a while, please wait: 'Tato akce může chvíli trvat, prosím počkejte'
     Invalid history file: 'Vadný soubor s historií'
     Subscriptions have been successfully exported: 'Odebírané kanály byly úspěšně exportovány'
     History object has insufficient data, skipping item: 'Objekt historie má nedostatečná data, přeskakuji položku'
@@ -597,13 +590,6 @@ Settings:
       None:
         Name: Žádný
     Ignore Default Arguments: Ignorovat výchozí argumenty
-  Download Settings:
-    Ask Download Path: Zeptat se na cestu umístění souboru
-    Download Settings: Stahování
-    Choose Path: Zvolit cestu
-    Download in app: Stáhnout v aplikaci
-    Open in web browser: Otevřít v prohlížeči
-    Download Behavior: Chování stahování
   Parental Control Settings:
     Parental Control Settings: Rodičovská kontrola
     Hide Search Bar: Skrýt lištu vyhledávání
@@ -624,6 +610,9 @@ Settings:
     Set Password: Nastavit heslo
   Sort Settings Sections (A-Z): Seřadit sekce nastavení (A-Z)
   Return to Settings Menu: Vrátit se do nastavení
+  SABR:
+    Label: Povolti SABR jako backend DASH
+    Tooltip: SABR se v budoucím vydání stane jediným backendem DASH a nelze jej zakázat. Tento přepínač je poskytnut v případě, že má raná implementace závažné problémy.
 About:
   #On About page
   About: 'O aplikaci'
@@ -633,26 +622,25 @@ About:
   Donate: Přispět
   Credits: Poděkování
   room rules: pravidla místnosti
-  Please read the: Přečtěte si prosím
   Chat on Matrix: Chat na síti Matrix
   Mastodon: Mastodon
   Email: E-mail
-  Blog: Blog
   Website: Webové stránky
   FAQ: Často kladené dotazy
   FreeTube Wiki: Wiki FreeTube
   Downloads / Changelog: Ke stažení / Seznam změn
   Translate: Překlady
   these people and projects: těmto lidem a projektům
-  FreeTube is made possible by: FreeTube je možné dělat díky
   Please check for duplicates before posting: Před odesláním prosím zkontrolujte duplicity
   GitHub issues: Chyby na GitHub
   Report a problem: Nahlásit problém
   Help: Nápověda
   GitHub releases: Vydání na GitHubu
   Discussions: Diskuze
-  Licensed under the: Licencováno pod
   AGPLv3: AGPLv3
+  Licensed under the {licenseLink}: Licencováno pod {licenseLink}
+  Please read the {roomRulesLink}: Přečtěte si prosím {roomRulesLink}
+  FreeTube is made possible by {creditsPageLink}: FreeTube existuje díky {creditsPageLink}
 Profile:
   Profile Select: 'Výběr profilu'
   All Channels: 'Všechny kanály'
@@ -775,8 +763,8 @@ Video:
   Loop Playlist: 'Smyčka playlistu'
   Shuffle Playlist: 'Zamíchat playlist'
   Reverse Playlist: 'Obrátit playlist'
-  Play Next Video: 'Přehrát další video'
-  Play Previous Video: 'Přehrát předchozí video'
+  Previous: 'Předchozí'
+  Next: 'Další'
   Watched: 'Zhlédnuto'
   Autoplay: 'Automatické přehrávání'
   Starting soon, please refresh the page to check again: 'Začínáme brzy, obnovte prosím stránku pro opětovnou kontrolu'
@@ -788,9 +776,6 @@ Video:
   Live Chat is currently not supported in this build.: 'Živý chat není v této verzi programu podporován.'
   Live chat is enabled. Chat messages will appear here once sent.: 'Živý chat je povolen.  Po odeslání se zde zobrazí zprávy chatu.'
   'Live Chat is currently not supported with the Invidious API. A direct connection to YouTube is required.': 'Živý chat momentálně není podporován s Invidious API. Je vyžadováno přímé připojení k YouTube.'
-  Download Video: 'Stáhnout Video'
-  video only: 'pouze video'
-  audio only: 'pouze zvuk'
   Published:
     In less than a minute: Za méně než minutu
   Published on: 'Publikováno'
@@ -871,6 +856,10 @@ Video:
 #& Playlists
   Save Watched Progress: Uložit průběh sledování
   Watched Progress Saved: Průběh sledování uložen
+  Watch:
+    'Remaining preroll-ad time: {remindingTimeSeconds}s': 'Zbývající čas prvotní reklamy: {remindingTimeSeconds} s'
+    'Remaining SABR backoff time: {remindingTimeSeconds}s': 'Zbývající čas pauzy SABR: {remindingTimeSeconds} s'
+  Popout Live Chat: Vyskakovací chat
 Playlist:
   #& About
   View Full Playlist: 'Zobrazit celý seznam skladeb'
@@ -917,6 +906,7 @@ Share:
   YouTube Channel URL copied to clipboard: 'URL kanálu YouTube bylo zkopírováno do schránky'
 
   Share Channel: Sdílet kanál
+  Share Post: Sdílet příspěvek
 Mini Player: 'Mini přehrávač'
 Comments:
   Comments: 'Komentáře'
@@ -1006,9 +996,6 @@ Search Bar:
   Remove: Odstranit
 External link opening has been disabled in the general settings: Otevírání externích odkazů bylo zakázáno v obecných nastaveních
 Are you sure you want to open this link?: Opravdu chcete otevřít tento dokaz?
-Downloading has completed: Bylo dokončeno stahování "{videoTitle}"
-Downloading failed: Došlo k problému při stahování "{videoTitle}"
-Starting download: Zahájení stahování "{videoTitle}"
 New Window: Nové okno
 Channels:
   Channels: Kanály
@@ -1129,3 +1116,5 @@ KeyboardShortcutPrompt:
   Skip to Next Video: Přeskočit na další video v playlistu nebo další doporučené video
   Skip to Previous Video: Přeskočit na předchozí video v playlistu
 shortcutLabelSeparator: ｜
+Compact side navigation: Kompaktní boční navigace
+Expand side navigation: Rozbalit boční navigaci

@@ -211,7 +211,7 @@
         </p>
         <FtInput
           class="screenshotFolderPath"
-          :placeholder="screenshotFolderPlaceholder"
+          :placeholder="screenshotFolder"
           :show-action-button="false"
           :show-label="false"
           :disabled="true"
@@ -255,7 +255,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from '../../composables/use-i18n-polyfill'
 
 import FtSettingsSection from '../FtSettingsSection/FtSettingsSection.vue'
@@ -268,8 +268,6 @@ import FtInput from '../FtInput/FtInput.vue'
 import FtTooltip from '../FtTooltip/FtTooltip.vue'
 
 import store from '../../store/index'
-
-import { DefaultFolderKind } from '../../../constants'
 
 const { t } = useI18n()
 
@@ -464,7 +462,9 @@ function updateDefaultVideoFormat(value) {
   store.dispatch('updateDefaultVideoFormat', value)
 }
 
-const QUALITY_VALUES = ['2160', '1440', '1080', '720', '480', '360', '240', '144', 'auto']
+// TODO: Revert when auto is fixed
+// const QUALITY_VALUES = ['2160', '1440', '1080', '720', '480', '360', '240', '144', 'auto']
+const QUALITY_VALUES = ['2160', '1440', '1080', '720', '480', '360', '240', '144']
 
 const qualityNames = computed(() => [
   t('Settings.Player Settings.Default Quality.4k'),
@@ -475,11 +475,20 @@ const qualityNames = computed(() => [
   t('Settings.Player Settings.Default Quality.360p'),
   t('Settings.Player Settings.Default Quality.240p'),
   t('Settings.Player Settings.Default Quality.144p'),
-  t('Settings.Player Settings.Default Quality.Auto')
+
+  // TODO: Revert when auto is fixed
+  // t('Settings.Player Settings.Default Quality.Auto')
 ])
 
 /** @type {import('vue').ComputedRef<'2160' | '1440' | '1080' | '720' | '480' | '360' | '240' | '144' | 'auto'>} */
-const defaultQuality = computed(() => store.getters.getDefaultQuality)
+const defaultQuality = computed(() => {
+  const value = store.getters.getDefaultQuality
+
+  // TODO: Revert when auto is fixed (720 is the default setttings value)
+  if (value === 'auto') { return '720' }
+
+  return value
+})
 
 /**
  * @param {'2160' | '1440' | '1080' | '720' | '480' | '360' | '240' | '144' | 'auto'} value
@@ -609,32 +618,13 @@ function updateScreenshotAskPath(value) {
   store.dispatch('updateScreenshotAskPath', value)
 }
 
-const screenshotFolderPlaceholder = ref('')
-
 /** @type {import('vue').ComputedRef<string>} */
 const screenshotFolder = computed(() => store.getters.getScreenshotFolderPath)
-
-watch(screenshotFolder, () => {
-  getScreenshotFolderPlaceholder()
-})
 
 function chooseScreenshotFolder() {
   // only use with electron
   if (process.env.IS_ELECTRON) {
-    window.ftElectron.chooseDefaultFolder(DefaultFolderKind.SCREENSHOTS)
-  }
-}
-
-async function getScreenshotFolderPlaceholder() {
-  if (screenshotFolder.value !== '') {
-    screenshotFolderPlaceholder.value = screenshotFolder.value
-    return
-  }
-
-  if (process.env.IS_ELECTRON) {
-    screenshotFolderPlaceholder.value = await window.ftElectron.getScreenshotFallbackFolder()
-  } else {
-    screenshotFolderPlaceholder.value = ''
+    window.ftElectron.chooseDefaultFolder()
   }
 }
 
@@ -642,7 +632,6 @@ async function getScreenshotFolderPlaceholder() {
 const screenshotFilenamePattern = computed(() => store.getters.getScreenshotFilenamePattern)
 
 onMounted(() => {
-  getScreenshotFolderPlaceholder()
   getScreenshotFilenameExample(screenshotFilenamePattern.value)
 })
 

@@ -7,7 +7,6 @@
         <FontAwesomeIcon
           :icon="['fas', 'history']"
           class="headingIcon"
-          fixed-width
         />
         {{ t('History.History') }}
       </h2>
@@ -211,7 +210,7 @@ function filterHistory() {
     return
   }
 
-  let filteredQuery = []
+  let filteredQuery
   if (doCaseSensitiveSearch.value) {
     filteredQuery = filterVideosWithQuery(historyCacheSorted.value, query.value)
   } else {

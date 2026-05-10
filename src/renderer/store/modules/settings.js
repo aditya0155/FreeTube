@@ -154,7 +154,6 @@ const state = {
   backendFallback: false,
   backendPreference: !process.env.SUPPORTS_LOCAL_API ? 'invidious' : 'local',
   barColor: false,
-  checkForBlogPosts: false,
   checkForUpdates: true,
   baseTheme: 'system',
   mainColor: 'Red',
@@ -286,9 +285,6 @@ const state = {
   videoPlaybackRateMouseScroll: false,
   videoSkipMouseScroll: false,
   videoPlaybackRateInterval: 0.25,
-  downloadAskPath: true,
-  downloadFolderPath: '',
-  downloadBehavior: 'open',
   enableScreenshot: false,
   screenshotFormat: 'png',
   screenshotQuality: 95,
@@ -358,13 +354,6 @@ const sideEffectHandlers = {
     }
 
     const loadPromises = []
-
-    if (targetLocale !== fallbackLocale) {
-      // "en-US" is used as a fallback for missing strings in other locales
-      loadPromises.push(
-        loadLocale(fallbackLocale)
-      )
-    }
 
     // "es" is used as a fallback for "es-AR" and "es-MX"
     if (targetLocale === 'es-AR' || targetLocale === 'es-MX') {

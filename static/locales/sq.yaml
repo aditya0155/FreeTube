@@ -31,7 +31,6 @@ Close Banner: 'Mbyll bannerin'
 
 Version {versionNumber} is now available!  Click for more details: 'Versioni {versionNumber} është i disponueshëm! Kliko për më shumë detaje'
 Download From Site: 'Shkarko nga faqja'
-A new blog is now available, {blogTitle}. Click to view more: 'Një blog i ri është i disponueshëm, {blogTitle}. Kliko për të shikuar më shumë'
 Are you sure you want to open this link?: 'A je i sigurt që dëshiron ta hapësh këtë link?'
 
 # Global
@@ -71,15 +70,11 @@ Search Listing:
   # In Filter Button
 Search Filters:
   Search Filters: 'Filtra të kërkimit'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Më të përshtatshmet'
-    Rating: 'Vlerësimi'
-    Upload Date: 'Data e ngarkimit'
-    View Count: 'Shikimet'
   Time:
     Time: 'Koha'
     Any Time: 'Përherë'
-    Last Hour: 'Ora e fundit'
     Today: 'Sot'
     This Week: 'Këtë javë'
     This Month: 'Këtë muaj'
@@ -94,9 +89,9 @@ Search Filters:
   Duration:
     Duration: 'Gjatësia'
     All Durations: 'Të gjitha gjatësitë'
-    Short (< 4 minutes): 'E shkurtër (< 4 minuta)'
-    Medium (4 - 20 minutes): 'E mesme (4 - 20 minuta)'
-    Long (> 20 minutes): 'E gjatë (> 20 minuta)'
+    '< 3 minutes': '< 3 minuta'
+    '3 - 20 minutes': '3 - 20 minuta'
+    '> 20 minutes': '> 20 minuta'
   Features:
     Features: 'Karakteristikat'
     HD: 'HD'
@@ -239,8 +234,7 @@ User Playlists:
 
     Toast:
       You haven't selected any playlist yet.: 'Nuk ke zgjedhur akoma asnjë playlist.'
-      "{videoCount} video(s) added to 1 playlist": "1 video shtuar në 1 playlist | {videoCount} video shtuar në 1 playlist"
-      "{videoCount} video(s) added to {playlistCount} playlists": "1 video shtuar në {playlistCount} playlist | {videoCount} video shtuar në {playlistCount} playlist"
+      "Video(s) added to {playlistCount} playlists": ""
   CreatePlaylistPrompt:
     New Playlist Name: 'Emri i playlist'
     Create: 'Krijo'
@@ -266,7 +260,6 @@ Settings:
   General Settings:
     General Settings: ''
     Check for Updates: ''
-    Check for Latest Blog Posts: ''
     Fallback to Non-Preferred Backend on Failure: ''
     Enable Search Suggestions: ''
     Open Deep Links In New Window: ''
@@ -636,13 +629,6 @@ Settings:
     Hide Unsubscribe Button: ''
     Show Family Friendly Only: ''
     Hide Search Bar: ''
-  Download Settings:
-    Download Settings: ''
-    Ask Download Path: ''
-    Choose Path: ''
-    Download Behavior: ''
-    Download in app: ''
-    Open in web browser: ''
   Experimental Settings:
     Experimental Settings: ''
     Warning: ''
@@ -660,7 +646,6 @@ About:
   About: ''
   Beta: ''
   Source code: ''
-  Licensed under the: ''
   AGPLv3: ''
   Downloads / Changelog: ''
   GitHub releases: ''
@@ -672,15 +657,12 @@ About:
   GitHub issues: ''
   Please check for duplicates before posting: ''
   Website: ''
-  Blog: ''
   Email: ''
   Mastodon: ''
   Chat on Matrix: ''
-  Please read the: ''
   room rules: ''
   Translate: ''
   Credits: ''
-  FreeTube is made possible by: ''
   these people and projects: ''
   Donate: ''
 
@@ -818,8 +800,8 @@ Video:
   Loop Playlist: ''
   Shuffle Playlist: ''
   Reverse Playlist: ''
-  Play Next Video: ''
-  Play Previous Video: ''
+  Previous: 'Prapa'
+  Next: 'Tjetër'
   Watched: ''
   Autoplay: ''
   Starting soon, please refresh the page to check again: ''
@@ -837,9 +819,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': ''
   Show Super Chat Comment: ''
   Scroll to Bottom: ''
-  Download Video: ''
-  video only: ''
-  audio only: ''
   Published:
     In less than a minute: ''
   Published on: ''
@@ -1039,9 +1018,6 @@ Age Restricted:
   This channel is age restricted: ''
   This video is age restricted: ''
 External link opening has been disabled in the general settings: ''
-Downloading has completed: ''
-Starting download: ''
-Downloading failed: ''
 Screenshot Success: ''
 Screenshot Error: ''
 Channel Hidden: ''

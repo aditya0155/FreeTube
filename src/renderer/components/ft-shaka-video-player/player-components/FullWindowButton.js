@@ -19,7 +19,7 @@ export class FullWindowButton extends shaka.ui.Element {
     this.button_.classList.add('full-window-button', 'shaka-tooltip')
 
     /** @private */
-    this.icon_ = new shaka.ui.MaterialSVGIcon(this.button_, PlayerIcons.OPEN_IN_FULL_FILLED)
+    this.icon_ = new shaka.ui.Icon(this.button_, PlayerIcons.OPEN_IN_FULL_FILLED)
 
     const label = document.createElement('label')
     label.classList.add(
@@ -62,6 +62,16 @@ export class FullWindowButton extends shaka.ui.Element {
       this.updateLocalisedStrings_()
     })
 
+    if (this.isSubMenu) {
+      this.eventManager.listen(this.controls, 'submenuopen', () => {
+        this.updateVisibility_()
+      })
+
+      this.eventManager.listen(this.controls, 'submenuclose', () => {
+        this.updateVisibility_()
+      })
+    }
+
     this.updateLocalisedStrings_()
   }
 
@@ -76,5 +86,14 @@ export class FullWindowButton extends shaka.ui.Element {
       KeyboardShortcuts.VIDEO_PLAYER.GENERAL.FULLWINDOW
     )
     this.nameSpan_.textContent = this.button_.ariaLabel = newLabel
+  }
+
+  /** @private */
+  updateVisibility_() {
+    if (this.isSubMenuOpened) {
+      this.button_.classList.add('shaka-hidden')
+    } else {
+      this.button_.classList.remove('shaka-hidden')
+    }
   }
 }

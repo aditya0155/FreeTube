@@ -24,11 +24,8 @@ Back: 'पछाडि'
 Forward: 'अगाडि'
 Open New Window: 'नयाँ विन्डो खोल्नुहोस्'
 
-Version {versionNumber} is now available!  Click for more details: 'भर्जन {versionNumber}
-  उपलब्ध छ! थप बुझ्न यहाँ थिच्नुहोस्'
+Version {versionNumber} is now available!  Click for more details: 'भर्जन {versionNumber} उपलब्ध छ! थप बुझ्न यहाँ थिच्नुहोस्'
 Download From Site: 'साइटबाट डाउनलोड गर्नुहोस्'
-A new blog is now available, {blogTitle}. Click to view more: 'एउटा नयाँ ब्लग उपलब्ध
-  छ, {blogTitle}। थप बुझ्न यहाँ थिच्नुहोस्'
 
 Global:
   Sort By: 'क्रमबद्ध गर्नुहोस्'
@@ -42,15 +39,11 @@ Search Bar:
   # In Filter Button
 Search Filters:
   Search Filters: 'खोजी फिल्टरहरू'
-  Sort By:
+  Prioritize:
     Most Relevant: 'सबैभन्दा प्रासङ्गिक'
-    Rating: 'रेटिङ्ग'
-    Upload Date: 'प्रकाशित मिति'
-    View Count: 'हेरिएको सङ्ख्या'
   Time:
     Time: 'समय'
     Any Time: 'जुनसुकै समय'
-    Last Hour: 'पछिल्लो घण्टा'
     Today: 'आज'
     This Week: 'यो हप्ता'
     This Month: 'यो महिना'
@@ -64,8 +57,6 @@ Search Filters:
   Duration:
     Duration: 'अवधि'
     All Durations: 'सबै अवधि'
-    Short (< 4 minutes): 'छोटो (< ४ मिनट)'
-    Long (> 20 minutes): 'लामो (> २० मिनट)'
   # On Search Page
   Search Results: 'खोजी परिणामहरू'
   Fetching results. Please wait: 'परिणामहरू खोजिँदै छ। कृपया पर्खनुहोस्'
@@ -75,16 +66,15 @@ Search Filters:
 Subscriptions:
     # On Subscriptions Page
   Subscriptions: 'सदस्यताहरु'
-  This profile has a large number of subscriptions. Forcing RSS to avoid rate limiting: 'यो
-    प्रोफाइलमा ठुलो सङ्ख्यामा सदस्यताहरू छन्। दर सिमित हुनबाट बच्न RSS लाई बल गरिँदै'
-  'Your Subscription list is currently empty. Start adding subscriptions to see them here.': 'तपाईँको
-    सदस्यता सूची अहिले खाली छ। तिनीहरूलाई यहाँ हेर्न सदस्यताहरू थप्न सुरु गर्नुहोस्।'
+  This profile has a large number of subscriptions. Forcing RSS to avoid rate limiting: 'यो प्रोफाइलमा ठुलो सङ्ख्यामा सदस्यताहरू छन्। दर सिमित हुनबाट बच्न RSS लाई बल गरिँदै'
+  'Your Subscription list is currently empty. Start adding subscriptions to see them here.': 'तपाईँको सदस्यता सूची अहिले खाली छ। तिनीहरूलाई यहाँ हेर्न सदस्यताहरू थप्न सुरु गर्नुहोस्।'
   Load More Videos: 'थप भिडियोहरू लोड गर्नुहोस्'
 More: 'थप'
 Trending:
   Trending: 'प्रचलित'
   Gaming: 'गेमिङ्ग'
   Trending Tabs: 'प्रचलित ट्याबहरू'
+  Sports: खेलकुद
 Most Popular: 'सबैभन्दा लोकप्रिय'
 Playlists: 'प्लेसूचीहरू'
 User Playlists:

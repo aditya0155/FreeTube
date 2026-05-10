@@ -30,7 +30,6 @@ Close Banner: 'Serriñ ar Giton'
 
 Version {versionNumber} is now available!  Click for more details: 'Stumm {versionNumber} a zo hegerz !  Klikit amañ evit gouzout hiroc''h'
 Download From Site: 'Pellgargañ diwar al lec''hienn'
-A new blog is now available, {blogTitle}. Click to view more: 'Embannet ez eus bet ur pennad nevez, {blogTitle}. Klikit amañ evit gouzout hiroc''h'
 Are you sure you want to open this link?: 'Ha sur oc''h e faot deoc''h digeriñ al liamm-mañ ?'
 
 # Global
@@ -70,15 +69,11 @@ Search Listing:
   # In Filter Button
 Search Filters:
   Search Filters: 'Siloù evit Klask'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Ar re wellañ'
-    Rating: 'Notenn'
-    Upload Date: 'Deiziad kargañ'
-    View Count: 'Niver a selloù'
   Time:
     Time: 'Padelezh'
     Any Time: 'A-holl-viskoaz'
-    Last Hour: 'Eur diwezhañ'
     Today: 'Hiziv'
     This Week: 'Ar sizhun-mañ'
     This Month: 'Ar miz-mañ'
@@ -93,9 +88,9 @@ Search Filters:
   Duration:
     Duration: 'Padelezh'
     All Durations: 'An holl badelezhioù'
-    Short (< 4 minutes): 'Berr (< 4 munud)'
-    Medium (4 - 20 minutes): 'Etre (4 - 20 munud)'
-    Long (> 20 minutes): 'Hir (> 20 munud)'
+    '< 3 minutes': '< 3 munud'
+    '3 - 20 minutes': '3 - 20 munud'
+    '> 20 minutes': '> 20 munud'
   Features:
     Features: 'Perzhioù'
     HD: 'HD'
@@ -143,6 +138,7 @@ Trending:
   Trending: 'Diouzh ar cʼhiz'
   Gaming: 'C''hoarioù video'
   Trending Tabs: 'Ivinelloù ar re diouzh ar c''hiz'
+  Sports: Sport
 Most Popular: 'Ar muiañ a verzh ganto'
 Feed:
   Feed Last Updated: '{feedName} hizivadenn diwezhañ ar wazh : {date}'
@@ -238,8 +234,7 @@ User Playlists:
 
     Toast:
       You haven't selected any playlist yet.: 'N''ho peus diuzet ur roll-videoioù c''hoazh.'
-      "{videoCount} video(s) added to 1 playlist": "1 video ouzhpennet d'1 roll-videoioù | {videoCount} video ouzhpennet d'1 roll-videoioù"
-      "{videoCount} video(s) added to {playlistCount} playlists": "1 video ouzhpennet da {playlistCount} roll-videoioù | {videoCount} video ouzhpennet da  {playlistCount} roll-videoioù"
+      "Video(s) added to {playlistCount} playlists": "Video ouzhpennet d'ur roll-videoioù | Video ouzhpennet da {playlistCount} roll-videoioù"
   CreatePlaylistPrompt:
     New Playlist Name: 'Anv nevez ar roll-videoioù'
     Create: 'Krouiñ'
@@ -272,7 +267,6 @@ Settings:
   General Settings:
     General Settings: 'Hollek'
     Check for Updates: 'Klask Hizivadurioù'
-    Check for Latest Blog Posts: 'Diskouez pennadoù diwezhañ ar Blog'
     Fallback to Non-Preferred Backend on Failure: 'Distreiñ d''ar Backend ha n''eo ket hoc''h hini karetañ ma c''hoarvez ur gudenn'
     Enable Search Suggestions: 'Gweredekaat Kinnigoù klask'
     Auto Load Next Page:
@@ -667,13 +661,6 @@ Settings:
     Show Family Friendly Only: 'Diskouez videoioù evit ar familh hepken'
     Hide Search Bar: 'Kuzhat ar varenn glask'
     Hide Uploader on Watch page: Kuzhat ar chadenn war ar bajenn lenn
-  Download Settings:
-    Download Settings: 'Pellgargañ'
-    Ask Download Path: 'Goulenn war-lerc''h an hent pellgargañ'
-    Choose Path: 'Dibab an hent'
-    Download Behavior: 'Emzalc''h ar pellgargañ'
-    Download in app: 'Pellgargañ en arload'
-    Open in web browser: 'Digeriñ er merdeer web'
   Experimental Settings:
     Experimental Settings: 'Arnodel'
     Warning: 'Arventennoù arnodel eo, gallout a ra ar sistem chom bout pa vezont gweredekaet. Aliet-tre eo ober enrolladennoù. Kendalc’hit en ho riskl hoc’h-unan !'
@@ -691,7 +678,6 @@ About:
   About: 'A-zivout'
   Beta: 'Beta'
   Source code: 'Kod mammenn'
-  Licensed under the: 'Dindan an aotre-implijout'
   AGPLv3: 'AGPLv3'
   Downloads / Changelog: 'Pellgargañ / Deizlevr ar cheñchamantoù'
   GitHub releases: 'Ermaeziadennoù GitHub'
@@ -703,15 +689,12 @@ About:
   GitHub issues: 'Kudennoù renablet war GitHub'
   Please check for duplicates before posting: 'Gwiriekait an doublennoù a-raok embann, mar-plij'
   Website: 'Lec''hienn web'
-  Blog: 'Blog'
   Email: 'Chomlec’h postel'
   Mastodon: 'Mastodon'
   Chat on Matrix: 'Flapañ war Matrix'
-  Please read the: 'Par-plij, lennit'
   room rules: 'reolennoù ar sal'
   Translate: 'Treiñ'
   Credits: 'Kreditoù'
-  FreeTube is made possible by: 'Bez ez eus deus FreeTube a-drugarez da'
   these people and projects: 'an dud-se hag ar raktresoù-se'
   Donate: 'Ober un donezon'
 
@@ -844,8 +827,8 @@ Video:
   Loop Playlist: 'Rodell roll-videoioù'
   Shuffle Playlist: 'Meskañ ar roll-videoioù'
   Reverse Playlist: 'Cheñch tu ar roll-videoioù'
-  Play Next Video: 'Lenn ar video da heul'
-  Play Previous Video: 'Lenn ar video a-raok'
+  Previous: 'A-raok'
+  Next: 'Goude'
   Watched: 'Lennet'
   Autoplay: 'Lenn emgefreek'
   Starting soon, please refresh the page to check again: 'Kregiñ a raio a-benn nebeut, freskait ar bajenn evit gwiriañ en-dro'
@@ -862,9 +845,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': 'Dihegerz eo ar flapañ war-eeun evit ar skignañ-mañ. Marteze eo bet diweredekaet gant perc''henn ar chadenn.'
   Show Super Chat Comment: 'Diskouez evezhiadennoù ar flapañ-meur'
   Scroll to Bottom: 'Dibunañ d''an traoñ'
-  Download Video: 'Pellgargañ ar video'
-  video only: 'video hepken'
-  audio only: 'aodio hepken'
   Published:
     In less than a minute: 'Nebeutoc''h eget ur vunutenn zo'
   Published on: 'Embannet war'
@@ -982,6 +962,7 @@ Share:
   YouTube URL copied to clipboard: 'Liamm YouTube eilet er golver'
   YouTube Embed URL copied to clipboard: 'Liamm lenner enkorfet YouTube eilet er golver'
   YouTube Channel URL copied to clipboard: 'Liamm YouTube ar chadenn eilet er golver'
+  Share Post: Rannañ an embann
 Clipboard:
   Copy failed: 'Eilañ er golver c''hwitet'
   Cannot access clipboard without a secure connection: 'Ne c''haller ket adtapout ar golver hep ur c''hennask suraet'
@@ -1078,9 +1059,6 @@ Age Restricted:
   This channel is age restricted: 'Ur vevenn oad a zo d''ar chadenn-mañ'
   This video is age restricted: 'Ur vevenn oad a zo d''ar video-mañ'
 External link opening has been disabled in the general settings: 'Diweredekaet eo al liammoù diavaez en arventennoù hollek'
-Downloading has completed: '"{videoTitle}" a zo bet pellgarget'
-Starting download: 'Kregiñ da bellgargañ "{videoTitle}"'
-Downloading failed: 'C''hoarvezet ez eus ur gudenn en ur bellgargañ "{videoTitle}"'
 Screenshot Success: 'Enrollet eo bet an dapadenn-skramm'
 Screenshot Error: 'Tapadenn skramm c''hwitet. {error}'
 Channel Hidden: '{channel} ouzhpennet da sil ar chadennoù'
@@ -1172,3 +1150,5 @@ Keys:
   arrowleft: Bir kleiz
   arrowright: Bir dehou
   arrowup: Bir sevel
+Expand side navigation: Astenn ar merdeiñ kostez
+Compact side navigation: Fetisaat ar merdeiñ kostez

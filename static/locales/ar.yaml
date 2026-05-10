@@ -34,26 +34,24 @@ Global:
 
 # Search Bar
   Counts:
-    Video Count: 1 فيديو | {count} مقاطع فيديو
-    Channel Count: 1 قناة | {count} قنوات
-    Subscriber Count: 1 مشترك | {count} مشتركين
-    View Count: 1 مشاهدة | {count} مشاهدات
-    Watching Count: 1 مشاهد | {count} مشاهدون
-    Like Count: إعجاب واحد |{count} إعجاب
-    Comment Count: تعليق واحد | {count} تعليقًا
+    Video Count: 1 فيديو | {عدد} مقاطع فيديو
+    Channel Count: 1 قناة | {عدد} قنوات
+    Subscriber Count: 1 مشترك | {عدد} مشتركين
+    View Count: 1 مشاهدة | {عدد} مشاهدات
+    Watching Count: 1 مشاهد | {عدد} مشاهدون
+    Like Count: إعجاب واحد |{عدد} إعجابات
+    Comment Count: تعليق واحد | {عدد} تعليقًا
 Search / Go to URL: 'ابحث / اذهب إلى رابط'
   # In Filter Button
 Search Filters:
   Search Filters: 'فلاتر البحث'
-  Sort By:
+  Prioritize:
     Most Relevant: 'الأكثر صلة'
-    Rating: 'التقييم'
-    Upload Date: 'تاريخ الرفع'
-    View Count: 'عدد المشاهدات'
+    Prioritize: رتب حسب الأهمية
+    Popularity: الشهرة
   Time:
     Time: 'الوقت'
     Any Time: 'أي وقت'
-    Last Hour: 'آخر ساعة'
     Today: 'اليوم'
     This Week: 'هذا الأسبوع'
     This Month: 'هذا الشهر'
@@ -68,10 +66,9 @@ Search Filters:
   Duration:
     Duration: 'المدة'
     All Durations: 'كل الآوقات'
-    Short (< 4 minutes): 'قصير (< 4 دقائق)'
-    Long (> 20 minutes): 'طويل (> 20 دقيقة)'
-  # On Search Page
-    Medium (4 - 20 minutes): متوسط (4 - 20 دقيقة)
+    '< 3 minutes': أقل من 3 دقائق
+    '3 - 20 minutes': 3 - 20 دقيقة
+    '> 20 minutes': أكثر من 20 دقيقة
   Search Results: 'نتائج البحث'
   Fetching results. Please wait: 'جاري إحضار النتائج. الرجاء الانتظار'
   Fetch more results: 'إحضار المزيد من النتائج'
@@ -107,6 +104,7 @@ Trending:
   Trending: 'المحتوى الرائج'
   Trending Tabs: علامات التبويب الشائعة
   Gaming: الالعاب
+  Sports: رياضة
 Most Popular: 'الأكثر شعبية'
 Playlists: 'قوائم التشغيل'
 User Playlists:
@@ -161,8 +159,7 @@ User Playlists:
     Select a playlist to add your N videos to: حدد قائمة تشغيل لإضافة الفيديو الخاص بك إلى | حدد قائمة تشغيل لإضافة مقاطع الفيديو {videoCount} إليها
     Toast:
       You haven't selected any playlist yet.: لم تقم بتحديد أي قائمة تشغيل حتى الآن.
-      "{videoCount} video(s) added to 1 playlist": تمت إضافة فيديو واحد إلى قائمة تشغيل واحدة | تمت إضافة {videoCount} من مقاطع الفيديو إلى قائمة تشغيل واحدة
-      "{videoCount} video(s) added to {playlistCount} playlists": تمت إضافة مقطع فيديو واحد إلى قوائم التشغيل {playlistCount} | تمت إضافة {videoCount} من مقاطع الفيديو إلى قوائم التشغيل {playlistCount}
+      "Video(s) added to {playlistCount} playlists": ""
     Save: حفظ
     Search in Playlists: البحث في قوائم التشغيل
     N playlists selected: تم تحديد {playlistCount}
@@ -229,7 +226,6 @@ Settings:
       Blur: الضبابية
     Region for Trending: 'المنطقة للأكثر شيوعاً'
         #! List countries
-    Check for Latest Blog Posts: تحقق من أحدث منشورات المدونة
     Check for Updates: تحقّق من وجود تحديثات
     View all Invidious instance information: عرض جميع نماذج Invidious
     System Default: افتراضي النظام
@@ -467,7 +463,6 @@ Settings:
     Export History: تصدير السجلّ
     Import History: استيراد السجلّ
     Invalid history file: ملف السجلّ غير صالح
-    This might take a while, please wait: قد يستغرق هذا بعض الوقت، يرجى الانتظار
     Invalid subscriptions file: ملف الاشتراكات غير صالح
     All subscriptions have been successfully imported: تم استيراد جميع الاشتراكات بنجاح
     All subscriptions and profiles have been successfully imported: تم استيراد جميع الاشتراكات والملفات الشخصية بنجاح
@@ -580,13 +575,6 @@ Settings:
       None:
         Name: لاشيء
     Ignore Default Arguments: تجاهل الحجج الافتراضية
-  Download Settings:
-    Download Settings: التنزيل
-    Choose Path: اختر المسار
-    Ask Download Path: اطلب مسار التنزيل
-    Download Behavior: سلوك التحميل
-    Open in web browser: فتح في متصفح الويب
-    Download in app: تحميل في التطبيق
   Parental Control Settings:
     Hide Search Bar: إخفاء شريط البحث
     Parental Control Settings: الرقابة الأبوية
@@ -616,7 +604,6 @@ About:
   Chat on Matrix: الدردشة على ماتريكس
   Mastodon: ماستدون
   Email: البريد الإلكتروني
-  Blog: المدوّنة
   Website: موقع الويب
   Report a problem: الإبلاغ عن مشكلة
   FAQ: الأسئلة المتداولة
@@ -624,17 +611,14 @@ About:
   Source code: الشفرة المصدرية
   Beta: تجريبي
   these people and projects: هؤلاء الناس والمشاريع
-  FreeTube is made possible by: Freetube أصبح ممكنا بواسطة
   Credits: الاعتمادات
   room rules: قواعد الغرفة
-  Please read the: يرجى قراءة
   Please check for duplicates before posting: يرجى التحقق من التكرارات قبل النشر
   GitHub issues: مشاكل GitHub
   FreeTube Wiki: ويكي Freetube
   GitHub releases: إصدارات GitHub
   Downloads / Changelog: التحميلات\التغييرات
   Discussions: المناقشات
-  Licensed under the: مرخص تحت
   AGPLv3: رخصة أفيرو العمومية الإصدار ٣
 Profile:
   All Channels: 'جميع القنوات'
@@ -765,15 +749,12 @@ Video:
   Published on: 'نُشر في'
 #& Videos
   Autoplay: تشغيل تلقائي
-  Play Previous Video: شغل الفيديو السابق
-  Play Next Video: شغل الفيديو التالي
+  Previous: السابق
+  Next: التالي
   Reverse Playlist: عكس قائمة التشغيل
   Shuffle Playlist: ‮خلط قائمة التشغيل
   Loop Playlist: تكرار قائمة التشغيل
   Starting soon, please refresh the page to check again: سيبدأ قريباً ، يرجى تحديث الصفحة للتحقق مرة أخرى
-  audio only: الصوت فقط
-  video only: الفيديو فقط
-  Download Video: تحميل الفيديو
   Started streaming on: بدأ البث على
   Streamed on: تبث على
   Copy Invidious Channel Link: انسخ رابط قناة انفيديوس
@@ -937,7 +918,6 @@ Canceled next video autoplay: 'تم إلغاء التشغيل التلقائي �
 Yes: 'نعم'
 No: 'لا'
 The playlist has been reversed: تم عكس قائمة التشغيل
-A new blog is now available, {blogTitle}. Click to view more: 'هناك مدونة جديدة متاحة الآن ، {blogTitle}. انقر لعرض المزيد'
 Download From Site: تنزيل من الموقع
 Version {versionNumber} is now available!  Click for more details: 'الإصدار {versionNumber} متاح الآن!  انقر لمزيد من التفاصيل'
 Tooltips:
@@ -986,10 +966,6 @@ Search Bar:
   Remove: إزالة
 External link opening has been disabled in the general settings: تم تعطيل فتح الارتباط الخارجي في الإعدادات العامة
 Are you sure you want to open this link?: هل أنت متأكد أنك تريد فتح هذا الرابط؟
-Downloading has completed: 'انتهى تنزيل "{videoTitle}"'
-Downloading failed: حدثت مشكلة أثناء تنزيل "{videoTitle}"
-Downloading canceled: تم إلغاء التحميل من قبل المستخدم
-Starting download: بدء تنزيل "{videoTitle}"
 Screenshot Success: تم حفظ لقطة الشاشة
 Screenshot Error: فشل أخذ لقطة للشاشة. {error}
 New Window: نافذة جديدة
@@ -1108,5 +1084,7 @@ Description:
   Expand Description: '...المزيد'
 Autoplay Interruption Timer: تم إلغاء التشغيل التلقائي بسبب {autoplayInterruptionIntervalHours} ساعات من عدم النشاط
 shortcutJoinOperator: +
-shortcutLabelSeparator: '|'
+shortcutLabelSeparator: '{''|''}'
 KeyboardShortcutTemplate: '{label} ({shortcut})'
+Compact side navigation: قائمة جانبية مُختصرة
+Expand side navigation: عرض تفاصيل القائمة

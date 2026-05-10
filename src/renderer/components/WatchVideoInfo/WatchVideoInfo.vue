@@ -3,6 +3,7 @@
     <div>
       <h1
         class="videoTitle"
+        dir="auto"
       >
         {{ title }}
       </h1>
@@ -57,6 +58,7 @@
             <RouterLink
               :to="`/channel/${channelId}`"
               class="channelName"
+              dir="auto"
             >
               {{ channelName }}
             </RouterLink>
@@ -106,16 +108,6 @@
             @click="handleExternalPlayer"
           />
           <FtIconButton
-            v-if="!isUpcoming && downloadLinks.length > 0"
-            ref="downloadButton"
-            :title="t('Video.Download Video')"
-            theme="secondary"
-            :icon="['fas', 'download']"
-            :return-index="true"
-            :dropdown-options="downloadLinks"
-            @click="handleDownload"
-          />
-          <FtIconButton
             v-if="!isUpcoming"
             :title="t('Change Format.Change Media Formats')"
             theme="secondary"
@@ -137,17 +129,17 @@
 
 <script setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { computed, nextTick, onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from '../../composables/use-i18n-polyfill'
 
 import FtCard from '../ft-card/ft-card.vue'
-import FtIconButton from '../ft-icon-button/ft-icon-button.vue'
+import FtIconButton from '../FtIconButton/FtIconButton.vue'
 import FtShareButton from '../FtShareButton/FtShareButton.vue'
 import FtSubscribeButton from '../FtSubscribeButton/FtSubscribeButton.vue'
 
 import store from '../../store'
 
-import { formatNumber, openExternalLink, showToast } from '../../helpers/utils'
+import { formatNumber, showToast } from '../../helpers/utils'
 
 const props = defineProps({
   id: {
@@ -210,27 +202,12 @@ const props = defineProps({
     type: Boolean,
     required: true
   },
-  downloadLinks: {
-    type: Array,
-    required: true
-  },
   playlistId: {
     type: String,
     default: null
   },
-  getPlaylistIndex: {
-    type: Function,
-    required: true
-  },
-  getPlaylistReverse: {
-    type: Function,
-    required: true
-  },
-  getPlaylistShuffle: {
-    type: Function,
-    required: true
-  },
-  getPlaylistLoop: {
+  /** @type {import('vue').PropType<() => { index: number, reverse: boolean, shuffle: boolean, loop: boolean }>} */
+  getPlaylistState: {
     type: Function,
     required: true
   },
@@ -259,8 +236,6 @@ const props = defineProps({
 const emit = defineEmits([
   'change-format',
   'pause-player',
-  'set-info-area-sticky',
-  'scroll-to-info-area',
   'save-watched-progress',
 ])
 
@@ -365,26 +340,28 @@ function handleExternalPlayer() {
   // Only play video in non playlist mode when user playlist detected
   if (props.inUserPlaylist) {
     payload = {
-      watchProgress: props.getTimestamp(),
-      playbackRate: defaultPlayback.value,
       videoId: props.id,
-      videoLength: props.lengthSeconds
+      startTime: props.getTimestamp(),
+      playbackRate: defaultPlayback.value,
     }
   } else {
+    const playlistState = props.getPlaylistState()
+
     payload = {
-      watchProgress: props.getTimestamp(),
-      playbackRate: defaultPlayback.value,
       videoId: props.id,
-      videoLength: props.lengthSeconds,
       playlistId: props.playlistId,
-      playlistIndex: props.getPlaylistIndex(),
-      playlistReverse: props.getPlaylistReverse(),
-      playlistShuffle: props.getPlaylistShuffle(),
-      playlistLoop: props.getPlaylistLoop()
+      startTime: props.getTimestamp(),
+      playbackRate: defaultPlayback.value,
+      playlistIndex: playlistState.index,
+      playlistReverse: playlistState.reverse,
+      playlistShuffle: playlistState.shuffle,
+      playlistLoop: playlistState.loop
     }
   }
 
-  store.dispatch('openInExternalPlayer', payload)
+  if (process.env.IS_ELECTRON) {
+    window.ftElectron.openInExternalPlayer(payload)
+  }
 
   if (rememberHistory.value) {
     // Marking as watched
@@ -411,11 +388,6 @@ function handleExternalPlayer() {
   }
 }
 
-const downloadButton = useTemplateRef('downloadButton')
-
-/** @type {import('vue').WatchHandle | undefined} */
-let downloadDropdownWatcher
-
 onMounted(() => {
   if (process.env.IS_ELECTRON || 'mediaSession' in navigator) {
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -428,47 +400,7 @@ onMounted(() => {
       }]
     })
   }
-
-  downloadDropdownWatcher = watch(() => downloadButton.value.dropdownShown, (dropdownShown) => {
-    emit('set-info-area-sticky', !dropdownShown)
-
-    if (dropdownShown && window.innerWidth >= 901) {
-      // adds a slight delay so we know that the dropdown has shown up
-      // and won't mess up our scrolling
-      nextTick(() => {
-        emit('scroll-to-info-area')
-      })
-    }
-  })
 })
-
-onBeforeUnmount(() => {
-  if (downloadDropdownWatcher) {
-    downloadDropdownWatcher.stop()
-    downloadDropdownWatcher = undefined
-  }
-})
-
-/** @type {import('vue').ComputedRef<'download' | 'open'>} */
-const downloadBehavior = computed(() => store.getters.getDownloadBehavior)
-
-/**
- * @param {number} index
- */
-function handleDownload(index) {
-  const selectedDownloadLinkOption = props.downloadLinks[index]
-  const mimeTypeUrl = selectedDownloadLinkOption.value.split('||')
-
-  if (!process.env.IS_ELECTRON || downloadBehavior.value === 'open') {
-    openExternalLink(mimeTypeUrl[1])
-  } else {
-    store.dispatch('downloadMedia', {
-      url: mimeTypeUrl[1],
-      title: props.title,
-      mimeType: mimeTypeUrl[0]
-    })
-  }
-}
 
 const showPlaylists = computed(() => !store.getters.getHidePlaylists)
 

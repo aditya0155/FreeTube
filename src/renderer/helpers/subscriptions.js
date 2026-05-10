@@ -31,31 +31,6 @@ export function updateVideoListAfterProcessing(videos) {
     })
   }
 
-  // ordered last to show first eligible video from channel
-  // if the first one incidentally failed one of the above checks
-  if (store.getters.getOnlyShowLatestFromChannel) {
-    const authors = new Map()
-    videoList = videoList.filter((video) => {
-      if (!video.authorId) {
-        return true
-      }
-
-      if (!authors.has(video.authorId)) {
-        authors.set(video.authorId, 1)
-        return true
-      } else {
-        const currentVideos = authors.get(video.authorId)
-
-        if (currentVideos < store.getters.getOnlyShowLatestFromChannelNumber) {
-          authors.set(video.authorId, currentVideos + 1)
-          return true
-        }
-      }
-
-      return false
-    })
-  }
-
   videoList.sort((a, b) => {
     return b.published - a.published
   })
@@ -99,6 +74,18 @@ export async function parseYouTubeRSSFeed(rssString, channelId) {
 async function parseRSSEntry(entry, channelId, channelName) {
   // doesn't need to be asynchronous, but doing it allows us to do the relatively slow DOM querying in parallel
 
+  const rawViewCount = entry.getElementsByTagName('media:statistics')[0]?.getAttribute('views')
+
+  let viewCount = null
+
+  if (rawViewCount) {
+    const parsedViewCount = parseInt(rawViewCount)
+
+    if (!isNaN(parsedViewCount)) {
+      viewCount = parsedViewCount
+    }
+  }
+
   return {
     authorId: channelId,
     author: channelName,
@@ -106,7 +93,7 @@ async function parseRSSEntry(entry, channelId, channelName) {
     videoId: entry.getElementsByTagName('yt:videoId')[0].textContent,
     title: entry.querySelector('title').textContent,
     published: Date.parse(entry.querySelector('published').textContent),
-    viewCount: entry.getElementsByTagName('media:statistics')[0]?.getAttribute('views') || null,
+    viewCount,
     type: 'video',
     lengthSeconds: '0:00',
     isRSS: true

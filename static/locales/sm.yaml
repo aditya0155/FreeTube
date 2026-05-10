@@ -28,7 +28,6 @@ Open New Window: ''
 
 Version {versionNumber} is now available!  Click for more details: ''
 Download From Site: ''
-A new blog is now available, {blogTitle}. Click to view more: ''
 Are you sure you want to open this link?: ''
 
 # Global
@@ -52,15 +51,11 @@ Search Bar:
   # In Filter Button
 Search Filters:
   Search Filters: ''
-  Sort By:
+  Prioritize:
     Most Relevant: ''
-    Rating: ''
-    Upload Date: ''
-    View Count: ''
   Time:
     Time: ''
     Any Time: ''
-    Last Hour: ''
     Today: ''
     This Week: ''
     This Month: ''
@@ -75,9 +70,6 @@ Search Filters:
   Duration:
     Duration: ''
     All Durations: ''
-    Short (< 4 minutes): ''
-    Medium (4 - 20 minutes): ''
-    Long (> 20 minutes): ''
   # On Search Page
   Search Results: ''
   Fetching results. Please wait: ''
@@ -130,7 +122,6 @@ Settings:
   General Settings:
     General Settings: ''
     Check for Updates: ''
-    Check for Latest Blog Posts: ''
     Fallback to Non-Preferred Backend on Failure: ''
     Enable Search Suggestions: ''
     Default Landing Page: ''
@@ -357,7 +348,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: ''
     All subscriptions have been successfully imported: ''
     Invalid subscriptions file: ''
-    This might take a while, please wait: ''
     Invalid history file: ''
     Subscriptions have been successfully exported: ''
     History object has insufficient data, skipping item: ''
@@ -403,13 +393,6 @@ Settings:
     Hide Unsubscribe Button: ''
     Show Family Friendly Only: ''
     Hide Search Bar: ''
-  Download Settings:
-    Download Settings: ''
-    Ask Download Path: ''
-    Choose Path: ''
-    Download Behavior: ''
-    Download in app: ''
-    Open in web browser: ''
   Experimental Settings:
     Experimental Settings: ''
     Warning: ''
@@ -437,15 +420,12 @@ About:
   GitHub issues: ''
   Please check for duplicates before posting: ''
   Website: ''
-  Blog: ''
   Email: ''
   Mastodon: ''
   Chat on Matrix: ''
-  Please read the: ''
   room rules: ''
   Translate: ''
   Credits: ''
-  FreeTube is made possible by: ''
   these people and projects: ''
   Donate: ''
 
@@ -561,8 +541,8 @@ Video:
   Loop Playlist: ''
   Shuffle Playlist: ''
   Reverse Playlist: ''
-  Play Next Video: ''
-  Play Previous Video: ''
+  Previous: ''
+  Next: ''
   Watched: ''
   Autoplay: ''
   Starting soon, please refresh the page to check again: ''
@@ -579,9 +559,6 @@ Video:
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': ''
   Show Super Chat Comment: ''
   Scroll to Bottom: ''
-  Download Video: ''
-  video only: ''
-  audio only: ''
   Published:
     In less than a minute: ''
   Published on: ''
@@ -722,9 +699,6 @@ Default Invidious instance has been set to {instance}: ''
 Default Invidious instance has been cleared: ''
 'The playlist has ended. Enable loop to continue playing': ''
 External link opening has been disabled in the general settings: ''
-Downloading has completed: ''
-Starting download: ''
-Downloading failed: ''
 Screenshot Success: ''
 Screenshot Error: ''
 

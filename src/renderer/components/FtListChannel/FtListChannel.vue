@@ -27,7 +27,10 @@
           class="title"
           :to="`/channel/${id}`"
         >
-          <h3 class="h3Title">
+          <h3
+            class="h3Title"
+            dir="auto"
+          >
             {{ name }}
           </h3>
         </router-link>
@@ -35,6 +38,7 @@
           <router-link
             v-if="handle !== null"
             class="handle"
+            dir="auto"
             :to="`/channel/${id}`"
           >
             {{ handle }}
@@ -56,8 +60,9 @@
         </div>
         <p
           v-if="listType !== 'grid'"
+          v-safer-html="description"
           class="description"
-          v-html="description"
+          dir="auto"
         />
       </div>
       <FtSubscribeButton
@@ -75,6 +80,7 @@
 import { computed } from 'vue'
 
 import FtSubscribeButton from '../FtSubscribeButton/FtSubscribeButton.vue'
+import { vSaferHtml } from '../../directives/vSaferHtml'
 
 import store from '../../store/index'
 

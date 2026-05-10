@@ -1,9 +1,9 @@
-import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, reactive, ref, shallowRef, watch } from 'vue'
+import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, onUnmounted, reactive, ref, shallowRef, watch } from 'vue'
 import shaka from 'shaka-player'
 import { useI18n } from '../../composables/use-i18n-polyfill'
 
 import store from '../../store/index'
-import { DefaultFolderKind, KeyboardShortcuts } from '../../../constants'
+import { KeyboardShortcuts } from '../../../constants'
 import { AudioTrackSelection } from './player-components/AudioTrackSelection'
 import { FullWindowButton } from './player-components/FullWindowButton'
 import { LegacyQualitySelection } from './player-components/LegacyQualitySelection'
@@ -11,13 +11,13 @@ import { ScreenshotButton } from './player-components/ScreenshotButton'
 import { StatsButton } from './player-components/StatsButton'
 import { TheatreModeButton } from './player-components/TheatreModeButton'
 import { AutoplayToggle } from './player-components/AutoplayToggle'
+import { SkipButton } from './player-components/SkipButton'
 import {
   deduplicateAudioTracks,
   findMostSimilarAudioBandwidth,
   getSponsorBlockSegments,
   logShakaError,
   repairInvidiousManifest,
-  sortCaptions,
   translateSponsorBlockCategory
 } from '../../helpers/player/utils'
 import {
@@ -25,8 +25,11 @@ import {
   showToast,
   writeFileWithPicker,
   throttle,
+  debounce,
   removeFromArrayIfExists,
 } from '../../helpers/utils'
+import { MANIFEST_TYPE_SABR } from '../../helpers/player/SabrManifestParser'
+import { setupSabrScheme } from '../../helpers/player/SabrSchemePlugin'
 
 /** @typedef {import('../../helpers/sponsorblock').SponsorBlockCategory} SponsorBlockCategory */
 
@@ -38,6 +41,7 @@ const USE_OVERFLOW_MENU_WIDTH_THRESHOLD = 634
 const RequestType = shaka.net.NetworkingEngine.RequestType
 const AdvancedRequestType = shaka.net.NetworkingEngine.AdvancedRequestType
 const TrackLabelFormat = shaka.ui.Overlay.TrackLabelFormat
+const { Severity: ErrorSeverity, Category: ErrorCategory, Code: ErrorCode } = shaka.util.Error
 
 /*
   Mapping of Shaka localization keys for control labels to FreeTube shortcuts.
@@ -73,6 +77,10 @@ export default defineComponent({
     manifestMimeType: {
       type: String,
       required: true
+    },
+    sabrData: {
+      type: Object,
+      default: null
     },
     legacyFormats: {
       type: Array,
@@ -126,6 +134,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
+    watchingPlaylist: {
+      type: Boolean,
+      default: false
+    },
     vrProjection: {
       type: String,
       default: null
@@ -146,6 +158,10 @@ export default defineComponent({
       type: Number,
       default: 1
     },
+    delayLoadUntilUnix: {
+      type: Number,
+      default: 0
+    },
   },
   emits: [
     'error',
@@ -157,6 +173,7 @@ export default defineComponent({
     'playback-rate-updated',
     'skip-to-next',
     'skip-to-prev',
+    'player-reload-requested',
   ],
   setup: function (props, { emit, expose }) {
     const { locale, t } = useI18n()
@@ -193,31 +210,10 @@ export default defineComponent({
     let startInFullscreen = props.startInFullscreen
     let startInPip = props.startInPip
 
-    /**
-     * @type {{
-     *   url: string,
-     *   label: string,
-     *   language: string,
-     *   mimeType: string,
-     *   isAutotranslated?: boolean
-     * }[]}
-     */
-    let sortedCaptions
-
-    // we don't need to sort if we only have one caption or don't have any
-    if (props.captions.length > 1) {
-      // theoretically we would resort when the language changes, but we can't remove captions that we already added to the player
-      sortedCaptions = sortCaptions(props.captions)
-    } else if (props.captions.length === 1) {
-      sortedCaptions = props.captions
-    } else {
-      sortedCaptions = []
-    }
-
     /** @type {number|null} */
     let restoreCaptionIndex = null
 
-    if (store.getters.getEnableSubtitlesByDefault && sortedCaptions.length > 0) {
+    if (store.getters.getEnableSubtitlesByDefault && props.captions.length > 0) {
       restoreCaptionIndex = 0
     }
 
@@ -227,10 +223,6 @@ export default defineComponent({
         width: 0,
         height: 0,
         frameRate: 0
-      },
-      playerDimensions: {
-        width: 0,
-        height: 0
       },
       bitrate: '0',
       volume: '100',
@@ -248,6 +240,11 @@ export default defineComponent({
       }
     })
 
+    const playerDimensions = computed(() => ({
+      width: playerWidth.value,
+      height: playerHeight.value
+    }))
+
     // #region settings
 
     /** @type {import('vue').ComputedRef<boolean>} */
@@ -262,7 +259,7 @@ export default defineComponent({
 
     watch(displayVideoPlayButton, (newValue) => {
       ui.configure({
-        addBigPlayButton: newValue
+        bigButtons: newValue ? ['play_pause'] : []
       })
     })
 
@@ -280,7 +277,10 @@ export default defineComponent({
     /** @type {import('vue').ComputedRef<number | 'auto'>} */
     const defaultQuality = computed(() => {
       const value = store.getters.getDefaultQuality
-      if (value === 'auto') { return value }
+
+      // TODO: Revert when auto is fixed (720 is the default setttings value)
+      if (value === 'auto') { return 720 }
+      // if (value === 'auto') { return value }
 
       return parseInt(value)
     })
@@ -619,7 +619,6 @@ export default defineComponent({
           // This only affects the "auto" quality, users can still manually select whatever quality they want.
           restrictToElementSize: true
         },
-        autoShowText: shaka.config.AutoShowText.NEVER,
 
         // Prioritise variants that are predicted to play:
         // - `smooth`: without dropping frames
@@ -786,15 +785,23 @@ export default defineComponent({
     })
 
     const uiConfig = computed(() => {
+      const controlPanelElements = [
+        'play_pause',
+        'mute',
+        'volume',
+        'time_and_duration',
+        'spacer'
+      ]
+      const controlPanelElementsWithSkipButtons = [
+        ...controlPanelElements.slice(0, 1),
+        'ft_skip_previous',
+        'ft_skip_next',
+        ...controlPanelElements.slice(1)
+      ]
+
       /** @type {shaka.extern.UIConfiguration} */
       const uiConfig = {
-        controlPanelElements: [
-          'play_pause',
-          'mute',
-          'volume',
-          'time_and_duration',
-          'spacer'
-        ],
+        controlPanelElements: props.watchingPlaylist ? controlPanelElementsWithSkipButtons : controlPanelElements,
         overflowMenuButtons: [],
 
         // only set this to label when we actually have labels, so that the warning doesn't show up
@@ -802,12 +809,12 @@ export default defineComponent({
         trackLabelFormat: hasMultipleAudioTracks.value ? TrackLabelFormat.LABEL : TrackLabelFormat.LANGUAGE_ROLE,
         // Only set it to label if we added the captions ourselves,
         // some live streams come with subtitles in the DASH manifest, but without labels
-        textTrackLabelFormat: sortedCaptions.length > 0 ? TrackLabelFormat.LABEL : TrackLabelFormat.LANGUAGE,
+        textTrackLabelFormat: props.captions.length > 0 ? TrackLabelFormat.LABEL : TrackLabelFormat.LANGUAGE,
         displayInVrMode: useVrMode.value
       }
 
       /** @type {string[]} */
-      let elementList = []
+      let elementList
 
       if (onlyUseOverFlowMenu.value) {
         uiConfig.overflowMenuButtons = [
@@ -903,9 +910,21 @@ export default defineComponent({
           volumeBarColors: {
             level: 'var(--primary-color)'
           },
+          mediaSession: {
+            // The WatchVideoInfo component handles that
+            handleMetadata: false,
+            // Need to override the default list so it doesn't override the next and previous video handlers in the WatchVideoPlaylist component.
+            supportedActions: [
+              'pause',
+              'play',
+              'seekbackward',
+              'seekforward',
+              'seekto'
+            ]
+          },
 
           // these have their own watchers
-          addBigPlayButton: displayVideoPlayButton.value,
+          bigButtons: displayVideoPlayButton.value ? ['play_pause'] : [],
           enableFullscreenOnRotation: enterFullscreenOnDisplayRotate.value,
           playbackRates: playbackRates.value,
           tapSeekDistance: defaultSkipInterval.value,
@@ -915,7 +934,13 @@ export default defineComponent({
 
           // TODO: enable this when electron gets document PiP support
           // https://github.com/electron/electron/issues/39633
-          preferDocumentPictureInPicture: false
+          documentPictureInPicture: {
+            enabled: false
+          }
+        }
+
+        if (document.pictureInPictureEnabled) {
+          firstTimeConfig.mediaSession.supportedActions.push('enterpictureinpicture')
         }
 
         // Combine the config objects so we only need to do one configure call
@@ -1070,14 +1095,12 @@ export default defineComponent({
         }
       }
 
-      // make scrolling over volume slider change the volume
-      container.value.querySelector('.shaka-volume-bar').addEventListener('wheel', mouseScrollVolumeHandler)
-
       // title overlay when the video is fullscreened
       // placing this inside the controls container so that we can fade it in and out at the same time as the controls
       const fullscreenTitleOverlay = document.createElement('h1')
       fullscreenTitleOverlay.textContent = props.title
       fullscreenTitleOverlay.className = 'playerFullscreenTitleOverlay'
+      fullscreenTitleOverlay.dir = 'auto'
       controlsContainer.appendChild(fullscreenTitleOverlay)
 
       if (hasLoaded.value && props.chapters.length > 0) {
@@ -1133,7 +1156,7 @@ export default defineComponent({
     })
 
     /** @type {ResizeObserver|null} */
-    let resizeObserver = null
+    let containerResizeObserver = null
 
     /** @type {ResizeObserverCallback} */
     function resized(entries) {
@@ -1291,7 +1314,87 @@ export default defineComponent({
       }
     }
 
+    const videoElementWidth = ref(0)
+    const videoElementHeight = ref(0)
+
+    /** @type {ResizeObserver} */
+    const videoResizeObserver = new ResizeObserver(() => {
+      if (video.value) {
+        const devicePixelRatio = window.devicePixelRatio > 1 ? window.devicePixelRatio : 1
+        const video_ = video.value
+
+        videoElementWidth.value = video_.clientWidth * devicePixelRatio
+        videoElementHeight.value = video_.clientHeight * devicePixelRatio
+      }
+    })
+
+    /** @type {PictureInPictureWindow | null} */
+    let pipWindow = null
+    const pipWindowWidth = ref(null)
+    const pipWindowHeight = ref(null)
+
+    /**
+     * @param {PictureInPictureEvent} event
+     */
+    function handleEnterPictureInPicture(event) {
+      pipWindow = event.pictureInPictureWindow
+      handlePictureInPictureResize()
+      pipWindow.addEventListener('resize', handlePictureInPictureResize)
+    }
+
+    function handleLeavePictureInPicture() {
+      pipWindow.removeEventListener('resize', handlePictureInPictureResize)
+
+      pipWindow = null
+      pipWindowWidth.value = null
+      pipWindowHeight.value = null
+    }
+
+    function handlePictureInPictureResize() {
+      const devicePixelRatio = window.devicePixelRatio > 1 ? window.devicePixelRatio : 1
+
+      pipWindowWidth.value = pipWindow.width * devicePixelRatio
+      pipWindowHeight.value = pipWindow.height * devicePixelRatio
+    }
+
+    const playerWidth = computed(() => Math.round(pipWindowWidth.value ?? videoElementWidth.value))
+    const playerHeight = computed(() => Math.round(pipWindowHeight.value ?? videoElementHeight.value))
+
     // #endregion video event handlers
+
+    // #region SABR
+
+    /** @type {shaka.extern.Manifest | undefined} */
+    let sabrManifest
+
+    /** @type {import('../../helpers/player/SabrSchemePlugin').SabrStream | undefined} */
+    let sabrStream
+    /** @type {AbortController | undefined} */
+    let sabrAbortController
+
+    if (process.env.SUPPORTS_LOCAL_API && props.sabrData) {
+      sabrStream = /** @__NOINLINE__ */ setupSabrScheme(props.sabrData, () => player, () => sabrManifest, playerWidth, playerHeight)
+      sabrAbortController = new AbortController()
+      // Since there can be 2 requests at the same time (video + audio), we debounce the listener to only show the message once
+      sabrStream.onBackoffRequested(debounce(({ backoffMs }) => {
+        showToast(
+          ({ remainingMs }) => {
+            // `+value` converts string back to float
+            return t('Video.Watch.Remaining SABR backoff time: {remindingTimeSeconds}s', { remindingTimeSeconds: +(remainingMs / 1000).toFixed(1) })
+          },
+          // So that we don't see last countdown text like 0/N
+          backoffMs,
+          null,
+          sabrAbortController.signal,
+        )
+      }, 1000))
+      sabrStream.onReloadOnce(() => {
+        sabrAbortController.abort()
+        emit('player-reload-requested')
+      })
+    }
+
+    // #endregion SABR
 
     // #region request/response filters
 
@@ -1302,7 +1405,7 @@ export default defineComponent({
 
         // only when we aren't proxying through Invidious,
         // it doesn't like the range param and makes get requests to youtube anyway
-        if (url.hostname.endsWith('.googlevideo.com') && url.pathname === '/videoplayback') {
+        if (url.protocol !== 'sabr:' && url.hostname.endsWith('.googlevideo.com') && url.pathname === '/videoplayback') {
           request.method = 'POST'
           request.body = new Uint8Array([0x78, 0]) // protobuf: { 15: 0 } (no idea what it means but this is what YouTube uses)
 
@@ -1316,13 +1419,15 @@ export default defineComponent({
       }
     }
 
-    /**
-     * Handles Application Level Redirects
-     * Based on the example in the YouTube.js repository
-     * @type {shaka.extern.ResponseFilter}
-     */
+    /** @type {shaka.extern.ResponseFilter} */
     async function responseFilter(type, response, context) {
       if (type === RequestType.SEGMENT) {
+        const url = new URL(response.uri)
+
+        if (url.protocol === 'sabr:') {
+          return
+        }
+
         if (response.data && response.data.byteLength > 4 &&
           new DataView(response.data).getUint32(0) === HTTP_IN_HEX) {
           // Interpret the response data as a URL string.
@@ -1342,8 +1447,6 @@ export default defineComponent({
           response.headers = redirectResponse.headers
           response.uri = redirectResponse.uri
         } else {
-          const url = new URL(response.uri)
-
           // Fix positioning for auto-generated subtitles
           if (url.hostname.endsWith('.youtube.com') && url.pathname === '/api/timedtext' &&
             url.searchParams.get('caps') === 'asr' && url.searchParams.get('kind') === 'asr' && url.searchParams.get('fmt') === 'vtt') {
@@ -1522,12 +1625,6 @@ export default defineComponent({
         updateLegacyQualityStats(activeLegacyFormat.value)
       }
 
-      const playerDimensions = video_.getBoundingClientRect()
-      stats.playerDimensions = {
-        width: Math.floor(playerDimensions.width),
-        height: Math.floor(playerDimensions.height)
-      }
-
       if (!hasLoaded.value) {
         player.addEventListener('loaded', () => {
           if (showStats.value) {
@@ -1583,14 +1680,13 @@ export default defineComponent({
         stats.resolution.width = newTrack.width
         stats.resolution.height = newTrack.height
       } else {
-        // for videos with multiple audio tracks, youtube.js appends the track id to the itag, to make it unique
-        stats.codecs.audioItag = newTrack.originalAudioId.split('-')[0]
+        stats.codecs.audioItag = newTrack.originalAudioId.split('-', 1)[0]
         stats.codecs.audioCodec = newTrack.audioCodec
 
         if (props.format === 'dash') {
           stats.resolution.frameRate = newTrack.frameRate
 
-          stats.codecs.videoItag = newTrack.originalVideoId
+          stats.codecs.videoItag = newTrack.originalVideoId.split('-', 1)[0]
           stats.codecs.videoCodec = newTrack.videoCodec
 
           stats.resolution.width = newTrack.width
@@ -1623,12 +1719,6 @@ export default defineComponent({
     }
 
     function updateStats() {
-      const playerDimensions = video.value.getBoundingClientRect()
-      stats.playerDimensions = {
-        width: Math.floor(playerDimensions.width),
-        height: Math.floor(playerDimensions.height)
-      }
-
       const playerStats = player.getStats()
 
       if (props.format !== 'audio') {
@@ -1744,9 +1834,9 @@ export default defineComponent({
         } else {
           const arrayBuffer = await blob.arrayBuffer()
 
-          await window.ftElectron.writeToDefaultFolder(DefaultFolderKind.SCREENSHOTS, filenameWithExtension, arrayBuffer)
-
-          showToast(t('Screenshot Success'))
+          if (await window.ftElectron.writeToDefaultFolder(filenameWithExtension, arrayBuffer)) {
+            showToast(t('Screenshot Success'))
+          }
         }
       } catch (error) {
         console.error(error)
@@ -1922,6 +2012,36 @@ export default defineComponent({
       shakaOverflowMenu.registerElement('ft_screenshot', new ScreenshotButtonFactory())
     }
 
+    function registerSkipButtons() {
+      // skip to next video button
+      events.addEventListener('nextVideo', () => {
+        emit('skip-to-next')
+      })
+
+      class SkipNextButtonFactory {
+        create(rootElement, controls) {
+          return new SkipButton(events, rootElement, controls, 'next')
+        }
+      }
+
+      shakaControls.registerElement('ft_skip_next', new SkipNextButtonFactory())
+      shakaOverflowMenu.registerElement('ft_skip_next', new SkipNextButtonFactory())
+
+      // skip to previous video button
+      events.addEventListener('previousVideo', () => {
+        emit('skip-to-prev')
+      })
+
+      class SkipPreviousButtonFactory {
+        create(rootElement, controls) {
+          return new SkipButton(events, rootElement, controls, 'previous')
+        }
+      }
+
+      shakaControls.registerElement('ft_skip_previous', new SkipPreviousButtonFactory())
+      shakaOverflowMenu.registerElement('ft_skip_previous', new SkipPreviousButtonFactory())
+    }
+
     /**
      * As shaka-player doesn't let you unregister custom control factories,
      * overwrite them with `null` instead so the referenced objects
@@ -1947,6 +2067,12 @@ export default defineComponent({
 
       shakaControls.registerElement('ft_screenshot', null)
       shakaOverflowMenu.registerElement('ft_screenshot', null)
+
+      shakaControls.registerElement('ft_next_previous', null)
+      shakaOverflowMenu.registerElement('ft_next_previous', null)
+
+      shakaControls.registerElement('ft_skip_previous', null)
+      shakaOverflowMenu.registerElement('ft_skip_previous', null)
     }
 
     // #endregion custom player controls
@@ -2296,16 +2422,23 @@ export default defineComponent({
             showValueChange(message, messageIcon)
           }
           break
-        case KeyboardShortcuts.VIDEO_PLAYER.GENERAL.CAPTIONS:
+        case KeyboardShortcuts.VIDEO_PLAYER.GENERAL.CAPTIONS: {
           // Toggle caption/subtitles
-          if (player.getTextTracks().length > 0) {
+
+          const textTracks = player.getTextTracks()
+          if (textTracks.length > 0) {
             event.preventDefault()
 
-            const currentlyVisible = player.isTextTrackVisible()
-            player.setTextTrackVisibility(!currentlyVisible)
+            if (textTracks.some(track => track.active)) {
+              player.selectTextTrack(null)
+            } else {
+              player.selectTextTrack(textTracks[0])
+            }
+
             showOverlayControls()
           }
           break
+        }
         case KeyboardShortcuts.VIDEO_PLAYER.GENERAL.VOLUME_UP:
           // Increase volume
           event.preventDefault()
@@ -2317,6 +2450,9 @@ export default defineComponent({
           changeVolume(-0.05)
           break
         case KeyboardShortcuts.VIDEO_PLAYER.PLAYBACK.SMALL_REWIND:
+          if (event.shiftKey) {
+            break
+          }
           event.preventDefault()
           if (canChapterJump(event, 'previous')) {
             // Jump to the previous chapter
@@ -2328,6 +2464,9 @@ export default defineComponent({
           }
           break
         case KeyboardShortcuts.VIDEO_PLAYER.PLAYBACK.SMALL_FAST_FORWARD:
+          if (event.shiftKey) {
+            break
+          }
           event.preventDefault()
           if (canChapterJump(event, 'next')) {
             // Jump to the next chapter
@@ -2464,8 +2603,25 @@ export default defineComponent({
     function handleError(error, context, details) {
       // These two errors are just wrappers around another error, so use the original error instead
       // As they can be nested (e.g. multiple googlevideo redirects because the Invidious server was far away from the user) we should pick the inner most one
-      while (error.code === shaka.util.Error.Code.REQUEST_FILTER_ERROR || error.code === shaka.util.Error.Code.RESPONSE_FILTER_ERROR) {
+      while (error.code === ErrorCode.REQUEST_FILTER_ERROR || error.code === ErrorCode.RESPONSE_FILTER_ERROR) {
         error = error.data[0]
+      }
+
+      // Allow shaka-player to retry on potentially recoverable network errors
+      if (error.severity === ErrorSeverity.RECOVERABLE && error.category === ErrorCategory.NETWORK) {
+        /** @type {keyof ErrorCategory} */
+        const categoryText = Object.keys(ErrorCategory).find((/** @type {keyof ErrorCategory} */ key) => ErrorCategory[key] === error.category)
+
+        /** @type {keyof ErrorCode} */
+        const codeText = Object.keys(ErrorCode).find((/** @type {keyof ErrorCode} */ key) => ErrorCode[key] === error.code)
+
+        console.warn(
+          'Recoverable network error retrying...\n' +
+          `Category: ${categoryText} (${error.category})\n` +
+          `Code: ${codeText} (${error.code})\n` +
+          'Data', error.data
+        )
+        return
       }
 
       logShakaError(error, context, props.videoId, details)
@@ -2591,6 +2747,7 @@ export default defineComponent({
     // #endregion offline message
 
     // #region setup
+    const initLoadWaitTimeToastAC = new AbortController()
 
     onMounted(async () => {
       const videoElement = video.value
@@ -2607,9 +2764,6 @@ export default defineComponent({
         videoElement.muted = (muted === 'true')
       }
 
-      videoElement.playbackRate = props.currentPlaybackRate
-      videoElement.defaultPlaybackRate = props.currentPlaybackRate
-
       const localPlayer = new shaka.Player()
 
       ui = new shaka.ui.Overlay(
@@ -2622,6 +2776,9 @@ export default defineComponent({
       // This has to be called after creating the UI, so that the player uses the UI's UITextDisplayer
       // otherwise it uses the browsers native captions which get displayed underneath the UI controls
       await localPlayer.attach(videoElement)
+
+      videoElement.playbackRate = props.currentPlaybackRate
+      videoElement.defaultPlaybackRate = defaultPlaybackRate.value
 
       // check if the component is already getting destroyed
       // which is possible because this function runs asynchronously
@@ -2653,6 +2810,8 @@ export default defineComponent({
         return
       }
 
+      videoResizeObserver.observe(videoElement)
+
       registerScreenshotButton()
       registerAudioTrackSelection()
       registerAutoplayToggle()
@@ -2661,14 +2820,15 @@ export default defineComponent({
       registerFullWindowButton()
       registerLegacyQualitySelection()
       registerStatsButton()
+      registerSkipButtons()
 
       if (ui.isMobile()) {
         onlyUseOverFlowMenu.value = true
       } else {
         onlyUseOverFlowMenu.value = container.value.getBoundingClientRect().width <= USE_OVERFLOW_MENU_WIDTH_THRESHOLD
 
-        resizeObserver = new ResizeObserver(resized)
-        resizeObserver.observe(container.value)
+        containerResizeObserver = new ResizeObserver(resized)
+        containerResizeObserver.observe(container.value)
       }
 
       controls.addEventListener('uiupdated', addUICustomizations)
@@ -2711,13 +2871,52 @@ export default defineComponent({
       container.value.classList.add('no-cursor')
 
       await performFirstLoad()
+      // Whatever runs after `performFirstLoad` might be after switching to another page due to SABR backoff
 
-      player.addEventListener('ratechange', () => {
+      player?.addEventListener('ratechange', () => {
         emit('playback-rate-updated', player.getPlaybackRate())
       })
     })
+    onUnmounted(() => {
+      initLoadWaitTimeToastAC.abort()
+    })
 
     async function performFirstLoad() {
+      if (process.env.SUPPORTS_LOCAL_API && sabrStream) {
+        // Longer timeout for receiving larger responses
+        player.configure({
+          streaming: {
+            retryParameters: {
+              timeout: 30 * 1000 * 2,
+            }
+          }
+        })
+      } else {
+        // Reset to default value
+        player.configure({
+          streaming: {
+            retryParameters: {
+              timeout: 30 * 1000,
+            }
+          }
+        })
+      }
+
+      const initialLoadDelayMs = props.delayLoadUntilUnix - Date.now()
+      if (initialLoadDelayMs > 0 && (props.format === 'legacy' || props.manifestMimeType !== MANIFEST_TYPE_SABR)) {
+        showToast(
+          ({ remainingMs }) => {
+            // `+value` converts string back to float
+            return t('Video.Watch.Remaining preroll-ad time: {remindingTimeSeconds}s', { remindingTimeSeconds: +(remainingMs / 1000).toFixed(1) })
+          },
+          // So that we don't see last countdown text like 0/N
+          initialLoadDelayMs,
+          null,
+          initLoadWaitTimeToastAC.signal,
+        )
+        await new Promise((resolve) => setTimeout(resolve, initialLoadDelayMs))
+      }
+
       if (props.format === 'dash' || props.format === 'audio') {
         try {
           await player.load(props.manifestSrc, props.startTime, props.manifestMimeType)
@@ -2760,40 +2959,59 @@ export default defineComponent({
       // getAudioTracks() returns an empty array when no variant is active, so we can't do this in the `streaming` event
       hasMultipleAudioTracks.value = deduplicateAudioTracks(player.getAudioTracks()).size > 1
 
-      const promises = []
+      if (process.env.SUPPORTS_LOCAL_API && props.format !== 'legacy' && props.manifestMimeType === MANIFEST_TYPE_SABR) {
+        sabrManifest = player.getManifest()
+      }
 
-      for (const caption of sortedCaptions) {
-        if (props.format === 'legacy') {
-          const url = new URL(caption.url)
+      // For SABR we include the thumbnails and subtitles in the manifest
+      if (!process.env.SUPPORTS_LOCAL_API || props.format === 'legacy' || props.manifestMimeType !== MANIFEST_TYPE_SABR) {
+        const promises = []
 
-          if (url.hostname.endsWith('.youtube.com') && url.pathname === '/api/timedtext' &&
-            url.searchParams.get('caps') === 'asr' && url.searchParams.get('kind') === 'asr' && url.searchParams.get('fmt') === 'vtt') {
-            promises.push((async () => {
-              try {
-                const response = await fetch(caption.url)
-                let text = await response.text()
+        for (const caption of props.captions) {
+          if (props.format === 'legacy') {
+            const url = new URL(caption.url)
 
-                // position:0% for LTR text and position:100% for RTL text
-                text = text.replaceAll(/ align:start position:(?:10)?0%$/gm, '')
+            if (url.hostname.endsWith('.youtube.com') && url.pathname === '/api/timedtext' &&
+              url.searchParams.get('caps') === 'asr' && url.searchParams.get('kind') === 'asr' && url.searchParams.get('fmt') === 'vtt') {
+              promises.push((async () => {
+                try {
+                  const response = await fetch(caption.url)
+                  let text = await response.text()
 
-                const url = `data:${caption.mimeType};charset=utf-8,${encodeURIComponent(text)}`
+                  // position:0% for LTR text and position:100% for RTL text
+                  text = text.replaceAll(/ align:start position:(?:10)?0%$/gm, '')
 
-                await player.addTextTrackAsync(
-                  url,
+                  const url = `data:${caption.mimeType};charset=utf-8,${encodeURIComponent(text)}`
+
+                  await player.addTextTrackAsync(
+                    url,
+                    caption.language,
+                    'captions',
+                    caption.mimeType,
+                    undefined, // codec, only needed if the captions are inside a container (e.g. mp4)
+                    caption.label
+                  )
+                } catch (error) {
+                  if (error instanceof shaka.util.Error) {
+                    handleError(error, 'addTextTrackAsync', caption)
+                  } else {
+                    console.error(error)
+                  }
+                }
+              })())
+            } else {
+              promises.push(
+                player.addTextTrackAsync(
+                  caption.url,
                   caption.language,
                   'captions',
                   caption.mimeType,
                   undefined, // codec, only needed if the captions are inside a container (e.g. mp4)
                   caption.label
                 )
-              } catch (error) {
-                if (error instanceof shaka.util.Error) {
-                  handleError(error, 'addTextTrackAsync', caption)
-                } else {
-                  console.error(error)
-                }
-              }
-            })())
+                  .catch(error => handleError(error, 'addTextTrackAsync', caption))
+              )
+            }
           } else {
             promises.push(
               player.addTextTrackAsync(
@@ -2807,31 +3025,19 @@ export default defineComponent({
                 .catch(error => handleError(error, 'addTextTrackAsync', caption))
             )
           }
-        } else {
+        }
+
+        if (!isLive.value && props.storyboardSrc) {
           promises.push(
-            player.addTextTrackAsync(
-              caption.url,
-              caption.language,
-              'captions',
-              caption.mimeType,
-              undefined, // codec, only needed if the captions are inside a container (e.g. mp4)
-              caption.label
-            )
-              .catch(error => handleError(error, 'addTextTrackAsync', caption))
+            // Only log the error, as the thumbnails are a nice to have
+            // If an error occurs with them, it's not critical
+            player.addThumbnailsTrack(props.storyboardSrc, 'text/vtt')
+              .catch(error => logShakaError(error, 'addThumbnailsTrack', props.videoId, props.storyboardSrc))
           )
         }
-      }
 
-      if (!isLive.value && props.storyboardSrc) {
-        promises.push(
-          // Only log the error, as the thumbnails are a nice to have
-          // If an error occurs with them, it's not critical
-          player.addThumbnailsTrack(props.storyboardSrc, 'text/vtt')
-            .catch(error => logShakaError(error, 'addThumbnailsTrack', props.videoId, props.storyboardSrc))
-        )
+        await Promise.all(promises)
       }
-
-      await Promise.all(promises)
 
       if (restoreCaptionIndex !== null) {
         const index = restoreCaptionIndex
@@ -2841,8 +3047,6 @@ export default defineComponent({
 
         if (textTrack) {
           player.selectTextTrack(textTrack)
-
-          await player.setTextTrackVisibility(true)
         }
       }
 
@@ -2900,12 +3104,12 @@ export default defineComponent({
 
         const activeCaptionIndex = player.getTextTracks().findIndex(caption => caption.active)
 
-        if (activeCaptionIndex >= 0 && player.isTextTrackVisible()) {
+        if (activeCaptionIndex >= 0) {
           restoreCaptionIndex = activeCaptionIndex
 
           // hide captions before switching as shaka/the browser doesn't clean up the displayed captions
           // when switching away from the legacy formats
-          await player.setTextTrackVisibility(false)
+          player.selectTextTrack(null)
         } else {
           restoreCaptionIndex = null
         }
@@ -2955,7 +3159,14 @@ export default defineComponent({
 
             if (useAutoQuality) {
               if (label) {
-                player.selectVariantsByLabel(label)
+                const audioTracks = deduplicateAudioTracks(player.getAudioTracks()).values()
+
+                for (const track of audioTracks) {
+                  if (label === track.label) {
+                    player.selectAudioTrack(track)
+                    break
+                  }
+                }
               }
             } else {
               if (dimension) {
@@ -2965,6 +3176,13 @@ export default defineComponent({
 
                 if (label) {
                   variants = variants.filter(variant => variant.label === label)
+                } else if (variants.length > 1) {
+                  // default audio track
+                  const filteredVariants = variants.filter(variant => variant.audioRoles.includes('main'))
+                  // Sometimes there is nothing marked as main, don't filter in this case
+                  if (filteredVariants.length > 0) {
+                    variants = filteredVariants
+                  }
                 }
 
                 let chosenVariant
@@ -3019,9 +3237,13 @@ export default defineComponent({
       document.removeEventListener('keydown', keyboardShortcutHandler)
       document.removeEventListener('fullscreenchange', fullscreenChangeHandler)
 
-      if (resizeObserver) {
-        resizeObserver.disconnect()
-        resizeObserver = null
+      if (containerResizeObserver) {
+        containerResizeObserver.disconnect()
+        containerResizeObserver = null
+      }
+
+      if (videoResizeObserver) {
+        videoResizeObserver.disconnect()
       }
 
       cleanUpCustomPlayerControls()
@@ -3094,6 +3316,11 @@ export default defineComponent({
         player = null
       }
 
+      if (process.env.SUPPORTS_LOCAL_API && sabrStream) {
+        sabrStream.cleanup()
+        sabrAbortController?.abort()
+      }
+
       // shaka-player doesn't clear these itself, which prevents shaka.ui.Overlay from being garbage collected
       // Should really be fixed in shaka-player but it's easier just to do it ourselves
       if (container.value) {
@@ -3162,6 +3389,7 @@ export default defineComponent({
 
       showStats,
       stats,
+      playerDimensions,
 
       autoplayVideos,
       sponsorBlockShowSkippedToast,
@@ -3176,6 +3404,8 @@ export default defineComponent({
       handleEnded,
       updateVolume,
       handleTimeupdate,
+      handleEnterPictureInPicture,
+      handleLeavePictureInPicture,
 
       valueChangeMessage,
       valueChangeIcon,

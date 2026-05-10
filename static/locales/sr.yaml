@@ -42,22 +42,17 @@ Global:
   Sort By: Сортирање по
 Version {versionNumber} is now available!  Click for more details: 'Верзија {versionNumber} је сада достуна!  Кликните за више детаља'
 Download From Site: 'Преузми са сајта'
-A new blog is now available, {blogTitle}. Click to view more: 'Нови блог је сада доступан, {blogTitle}. Кликните да бисте видели више'
 
 # Search Bar
 Search / Go to URL: 'Претрага / Иди на URL'
   # In Filter Button
 Search Filters:
   Search Filters: 'Филтери претраге'
-  Sort By:
+  Prioritize:
     Most Relevant: 'Најрелевантније'
-    Rating: 'Оцена'
-    Upload Date: 'Датум отпремања'
-    View Count: 'Број прегледа'
   Time:
     Time: 'Време'
     Any Time: 'Било које време'
-    Last Hour: 'Последњи сат'
     Today: 'Данас'
     This Week: 'Ове недеље'
     This Month: 'Овог месеца'
@@ -72,10 +67,9 @@ Search Filters:
   Duration:
     Duration: 'Трајање'
     All Durations: 'Сва трајања'
-    Short (< 4 minutes): 'Кратко (< 4 минута)'
-    Long (> 20 minutes): 'Дуго (> 20 минута)'
-  # On Search Page
-    Medium (4 - 20 minutes): Средње (4 - 20 минута)
+    '< 3 minutes': '< 3 минута'
+    '> 20 minutes': '> 20 минута'
+    '3 - 20 minutes': 3 - 20 минута
   Search Results: 'Резултати претраге'
   Fetching results. Please wait: 'Прикупљање резултата. Сачекајте'
   Fetch more results: 'Прикупити више резултата'
@@ -122,8 +116,7 @@ User Playlists:
     Search in Playlists: Претрага у плејлистама
     Save: Сачувај
     Toast:
-      "{videoCount} video(s) added to {playlistCount} playlists": 1 видео снимак додат је на {playlistCount} плејлисте | {videoCount} видео снимака додато је на {playlistCount} плејлисте
-      "{videoCount} video(s) added to 1 playlist": 1 видео снимак додат је на 1 плејлисту | {videoCount} видео снимака додато је на 1 плејлисту
+      "Video(s) added to {playlistCount} playlists": ""
       You haven't selected any playlist yet.: Још увек нисте изабрали ниједну плејлисту.
     Select a playlist to add your N videos to: Изаберите плејлисту на коју желите да додате видео снимак | Изаберите плејлисту на коју желите да додате {videoCount} видео снимака
     N playlists selected: 'Изабрано: {playlistCount}'
@@ -214,7 +207,6 @@ Settings:
   General Settings:
     General Settings: 'Опште'
     Check for Updates: 'Провера ажурирања'
-    Check for Latest Blog Posts: 'Провера најновијих објава на блогу'
     Fallback to Non-Preferred Backend on Failure: 'Повратак на непреферирани бек-енд у случају неуспеха'
     Enable Search Suggestions: 'Омогући предлоге за претрагу'
     Default Landing Page: 'Подразумевана почетна страница'
@@ -522,7 +514,6 @@ Settings:
     All subscriptions and profiles have been successfully imported: 'Сва праћења и профили су успешно увезени'
     All subscriptions have been successfully imported: 'Сва праћења су успешно увезена'
     Invalid subscriptions file: 'Неважећи фајл праћења'
-    This might take a while, please wait: 'Ово може потрајати, сачекајте'
     Invalid history file: 'Неважећи фајл историје'
     Subscriptions have been successfully exported: 'Праћења су успешно извезена'
     History object has insufficient data, skipping item: 'Објекат историје нема довољно података, прескакање предмета'
@@ -588,13 +579,6 @@ Settings:
       None:
         Name: Ниједно
     Ignore Default Arguments: Занемари подразумеване аргументе
-  Download Settings:
-    Choose Path: Избор путање
-    Open in web browser: Отвори у прегледачу
-    Ask Download Path: Питај за путању за преузимање
-    Download Behavior: Понашање преузимања
-    Download in app: Преузми у апликацији
-    Download Settings: Преузимање
   Password Settings:
     Remove Password: Уклони лозинку
     Set Password To Prevent Access: Подеси лозинку да спречиш приступ подешавањима
@@ -625,20 +609,16 @@ About:
   GitHub issues: 'Пријава проблема на GitHub-у'
   Please check for duplicates before posting: 'Проверите да ли има дупликата пре објављивања'
   Website: 'Веб-сајт'
-  Blog: 'Блог'
   Email: 'Имејл'
   Mastodon: 'Mastodon'
   Chat on Matrix: 'Ћаскање на Matrix-у'
-  Please read the: 'Прочитајте'
   room rules: 'правила собе'
   Translate: 'Преведи'
   Credits: 'Заслуге'
-  FreeTube is made possible by: 'FreeTube су омогућили'
   these people and projects: 'ови људи и пројекти'
   Donate: 'Донација'
 
   Discussions: Дискусије
-  Licensed under the: Лиценцирано под
   AGPLv3: AGPLv3
 Profile:
   Profile Select: 'Избор профила'
@@ -765,8 +745,8 @@ Video:
   Loop Playlist: 'Понављај плејлисту'
   Shuffle Playlist: 'Мешање плејлисте'
   Reverse Playlist: 'Обрнута плејлиста'
-  Play Next Video: 'Пусти следећи видео снимак'
-  Play Previous Video: 'Пусти претходни видео снимак'
+  Previous: 'Претходно'
+  Next: 'Следеће'
   Watched: 'Одгледано'
   Autoplay: 'Аутоматско пуштање'
   Starting soon, please refresh the page to check again: 'Почиње ускоро, освежите страницу да бисте поново проверили'
@@ -804,13 +784,10 @@ Video:
     playlist: плејлиста
   Live chat is enabled. Chat messages will appear here once sent.: Ћаскање уживо је омогућено.  Поруке ћаскања ће се појавити овде када буду послате.
   Streamed on: Стримовано
-  video only: само видео снимак
-  audio only: само аудио снимак (звук)
   Show Super Chat Comment: Прикажи Super Chat коментар
   Scroll to Bottom: Превуци до дна
   Started streaming on: Започето стримовање
   Premieres: Премијера
-  Download Video: Преузми видео снимак
   Published on: Објављено
   'Live Chat is currently not supported with the Invidious API. A direct connection to YouTube is required.': Ћаскање уживо тренутно није подржано са Invidious API-јем. Потребна је директна веза са YouTube-ом.
   'Live Chat is unavailable for this stream. It may have been disabled by the uploader.': Ћаскање уживо није доступно за овај стрим. Можда га је онемогућио аутор.
@@ -987,7 +964,6 @@ Hashtag:
 Playing Previous Video: Пуштање претходног видео снимка
 Ok: У реду
 Invidious API Error (Click to copy): Грешка Invidious API-ја (Кликнути за копирање)
-Starting download: Почиње преузимање „{videoTitle}“
 Preferences: Преференце
 Default Invidious instance has been cleared: Подразумевана инстанца Invidious-а је избрисана
 Mini Player: Мини плејер
@@ -997,9 +973,7 @@ Default Invidious instance has been set to {instance}: Подразумеван�
 Are you sure you want to open this link?: Желите ли заиста да отворите овај линк?
 This video is unavailable because of missing formats. This can happen due to country unavailability.: Овај видео снимак је недоступан, јер недостају формати. То се може догодити због недоступности државе.
 Screenshot Error: Снимак екрана није успео. {error}
-Downloading has completed: „{videoTitle}“ је завршио преузимање
 Loop is now enabled: Понављање је сада омогућено
-Downloading failed: Дошло је до проблема при преузимању „{videoTitle}“
 Channel Hidden: '{channel} је додат на филтер канала'
 Go to page: Иди на {page}
 Channel Unhidden: '{channel} је уклоњен из филтера канала'
