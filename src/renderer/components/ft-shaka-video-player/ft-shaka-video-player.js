@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n'
 import store from '../../store/index'
 import { KeyboardShortcuts } from '../../../constants'
 import { AudioTrackSelection } from './player-components/AudioTrackSelection'
+import { CaptionStyleSelection } from './player-components/CaptionStyleSelection'
 import { FullWindowButton } from './player-components/FullWindowButton'
 import { LegacyQualitySelection } from './player-components/LegacyQualitySelection'
 import { ScreenshotButton } from './player-components/ScreenshotButton'
@@ -913,8 +914,7 @@ export default defineComponent({
           props.format === 'legacy' ? 'ft_legacy_quality' : 'quality',
           'playback_rate',
           'captions',
-          'captions-position',
-          'captions-size',
+          'ft_caption_style',
           'ft_audio_tracks',
           'chapter',
           'loop',
@@ -942,8 +942,7 @@ export default defineComponent({
         uiConfig.overflowMenuButtons.push(
           'ft_audio_tracks',
           'captions',
-          'captions-position',
-          'captions-size',
+          'ft_caption_style',
           'playback_rate',
           props.format === 'legacy' ? 'ft_legacy_quality' : 'quality',
           'chapter',
@@ -1007,8 +1006,7 @@ export default defineComponent({
           addSeekBar: seekingIsPossible.value,
           customContextMenu: true,
           contextMenuElements: [
-            'captions-position',
-            'captions-size',
+            'ft_caption_style',
             'ft_stats'
           ],
           enableTooltips: true,
@@ -1910,6 +1908,17 @@ export default defineComponent({
       shakaOverflowMenu.registerElement('ft_audio_tracks', new AudioTrackSelectionFactory())
     }
 
+    function registerCaptionStyleSelection() {
+      /** @implements {shaka.extern.IUIElement.Factory} */
+      class CaptionStyleSelectionFactory {
+        create(rootElement, controls) {
+          return new CaptionStyleSelection(events, rootElement, controls)
+        }
+      }
+
+      shakaOverflowMenu.registerElement('ft_caption_style', new CaptionStyleSelectionFactory())
+    }
+
     function registerAutoplayToggle() {
       events.addEventListener('toggleAutoplay', () => {
         emit('toggle-autoplay')
@@ -2092,6 +2101,8 @@ export default defineComponent({
     function cleanUpCustomPlayerControls() {
       shakaControls.registerElement('ft_audio_tracks', null)
       shakaOverflowMenu.registerElement('ft_audio_tracks', null)
+
+      shakaOverflowMenu.registerElement('ft_caption_style', null)
 
       shakaControls.registerElement('ft_autoplay_toggle', null)
       shakaOverflowMenu.registerElement('ft_autoplay_toggle', null)
@@ -2894,6 +2905,7 @@ export default defineComponent({
 
       registerScreenshotButton()
       registerAudioTrackSelection()
+      registerCaptionStyleSelection()
       registerAutoplayToggle()
 
       registerTheatreModeButton()

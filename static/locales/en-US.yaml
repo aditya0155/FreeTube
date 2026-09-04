@@ -938,6 +938,7 @@ Video:
   Player:
     TranslatedCaptionTemplate: '{language} (translated from "{originalLanguage}")'
     Audio Tracks: Audio Tracks
+    Subtitle Style: Subtitle style
     Autoplay is off: Autoplay is off
     Autoplay is on: Autoplay is on
     Theatre Mode: Theater Mode
